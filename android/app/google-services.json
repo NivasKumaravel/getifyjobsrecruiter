@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "676698379868",
+    "project_id": "getifyjobsrecuriter",
+    "storage_bucket": "getifyjobsrecuriter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676698379868:android:677ca1527ded07936ef899",
+        "android_client_info": {
+          "package_name": "com.getifyjobs.recuriter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDniucIynGLMD5MdSk6U6VDcbz3ft-zyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

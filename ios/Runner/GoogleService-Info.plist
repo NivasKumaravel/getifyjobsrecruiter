@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCwh28zBOQbfzhj7WL1ehq9NO6oUPp6Roo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>676698379868</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.getifyjobs.recuriter</string>
+	<key>PROJECT_ID</key>
+	<string>getifyjobsrecuriter</string>
+	<key>STORAGE_BUCKET</key>
+	<string>getifyjobsrecuriter.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:676698379868:ios:c35feef006c92b546ef899</string>
+</dict>
+</plist>
