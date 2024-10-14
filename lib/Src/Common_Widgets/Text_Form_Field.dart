@@ -326,38 +326,43 @@ Widget buildCompanyInfoRow(String pathPNG, String companyName,
     TextStyle textStyle, double imageWidth, double imageHeight,
     {required bool? isMapLogo}) {
   return Container(
-    child: Row(
-      children: [
-        isMapLogo == true
-            ? Container(
-                height: imageHeight,
-                width: imageWidth,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    image: DecorationImage(
-                        image: AssetImage("lib/assets/$pathPNG"),
-                        fit: BoxFit.cover)),
-              )
-            : Container(
-                height: imageHeight,
-                width: imageWidth,
-                child: buildImage(pathPNG,
-                    border: const Radius.circular(25), fit: BoxFit.cover),
+    child: Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          isMapLogo == true
+              ? Container(
+                  height: imageHeight,
+                  width: imageWidth,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      image: DecorationImage(
+                          image: AssetImage("lib/assets/$pathPNG"),
+                          fit: BoxFit.cover)),
+                )
+              : Container(
+                  height: imageHeight,
+                  width: imageWidth,
+                  child: buildImage(pathPNG,
+                      border: const Radius.circular(25), fit: BoxFit.cover),
+                ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Container(
+              child: Text(
+                companyName,
+                style: textStyle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
-        SizedBox(
-          width: 10,
-        ),
-        Expanded(
-          child: Container(
-            child: Text(
-              companyName,
-              style: textStyle,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
@@ -367,6 +372,7 @@ Widget collegeRowTitle(String pathPNG, String companyName, TextStyle textStyle,
     {required bool isOtherLogo}) {
   return Container(
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         isOtherLogo == true
             ? Container(
