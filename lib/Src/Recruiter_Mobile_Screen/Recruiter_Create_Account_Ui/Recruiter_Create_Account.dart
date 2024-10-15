@@ -236,7 +236,8 @@ class _Recruiter_Create_Account_ScreenState
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 35, bottom: 5),
-                        child: Title_Heading("Create Account"),
+                        child: widget.isEdit == true ? Title_Heading("Edit Profile")
+                            : Title_Heading("Create Account"),
                       ),
                       profile_Picker(),
 

@@ -191,6 +191,13 @@ TextStyle TitleT = TextStyle(
     fontSize: 24,
     color: Color.fromRGBO(0, 0, 0, 1),
     fontWeight: FontWeight.w700);
+
+TextStyle TitleT5 = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 24,
+    color: Color.fromRGBO(0, 160, 226, 1),
+    fontWeight: FontWeight.w700);
+
 TextStyle TitleT2 = TextStyle(
     fontFamily: 'Inter',
     fontSize: 16,
@@ -947,7 +954,7 @@ Widget ProfileName(context, {required String ProfileName}) {
     width: MediaQuery.of(context).size.width / 1.2,
     child: Text(
       ProfileName,
-      style: TitleT,
+      style: TitleT5,
     ),
   );
 }

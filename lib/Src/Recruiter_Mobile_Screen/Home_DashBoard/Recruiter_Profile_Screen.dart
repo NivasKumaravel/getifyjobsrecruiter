@@ -70,7 +70,7 @@ class _RecuiterProfileState extends ConsumerState<Recuiter_Profile_Screen> {
                                 },
                               );
                             },
-                            child: Text('DownLoad'))),
+                            child: Text('Download'))),
                   ]),
         ],
         isLogoUsed: false,
@@ -122,6 +122,16 @@ class _RecuiterProfileState extends ConsumerState<Recuiter_Profile_Screen> {
               margin: EdgeInsets.only(left: 15, top: 15),
               child: Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 15),
+                    child: Row(
+                      children: [
+                        Icon(Icons.phone_android,color: Color.fromRGBO(0, 160, 226, 1),),
+                        const SizedBox(width: 8),
+                        Text('${profileDataResponse?.personalPhone ?? ''}')
+                      ],
+                    ),
+                  ),
                   contactDetails(context,
                       ContactLogo: 'phone.svg',
                       Details: profileDataResponse?.phone ?? ''),
@@ -347,9 +357,12 @@ class _RecuiterProfileState extends ConsumerState<Recuiter_Profile_Screen> {
                                                         ))).then(
                                                 (value) => ProfileResponse());
                                           },
-                                          child: Icon(
-                                            Icons.keyboard_arrow_right_sharp,
-                                            size: 25,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 25),
+                                            child: Icon(
+                                              Icons.keyboard_arrow_right_sharp,
+                                              size: 25,
+                                            ),
                                           ))
                                     ],
                                   ));

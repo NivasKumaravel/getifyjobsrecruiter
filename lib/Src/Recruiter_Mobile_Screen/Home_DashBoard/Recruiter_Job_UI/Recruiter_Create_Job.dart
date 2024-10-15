@@ -598,7 +598,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       },
                       hintT: 'Other Benefits',
                     ),
-                    Title_Style(Title: 'Deadline:', isStatus: true),
+                    Title_Style(Title: 'Deadline:', isStatus: false),
                     Text(
                         "The job will expire in 30 days from the date of job post"),
                     // SizedBox(height: 60),

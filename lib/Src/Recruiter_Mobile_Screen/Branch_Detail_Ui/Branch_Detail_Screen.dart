@@ -52,6 +52,10 @@ class _Branch_Detail_ScreenState extends ConsumerState<Branch_Detail_Screen> {
                                       ))).then((value) => ref.refresh(BranchDetailResponse()));
                         },
                         child: Text('Edit')),
+                PopupMenuItem(
+                    onTap: () {
+                    },
+                    child: Text('Delete')),
                   ]),
         ],
         isLogoUsed: true,
