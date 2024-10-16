@@ -898,12 +898,12 @@ Widget dropDownSearchField(context,
           .toList(),
       suggestionState: Suggestion.expand,
       textInputAction: TextInputAction.next,
-      searchStyle: TextStyle(
+      suggestionStyle: TextStyle(
         fontSize: 18,
         color: Colors.black.withOpacity(0.8),
       ),
       validator: validator,
-      searchInputDecoration: InputDecoration(
+      searchInputDecoration: SearchInputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         hintText: hintText,
         hintStyle: phoneHT,
@@ -943,9 +943,9 @@ Widget statutoryField(context,
       suggestionState: Suggestion.expand,
       suggestionsDecoration: SuggestionDecoration(padding: EdgeInsets.all(10)),
       textInputAction: TextInputAction.next,
-      searchStyle: Textfield_Style,
+      suggestionStyle: Textfield_Style,
       validator: validator,
-      searchInputDecoration: InputDecoration(
+      searchInputDecoration: SearchInputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         hintText: hintT,
         hintStyle: phoneHT,
@@ -1523,12 +1523,12 @@ Widget SpecializationdropDownSearchField(context,
           .toList(),
       suggestionState: Suggestion.expand,
       textInputAction: TextInputAction.next,
-      searchStyle: TextStyle(
+      suggestionStyle: TextStyle(
         fontSize: 18,
         color: Colors.black.withOpacity(0.8),
       ),
       validator: validator,
-      searchInputDecoration: InputDecoration(
+      searchInputDecoration: SearchInputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         hintText: hintText,
         hintStyle: phoneHT,
@@ -1570,12 +1570,12 @@ Widget SkillSetdropDownSearchField(context,
           .toList(),
       suggestionState: Suggestion.expand,
       textInputAction: TextInputAction.next,
-      searchStyle: TextStyle(
+      suggestionStyle: TextStyle(
         fontSize: 18,
         color: Colors.black.withOpacity(0.8),
       ),
       validator: validator,
-      searchInputDecoration: InputDecoration(
+      searchInputDecoration: SearchInputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         hintText: hintText,
         hintStyle: phoneHT,

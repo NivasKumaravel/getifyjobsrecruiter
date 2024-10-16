@@ -679,7 +679,8 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "salary_to": _salaryTo.text,
       "statutory_benefits": statutoryVal,
       "social_benefits": socialVal,
-      "other_benefits": otherVal
+      "other_benefits": otherVal,
+      "years_of_experience": "${selectedFromExperience} - ${selectedToExperience}"
     });
     final singleJobResponse = await singleJobApiService.post<JobModel>(
         context, ConstantApi.singleJobUrl, formData);
