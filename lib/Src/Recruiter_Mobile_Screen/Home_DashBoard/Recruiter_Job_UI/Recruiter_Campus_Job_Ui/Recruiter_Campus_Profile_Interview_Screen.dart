@@ -676,7 +676,7 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
               child:
-              TimePickerFormField(onValidate: () {},),
+              TimePickerFormField(onValidate: (value) {},),
             ),
             branchResponseList?.length == 0? Padding(
               padding: const EdgeInsets.only(bottom: 10,top: 5),

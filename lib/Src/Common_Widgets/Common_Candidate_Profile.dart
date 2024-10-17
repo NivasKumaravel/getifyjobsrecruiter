@@ -50,6 +50,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
 
   List<String>BranchListOption = [];
   String BranchListVal = "";
+  String? _selectedTime;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -988,7 +989,9 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
           Padding(
             padding: const EdgeInsets.only(top: 10, bottom: 10),
             child:
-            TimePickerFormField(onValidate: () {},),
+            TimePickerFormField(onValidate: (value) {
+              _selectedTime = value;
+            },),
           ),
             branchResponseList?.length == 0? Padding(
               padding: const EdgeInsets.only(bottom: 10,top: 5),
@@ -1026,14 +1029,35 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                   Container(
                       width:MediaQuery.of(context).size.width/3.5,
                       child: CommonElevatedButton(context, "Okay", () {
-                        _validateTime();
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => InterviewConfirmationPopupWeb(context, onPress: () {
-                            ScheduledResponse();
-                          }),
-                        );
+                        if (branchResponseList?.length == 0){
+                          print('Length False');
+                          if (_selectedTime == null || dateController.text.isEmpty || _Description.text.isEmpty){
+                            ShowToastMessage("Please Enter Interview Date & Time");
+                          }else{
+                            _validateTime();
+                            Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => InterviewConfirmationPopupWeb(context, onPress: () {
+                                ScheduledResponse();
+                              }),
+                            );
+                          }
+                        }else {
+                          print("Length true");
+                          if (_selectedTime == null || dateController.text.isEmpty){
+                            ShowToastMessage("Please Enter Interview Date & Time");
+                          }else {
+                            _validateTime();
+                            Navigator.pop(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => InterviewConfirmationPopupWeb(context, onPress: () {
+                                ScheduledResponse();
+                              }),
+                            );
+                          }
+                        }
                       })),
                 ],
               ),
@@ -1172,7 +1196,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
               child:
-              TimePickerFormField(onValidate: () {},),
+              TimePickerFormField(onValidate: (value) {},),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15),

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:getifyjobs/Models/AddBranchModel.dart';
 import 'package:getifyjobs/Models/BranchDetailModel.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Add_Branch_Ui/Add_Branch_Screen.dart';
@@ -54,6 +55,7 @@ class _Branch_Detail_ScreenState extends ConsumerState<Branch_Detail_Screen> {
                         child: Text('Edit')),
                 PopupMenuItem(
                     onTap: () {
+                      DeleteBranchResponse();
                     },
                     child: Text('Delete')),
                   ]),
@@ -131,6 +133,22 @@ class _Branch_Detail_ScreenState extends ConsumerState<Branch_Detail_Screen> {
       print("SUCESS");
     } else {
       ShowToastMessage(branchDetailResponse.message ?? "");
+      print('ERROR');
+    }
+  }
+
+  //DELETE BRANCH
+  Future<void> DeleteBranchResponse() async {
+    final addBranchApiService = ApiService(ref.read(dioProvider));
+    var formData = FormData.fromMap({
+      "branch_id": branchResponseData?.branchId ?? ""
+    });
+    final addBrachApiResponse = await addBranchApiService.post<AddBranchModel>(
+        context, ConstantApi.deleteBranchUrl, formData);
+    if (addBrachApiResponse.status == true) {
+      print("SUCESS");
+    } else {
+      ShowToastMessage(addBrachApiResponse.message ?? "");
       print('ERROR');
     }
   }

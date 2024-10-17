@@ -464,13 +464,10 @@ Widget dropDownField(context,
           hintStyle: phoneHT,
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
       ),
-      icon: Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: Icon(
-          Icons.keyboard_arrow_down_sharp,
-          color: Colors.black,
-          size: 35,
-        ),
+      icon: Icon(
+        Icons.keyboard_arrow_down_sharp,
+        color: Colors.black,
+        size: 35,
       ),
       items: listValue?.map((String option) {
         return DropdownMenuItem<String>(
@@ -634,7 +631,7 @@ Widget textfieldDescription2(
 }
 
 class TimePickerFormField extends StatefulWidget {
-  final Function() onValidate;
+  final Function(String) onValidate;
   TimePickerFormField({required this.onValidate});
   @override
   _TimePickerFormFieldState createState() => _TimePickerFormFieldState();
@@ -660,7 +657,7 @@ class _TimePickerFormFieldState extends State<TimePickerFormField> {
         _selectedTime = formattedTime;
         SingleTon().setTime = _selectedTime ?? formattedTime;
       });
-      widget.onValidate(); // Call the validation callback
+      widget.onValidate(_selectedTime!); // Call the validation callback
     }
   }
 

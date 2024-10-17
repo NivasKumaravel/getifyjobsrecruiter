@@ -22,6 +22,7 @@ class ConstantApi {
   static String editProfileUrl = SERVER_ONE + "recruiter/edit_profile";
   static String addBranchUrl = SERVER_ONE + "branch/add";
   static String editBranchUrl = SERVER_ONE + "branch/edit";
+  static String deleteBranchUrl = SERVER_ONE + "branch/delete";
   static String branchDetailUrl = SERVER_ONE + "branch/details";
   static String campusJobListUrl = SERVER_ONE + "campus/recruiter_jobs";
   static String campusJobDetailUrl = SERVER_ONE + "campus/job_details";

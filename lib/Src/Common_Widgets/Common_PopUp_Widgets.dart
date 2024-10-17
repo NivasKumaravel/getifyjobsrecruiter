@@ -177,10 +177,10 @@ class _Recruiter_Response_PopUpState extends State<Recruiter_Response_PopUp> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 15,bottom: 15),
-            child: TimePickerFormField(onValidate: () {_isTimeSelected = true;  },),
+            child: TimePickerFormField(onValidate: (value) {_isTimeSelected = true;  },),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10,top: 5),
+            padding: const EdgeInsets.only(bottom: 10,top: 50),
             child:   textfieldDescription1(
               Controller: _location,
               validating: (value) {
@@ -347,7 +347,7 @@ class _Recruiter_Response_PopUp_WebState extends State<Recruiter_Response_PopUp_
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15,bottom: 15),
-              child: TimePickerFormField(onValidate: () {_isTimeSelected = true;  },),
+              child: TimePickerFormField(onValidate: (value) {_isTimeSelected = true;  },),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10,top: 5),
@@ -835,7 +835,7 @@ class _Common_PopUps_WebState extends State<Common_PopUps_Web> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15,bottom: 15),
-              child: TimePickerFormField(onValidate: () {_isTimeSelected = true;  },),
+              child: TimePickerFormField(onValidate: (value) {_isTimeSelected = true;  },),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10,top: 5),
