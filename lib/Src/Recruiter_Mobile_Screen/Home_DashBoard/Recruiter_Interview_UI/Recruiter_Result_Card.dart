@@ -105,11 +105,12 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
         isTitleUsed: true,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.sizeOf(context).width,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20,right: 20),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20,right: 20),
+          child: Container(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [_ResultCardList()],
             ),
           ),
@@ -138,11 +139,9 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
                     badgeText:
                         interviewResponsemodel?.data?.items?[index].name ?? "",
                     appliedRole:
-                        interviewResponsemodel?.data?.items?[index].jobTitle ??
-                            "",
-                    interviewTime: interviewResponsemodel
-                            ?.data?.items?[index].scheduleData?.interviewTime ??
-                        "",
+                        interviewResponsemodel?.data?.items?[index].jobTitle ?? "",
+                    interviewTime:
+                    interviewResponsemodel?.data?.items?[index].scheduleData?.interviewTime ?? "",
                     status: "${widget.CardType}",
                     badgeTextStyle: ProfileT,
                     countTextStyle: W1grey,
@@ -153,6 +152,9 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
               );
             },
           )
-        : Center(child: NoDataMobileWidget(content: "No Data Available"));
+        : Padding(
+          padding: const EdgeInsets.only(top: 250),
+          child: NoDataMobileWidget(content: "No Data Available"),
+        );
   }
 }

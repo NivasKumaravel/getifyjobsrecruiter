@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -166,24 +168,33 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
         height: 75,
         color: white1,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: widget.TagContain == 'Selected'
+              ? MainAxisAlignment.center
+              : MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-                width: 140,
-                child: CommonElevatedButton(context, "Reject", () {
-                  InterviewRejectedResponse();
-                })),
+              width: 140,
+              child: CommonElevatedButton(context, "Reject", () {
+                InterviewRejectedResponse();
+              }),
+            ),
+            widget.TagContain == 'Selected' ? const SizedBox.shrink() :
             Container(
-                width: 140,
-                child: CommonElevatedButton(context,
-                    widget.TagContain == "Wait List"?"Select":"Shortlist", () {
-                  // Navigator.pop(context);
+              width: 140,
+              child: CommonElevatedButton(
+                context,
+                widget.TagContain == "Wait List" ? "Select" : "Shortlist",
+                    () {
                   showDialog(
                     context: context,
-                    builder: (BuildContext context) => widget.TagContain == "Wait List"?waitListPop(context):BuildPopupDialog(context),
+                    builder: (BuildContext context) => widget.TagContain == "Wait List"
+                        ? waitListPop(context)
+                        : BuildPopupDialog(context),
                   );
-                })),
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -743,7 +754,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
   }
 
   //ADD OFFER RESPONSE
-  AddOfferResponse()async{
+ AddOfferResponse()async{
     final AddOfferApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
       "candidate_id": widget.candidate_Id,
@@ -762,6 +773,10 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
       (context, ConstantApi.addOfferUrl, formData);
     if(AddOfferApiResponse?.status == true){
       print("ADD OFFER SUCCESS");
+      setState(() {
+        widget.TagContain = "Selected";
+      });
+
       Navigator.pop(context);
 
       ShowToastMessage(AddOfferApiResponse.message ?? "");
@@ -1114,11 +1129,12 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                       width:MediaQuery.of(context).size.width/3.5,
                       child: CommonElevatedButton(context, "Okay", () {
                         _validateTime();
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AddOfferResponse(),
-                        );
+                        AddOfferResponse();
+                        // Navigator.pop(context);
+                        // showDialog (
+                        //   context: context,
+                        //   builder: (BuildContext context) => AddOfferResponse(),
+                        // );
                       })),
                 ],
               ),
