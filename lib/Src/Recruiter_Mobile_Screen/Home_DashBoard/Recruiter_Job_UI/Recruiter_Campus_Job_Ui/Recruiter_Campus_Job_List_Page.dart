@@ -88,7 +88,7 @@ class _Recuiter_Campus_Job_List_ScreenState
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Text(
-                      "Campus Drive Date: 09:00AM, ${CampusJobListResponseData?.items?.recruitmentDate ?? ""}",
+                      "Campus Drive Date: 09:00 AM, ${CampusJobListResponseData?.items?.recruitmentDate ?? ""}",
                       style: dateT,
                     ),
                   ),

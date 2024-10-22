@@ -79,7 +79,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                               left: 20, top: 20, right: 20, bottom: 250),
                           child:  textFormField(
                             // isEnabled: false,
-                              hintText: "Mobile No",
+                              hintText: "Mobile Number",
                               keyboardtype: TextInputType.phone,
                               Controller: _mobileController,
                               inputFormatters: [
@@ -90,7 +90,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                               },
                               validating:(value){
                                 if (value!.isEmpty) {
-                                  return 'Please enter a mobile number';
+                                  return 'Please Enter a Mobile Number';
                                 } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
                                   return 'Please enter a valid 10-digit mobile number';
                                 }
@@ -106,7 +106,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                               children: [
                                 RichText(
                                   text: TextSpan(
-                                      text: 'If you already have a account, click ',
+                                      text: 'If you already have an account, click ',
                                       style: richtext1,
                                       children: <TextSpan>[
                                         TextSpan(text: 'Log in',

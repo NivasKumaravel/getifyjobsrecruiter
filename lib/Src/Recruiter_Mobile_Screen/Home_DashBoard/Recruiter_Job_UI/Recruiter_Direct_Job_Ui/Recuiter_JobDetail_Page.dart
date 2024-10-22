@@ -267,7 +267,7 @@ class _Recruiter_JobDetail_PageState
               //JOB TITLE
               Text(
                 DirectJobDetailResponseData?.jobTitle ?? "",
-                style: TitleT,
+                style: TitleT5,
               ),
               //COMPANY LOGO AND NAME
               Padding(
@@ -287,7 +287,7 @@ class _Recruiter_JobDetail_PageState
               ),
               //POSTED DATE
               Text(
-                "Deadline on : " +"${DirectJobDetailResponseData?.expiryDate ?? ""}",
+                "Deadline : " +"${DirectJobDetailResponseData?.expiryDate ?? ""}",
                 style: deadtxt,
               ),
               SizedBox(

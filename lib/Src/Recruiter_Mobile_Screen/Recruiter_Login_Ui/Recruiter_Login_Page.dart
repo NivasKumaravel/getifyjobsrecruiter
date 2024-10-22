@@ -159,7 +159,7 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
           },
           validating: (value) {
             if (value!.isEmpty) {
-              return 'Please Enter a Mobile Number';
+              return 'Please Enter a official Mobile Number';
             } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
               return 'Please enter a valid 10-digit mobile number';
             }
@@ -183,17 +183,17 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
             _password = value;
           });
         },
-          validating: null,
-          //     (value) {
-          //   if (value!.isEmpty) {
-          //     return 'Please Enter a Password';
-          //   } else if (!passwordSpecial.hasMatch(value)) {
-          //     return 'Password should be with the combination of Aa@#1';
-          //   }else if(!passwordLength.hasMatch(value)){
-          //     return "Password should be with minimum 8 and maximum 15 characters";
-          //   }
-          //   return null;
-          // },
+          validating:
+              (value) {
+            if (value!.isEmpty) {
+              return 'Please Enter a Password';
+            } else if (!passwordSpecial.hasMatch(value)) {
+              return 'Password should be with the combination of Aa@#1';
+            }else if(!passwordLength.hasMatch(value)){
+              return "Password should be with minimum 8 and maximum 15 characters";
+            }
+            return null;
+          },
       ),
     );
   }

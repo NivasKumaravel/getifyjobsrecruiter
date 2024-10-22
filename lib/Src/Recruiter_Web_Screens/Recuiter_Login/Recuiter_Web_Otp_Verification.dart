@@ -160,7 +160,7 @@ class _Recuiter_Web_Otp_VerificationState extends State<Recuiter_Web_Otp_Verific
                         Container(
                             margin: EdgeInsets.only(top: 35,bottom: 10),
                             alignment: Alignment.center,
-                            child: Text(widget.isForget==true?"OTP Verification":"Forget Password",style: TitleT,)),
+                            child: Text(widget.isForget==true?"OTP Verification":"Forgot Password",style: TitleT,)),
                         Center(child: Text("We sent a verification code to ",style: inboxcompany,)),
                         Center(child: Padding(
                           padding: const EdgeInsets.only(bottom: 25),
