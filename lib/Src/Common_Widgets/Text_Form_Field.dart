@@ -38,6 +38,7 @@ Widget textFormField(
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         hintText: hintText,
         hintStyle: phoneHT,
+        errorMaxLines: 3,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: white2),
@@ -211,7 +212,7 @@ Widget textfieldDescription(
   return Container(
     // height: 50,
     child: TextFormField(
-      inputFormatters: [LengthLimitingTextInputFormatter(500)],
+      inputFormatters: [LengthLimitingTextInputFormatter(5000)],
       controller: Controller,
       textCapitalization: TextCapitalization.none,
       maxLines: 10,

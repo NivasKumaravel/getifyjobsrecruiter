@@ -219,6 +219,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         if (value == null) {
                           return "Please Enter your Job Description";
                         }
+                        if (value.length < 500) {
+                          return "Job Description must be at least 500 characters";
+                        }
                         return null;
                       },
                       hintT: 'Job Description',
@@ -281,7 +284,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
 
                     //Current Arrears
+                    experienceVal == 'Experienced' ? Container() :
                     Title_Style(Title: 'Current Arrears', isStatus: false),
+                    experienceVal == 'Experienced' ? Container() :
                     textFormField(
                       hintText: 'Current Arrears',
                       keyboardtype: TextInputType.number,
@@ -298,8 +303,11 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       },
                       onChanged: null,
                     ),
+
                     //History of Arrears
+                    experienceVal == 'Experienced' ? Container() :
                     Title_Style(Title: 'History of Arrears', isStatus: false),
+                    experienceVal == 'Experienced' ? Container() :
                     textFormField(
                       hintText: 'History of Arrears',
                       keyboardtype: TextInputType.number,
@@ -386,7 +394,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       }
                     ),
                     //Years of Experience
+                    experienceVal == 'Fresher' ? Container() :
                     Title_Style(Title: 'Years of Experience', isStatus: true),
+                    experienceVal == 'Fresher' ? Container() :
                     _ExperienceSection(),
 
                     //Work type
@@ -434,9 +444,11 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                     Title_Style(
                         Title: "Salary Range (Per Annum)", isStatus: true),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          width: 150,
+                          width: 160,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -451,10 +463,10 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                                 Controller: _salaryFrom,
                                 validating:  (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter Current Salary';
+                                    return 'Please Enter Current Salary';
                                   }
                                   if (double.tryParse(value) == null) {
-                                    return 'Please enter a valid number';
+                                    return 'Please Enter a valid number';
                                   }
                                   if (_salaryTo.text.isNotEmpty &&
                                       double.parse(value) >= double.parse(_salaryTo.text)) {
@@ -469,7 +481,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         ),
                         Spacer(),
                         Container(
-                          width: 150,
+                          width: 160,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -487,7 +499,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                                     return 'Please Enter To Salary';
                                   }
                                   if (double.tryParse(value) == null) {
-                                    return 'Please enter a valid number';
+                                    return 'Please Enter a valid number';
                                   }
                                   if (_salaryFrom.text.isNotEmpty &&
                                       double.parse(value) <= double.parse(_salaryFrom.text)) {
@@ -857,7 +869,10 @@ class _CreateJobState extends ConsumerState<CreateJob> {
   }
 
   Widget _ExperienceSection() {
-    return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

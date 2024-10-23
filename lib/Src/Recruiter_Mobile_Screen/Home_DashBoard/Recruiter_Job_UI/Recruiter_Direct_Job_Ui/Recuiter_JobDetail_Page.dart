@@ -469,12 +469,12 @@ class _Recruiter_JobDetail_PageState
             textWithheader(
                 headertxt: "Specialization",
                 subtxt: DirectJobDetailResponseData?.specialization ?? ""),
-            DirectJobDetailResponseData?.currentArrears == null
+            DirectJobDetailResponseData?.currentArrears == ''
                 ? Container()
                 : textWithheader(
                     headertxt: "Current Arrears",
                     subtxt: DirectJobDetailResponseData?.currentArrears ?? ""),
-            DirectJobDetailResponseData?.historyOfArrears == null
+            DirectJobDetailResponseData?.historyOfArrears == ''
                 ? Container()
                 : textWithheader(
                     headertxt: "History of Arrears",
@@ -497,6 +497,12 @@ class _Recruiter_JobDetail_PageState
             textWithheader(
                 headertxt: "Shift Details",
                 subtxt: DirectJobDetailResponseData?.shiftDetails ?? ""),
+
+            // DirectJobDetailResponseData?.salaryFrom == '' && DirectJobDetailResponseData?.salaryTo == '' ? Container() :
+            // textWithheader(
+            //     headertxt: "Salary Range",
+            //     subtxt: '₹${DirectJobDetailResponseData?.salaryFrom ?? ""} - ₹${DirectJobDetailResponseData?.salaryTo ?? ""}'),
+
             DirectJobDetailResponseData?.statutoryBenefits == ''
                 ? Container()
                 : textWithheader(

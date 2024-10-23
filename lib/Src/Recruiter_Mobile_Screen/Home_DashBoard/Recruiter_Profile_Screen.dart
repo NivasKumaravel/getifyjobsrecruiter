@@ -125,10 +125,11 @@ class _RecuiterProfileState extends ConsumerState<Recuiter_Profile_Screen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 15),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Icon(Icons.phone_android,color: Color.fromRGBO(0, 160, 226, 1),),
                         const SizedBox(width: 8),
-                        Text('${profileDataResponse?.personalPhone ?? ''}')
+                        Text('${profileDataResponse?.personalPhone ?? ''}',style: stxt,)
                       ],
                     ),
                   ),
