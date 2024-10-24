@@ -91,7 +91,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
   ];
 
   List<String> workTypeVal = [
-    "Please Select"
+    // "Please Select"
     "Apprenticeship",
     "Trainee",
     "Employment on commission",

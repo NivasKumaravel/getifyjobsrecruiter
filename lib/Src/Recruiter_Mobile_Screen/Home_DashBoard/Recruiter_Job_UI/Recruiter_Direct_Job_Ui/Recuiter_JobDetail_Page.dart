@@ -519,6 +519,8 @@ class _Recruiter_JobDetail_PageState
                 : textWithheader(
                     headertxt: "Other Benefits",
                     subtxt: DirectJobDetailResponseData?.otherBenefits ?? ""),
+
+
           ],
         ),
       ),

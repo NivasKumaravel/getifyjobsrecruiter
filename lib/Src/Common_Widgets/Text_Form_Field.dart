@@ -328,7 +328,7 @@ Widget buildCompanyInfoRow(String pathPNG, String companyName,
     {required bool? isMapLogo}) {
   return Container(
     child: Padding(
-      padding: const EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,7 +350,7 @@ Widget buildCompanyInfoRow(String pathPNG, String companyName,
                       border: const Radius.circular(25), fit: BoxFit.cover),
                 ),
           SizedBox(
-            width: 10,
+            width: 20,
           ),
           Expanded(
             child: Container(
@@ -445,8 +445,8 @@ Widget buildListView(List<String> yourList) {
 //DropDownExperience
 Widget dropDownField(context,
     {required String? value,
-    required List<String> listValue,
-    required void Function(String?)? onChanged,
+      required List<String> listValue,
+      required void Function(String?)? onChanged,
       String? Function(String?)? validator,
       String? hintText
     }) {
@@ -454,15 +454,15 @@ Widget dropDownField(context,
     height: 50,
     width: MediaQuery.of(context).size.width,
     decoration:
-        BoxDecoration(borderRadius: BorderRadius.circular(10), color: white2),
+    BoxDecoration(borderRadius: BorderRadius.circular(10), color: white2),
     child: DropdownButtonFormField<String>(
       value: value,
       isExpanded: true,
       validator: validator,
       decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hintText,
-          hintStyle: phoneHT,
+        border: InputBorder.none,
+        hintText: hintText,
+        hintStyle: phoneHT,
         contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
       ),
       icon: Icon(
@@ -485,6 +485,8 @@ Widget dropDownField(context,
     ),
   );
 }
+
+
 
 //DROPDOWN WHITE1
 Widget dropDownField2(context,
