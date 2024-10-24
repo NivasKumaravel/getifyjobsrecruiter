@@ -78,7 +78,7 @@ Widget ReferalCard(context,
                 children: [
                   InkWell(
                     onTap: () {
-                      Share.share('check out my website https://example.com');
+                      Share.share("https://play.google.com/store/apps/details?id=com.getifyjobs.recuriter");
                     },
                     child: Text(
                       "Refer Now",

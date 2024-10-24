@@ -110,7 +110,7 @@ class _Recruiter_Interview_CardState
                 child: InkWell(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Direct_Candidate_Profile_Screen(
-                        TagContain: widget.CardType,
+                        TagContain:interviewResponsemodel?.data?.items?[index].jobStatus ?? "",
                         candidate_Id:interviewResponsemodel?.data?.items?[index].candidateId ?? "" ,
                         job_Id: interviewResponsemodel?.data?.items?[index].jobId ?? ""))).then((value) => ref.refresh(initialApicall()));
                   },
