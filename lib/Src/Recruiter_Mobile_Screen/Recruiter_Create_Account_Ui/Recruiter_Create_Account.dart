@@ -250,10 +250,10 @@ class _Recruiter_Create_Account_ScreenState
                         Controller: _RecruiterName,
                         validating: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Please Enter ${'Name'}";
+                            return "Please Enter Your ${'Name'}";
                           }
                           if (!onlyText.hasMatch(value)) {
-                            return "Please Enter Your Name (Special Characters are Not Allowed)";
+                            return "Special characters are Not Allowed";
                           }
                           return null;
                         },
@@ -404,7 +404,7 @@ class _Recruiter_Create_Account_ScreenState
                         Controller: _EnterOfficialEmail,
                         validating: (value) {
                           if (value!.isEmpty) {
-                            return "Please Enter a Email Address";
+                            return "Please Enter Your Official Email Address";
                           } else if (!RegExp(
                                   r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                               .hasMatch(value)) {
@@ -645,7 +645,7 @@ class _Recruiter_Create_Account_ScreenState
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Please click on the terms and conditions box.'),
+                                  content: Text('Please read and agree to our T&C'),
                                 ),
                               );
                             }

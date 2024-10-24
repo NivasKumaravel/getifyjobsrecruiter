@@ -161,8 +161,8 @@ class _Otp_Verification_PageState extends ConsumerState<Recruiter_Otp_Verificati
                       Container(
                           margin: EdgeInsets.only(top: 35,bottom: 25),
                           alignment: Alignment.center,
-                          child: Text(widget.isForget==true?"Forget Password":"OTP Verification",style: TitleT,)),
-                      Center(child: Text("We sent a verification code to",style: inboxcompany,)),
+                          child: Text(widget.isForget==true?"Forgot Password":"OTP Verification",style: TitleT,)),
+                      Center(child: Text("We have sent a verification code to",style: inboxcompany,)),
                       Center(child: Padding(
                         padding: const EdgeInsets.only(bottom: 25),
                         child: Text(_formatNumber(widget.mobileNumber ?? ""),style: TBlack,),

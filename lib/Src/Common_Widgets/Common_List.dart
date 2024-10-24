@@ -1092,7 +1092,7 @@ Widget NoOfCandidatesSection(
               width: MediaQuery.of(context).size.width / 1.5,
               child: Text(
                 jobName,
-                style: pdfT,
+                style: bluetxt,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

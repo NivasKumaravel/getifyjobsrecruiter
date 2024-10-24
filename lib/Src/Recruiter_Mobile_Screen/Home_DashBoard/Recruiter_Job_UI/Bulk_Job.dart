@@ -62,6 +62,40 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
   List<StatutoryBenefitsData> socialData = [];
   List<StatutoryBenefitsData> otherData = [];
 
+  String _toTitleCase(String text) {
+    if (text.isEmpty) return '';
+
+    return text.toLowerCase().split(' ').map((word) {
+      if (word.isNotEmpty) {
+        return word[0].toUpperCase() + word.substring(1);
+      }
+      return '';
+    }).join(' ');
+  }
+
+  void _JobTitleFormat() {
+    final text = _jobTitleController.text;
+    final formattedText = _toTitleCase(text);
+    if (text != formattedText) {
+      _jobTitleController.value = TextEditingValue(
+        text: formattedText,
+        selection: TextSelection.collapsed(offset: formattedText.length),
+      );
+    }
+  }
+
+
+  void _JobDescriptionFormat() {
+    final text = _jobDescriptionController.text;
+    final formattedText = _toTitleCase(text);
+    if (text != formattedText) {
+      _jobDescriptionController.value = TextEditingValue(
+        text: formattedText,
+        selection: TextSelection.collapsed(offset: formattedText.length),
+      );
+    }
+  }
+
   EditBulkJob() async {
     _jobTitleController.text =
         widget.campusJobDetailResponseData?.jobTitle ?? "";
@@ -100,6 +134,8 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
      StatutoryBenifitsResponse();
      SocialBenifitsResponse();
      OtherBenifitsResponse();
+    _jobTitleController.addListener(_JobTitleFormat);
+    _jobDescriptionController.addListener(_JobDescriptionFormat);
   }
 
   String? selectedOption;
