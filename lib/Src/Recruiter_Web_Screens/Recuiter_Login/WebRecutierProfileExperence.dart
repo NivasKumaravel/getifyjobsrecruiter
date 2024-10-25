@@ -338,7 +338,7 @@ class _WebRecuiterProfileExperenceState
                     Container(
                         margin: EdgeInsets.only(
                             right: 20, left: 20, top: 10, bottom: 15),
-                        child: textfieldDescription(hintT: 'Write Feed Back')),
+                        child: textfieldDescription(hintT: 'Write Feed Back',)),
                     Container(
                       margin: EdgeInsets.only(
                           right: 5, left: 5, top: 16, bottom: 20),

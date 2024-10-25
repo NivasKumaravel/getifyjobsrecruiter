@@ -564,5 +564,3 @@ Widget allInterviewResult(context,
         )
       : NoDataMobileWidget(content: "No Data Available");
 }
-
-

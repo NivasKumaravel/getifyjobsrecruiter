@@ -25,12 +25,13 @@ Widget textFormField(
     void Function(String)? onChanged,
     required String hintText,
     List<TextInputFormatter>? inputFormatters,
-    required TextInputType keyboardtype}) {
+    required TextInputType keyboardtype,FocusNode? focusNode}) {
   return Container(
     // height: 50,
     child: TextFormField(
       enabled: isEnabled,
       controller: Controller,
+      focusNode: focusNode,
       textCapitalization: TextCapitalization.none,
       inputFormatters: inputFormatters,
       validator: validating,
@@ -208,7 +209,9 @@ Widget textFieldPassword2(
 Widget textfieldDescription(
     {TextEditingController? Controller,
     String? Function(String?)? validating,
-    required String hintT,int? maxLength}) {
+    required String hintT,int? maxLength,
+      FocusNode? focusNode,
+    }) {
   return Container(
     // height: 50,
     child: TextFormField(
@@ -217,6 +220,7 @@ Widget textfieldDescription(
       textCapitalization: TextCapitalization.none,
       maxLines: 10,
       minLines: 3,
+      focusNode: focusNode,
       maxLength: maxLength,
       keyboardType: TextInputType.multiline,
       validator: validating,
@@ -451,10 +455,12 @@ Widget dropDownField(context,
       String? hintText
     }) {
   return Container(
-    height: 50,
+    // height: 55,
     width: MediaQuery.of(context).size.width,
-    decoration:
-    BoxDecoration(borderRadius: BorderRadius.circular(10), color: white2),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: white2,
+    ),
     child: DropdownButtonFormField<String>(
       value: value,
       isExpanded: true,
@@ -463,28 +469,27 @@ Widget dropDownField(context,
         border: InputBorder.none,
         hintText: hintText,
         hintStyle: phoneHT,
-        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+        contentPadding: EdgeInsets.only(left: 12.0, right: 12.0), // Ensures space for the error message
       ),
       icon: Icon(
         Icons.keyboard_arrow_down_sharp,
         color: Colors.black,
-        size: 35,
+        size: 30,
       ),
-      items: listValue?.map((String option) {
+      iconSize: 35, // Ensure the icon size remains consistent
+      iconEnabledColor: Colors.black,
+      items: listValue.map((String option) {
         return DropdownMenuItem<String>(
           value: option,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 10,
-            ),
-            child: Text(option),
-          ),
+          child: Text(option),
         );
       }).toList(),
       onChanged: onChanged,
     ),
   );
 }
+
+
 
 
 

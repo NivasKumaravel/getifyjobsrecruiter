@@ -59,6 +59,21 @@ class _Recruiter_Create_Account_ScreenState
   bool _isbranchNeed = false;
   String? _password;
   bool _obscurePassword = true; // Initially hide the password
+
+  FocusNode _focusNode = FocusNode();
+  FocusNode _focusNode1 = FocusNode();
+  FocusNode _focusNode3 = FocusNode();
+
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    _focusNode1.dispose();
+    _focusNode3.dispose();
+    super.dispose();
+  }
+
+
   //PASSWORD VISIBILITY FUNCTION
   void _togglePasswordVisibility() {
     setState(() {
@@ -165,6 +180,7 @@ class _Recruiter_Create_Account_ScreenState
   TextEditingController _IndustryType = TextEditingController();
   TextEditingController _CompanyStartedDate = TextEditingController();
   TextEditingController _AboutCompany = TextEditingController();
+  String _isLimitExceeded = '';
   TextEditingController _EnterOfficialEmail = TextEditingController();
   TextEditingController _EnterOfficialMobile = TextEditingController();
   TextEditingController _Address = TextEditingController();
@@ -175,12 +191,15 @@ class _Recruiter_Create_Account_ScreenState
 
   List<IndustryData> IndustryVal = [];
   List<String>? industryOption;
-  final focus1 = FocusNode();
+
+  final focusind = FocusNode();
 
   //VALIDATOR
   RegExp passwordSpecial = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$])(?=.*[0-9]).*$');
   RegExp passwordLength = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$])(?=.*[0-9]).{8,15}$');
   RegExp onlyText = RegExp(r'^[a-zA-Z ]+$');
+
+
 
   EditeResponse() {
     if (widget.editResponse != null) {
@@ -211,453 +230,470 @@ class _Recruiter_Create_Account_ScreenState
               title: "Edit Profile",
             )
           : null,
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    top: widget.isEdit == true ? 20 : 50, bottom: 20),
-                child: Logo(context),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
-                    ),
-                    color: white1),
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 35, bottom: 5),
-                        child: widget.isEdit == true ? Title_Heading("Edit Profile")
-                            : Title_Heading("Create Account"),
+      body: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: widget.isEdit == true ? 20 : 50, bottom: 20),
+                  child: Logo(context),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25),
                       ),
-                      profile_Picker(),
+                      color: white1),
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 35, bottom: 5),
+                          child: widget.isEdit == true ? Title_Heading("Edit Profile")
+                              : Title_Heading("Create Account"),
+                        ),
+                        profile_Picker(),
 
-                      //RECRUITER NAME
-                      Title_Style(Title: 'Recruiter Name', isStatus: true),
-                      textFormField(
-                        hintText: 'Recruiter Name',
-                        keyboardtype: TextInputType.text,
-                        inputFormatters: null,
-                        Controller: _RecruiterName,
-                        validating: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please Enter Your ${'Name'}";
-                          }
-                          if (!onlyText.hasMatch(value)) {
-                            return "Special characters are Not Allowed";
-                          }
-                          return null;
-                        },
-                        onChanged: null,
-                      ),
-
-                      //DATE OF BIRTH
-                      Title_Style(Title: 'Date of Birth', isStatus: true),
-                      TextFieldDatePicker(
-                        Controller: _Dob,
-                        onChanged: null,
-                        hintText: 'dd/MM/yyyy',
-                        onTap: () async {
-                          FocusScope.of(context).unfocus();
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1950),
-                            lastDate: DateTime.now(),
-                          );
-                          if (pickedDate != null) {
-                            String formattedDate =
-                                DateFormat("dd/MM/yyyy").format(pickedDate);
-                            if (mounted) {
-                              setState(() {
-                                _Dob.text = formattedDate;
-                              });
-                            }
-                            DateTime currentDate = DateTime.now();
-                            int age = currentDate.year - pickedDate.year;
-                            if (age < 18) {
-                              _showErrorDialog(
-                                  "You must be at least 18 years old to register.");
-                            }
-                          }
-                        },
-                        validating: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please Select Date of Birth';
-                          } else {
-                            DateTime selectedDate =
-                                DateFormat("dd/MM/yyyy").parse(value);
-                            DateTime currentDate = DateTime.now();
-                            int age = currentDate.year - selectedDate.year;
-                            if (age < 18) {
-                              return 'You must be at least 18 years old to register.';
-                            } else {
-                              return null;
-                            }
-                          }
-                        },
-                      ),
-
-                      //COMPANY NAME
-                      Title_Style(Title: 'Company Name', isStatus: true),
-                      textFormField(
-                        hintText: 'Company Name',
-                        keyboardtype: TextInputType.text,
-                        inputFormatters: null,
-                        Controller: _CompanyName,
-                        validating: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please Enter Valid ${'Company Name'}";
-                          }
-                          if (value == null) {
-                            return "Please Enter Valid ${'Company Name'}";
-                          }
-                          return null;
-                        },
-                        onChanged: null,
-                      ),
-
-                      //INDUSTRY TYPE
-                      Title_Style(Title: 'Industry Type', isStatus: true),
-                  IndustryTypeField(
-                    hintText: "Please Select Industry Type",
-                    focus: focus1,
-                    listValue: IndustryVal,
-                    focusTagEnabled: false,
-                    values: industryOption ?? [],
-                    onPressed: (p0) {
-                      print(p0);
-
-                      setState(() {
-                        industryOption = p0;
-                      });
-                    },
-                  ),
-
-                      //COMPANY STARTED DATE
-                      Title_Style(
-                          Title: 'Company Started Date', isStatus: true),
-                      TextFieldDatePicker(
-                          Controller: _CompanyStartedDate,
-                          onChanged: null,
+                        //RECRUITER NAME
+                        Title_Style(Title: 'Recruiter Name', isStatus: true),
+                        textFormField(
+                          hintText: 'Recruiter Name',
+                          keyboardtype: TextInputType.text,
+                          inputFormatters: null,
+                          Controller: _RecruiterName,
+                          focusNode: _focusNode,
                           validating: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please Select Your Company Started Date';
-                            } else {
-                              return null;
+                            if (value == null || value.isEmpty) {
+                              return "Please Enter Your ${'Name'}";
                             }
+                            if (!onlyText.hasMatch(value)) {
+                              return "Special characters are Not Allowed";
+                            }
+                            return null;
                           },
+                          onChanged: null,
+                        ),
+
+                        //DATE OF BIRTH
+                        Title_Style(Title: 'Date of Birth', isStatus: true),
+                        TextFieldDatePicker(
+                          Controller: _Dob,
+                          onChanged: null,
+                          hintText: 'dd/MM/yyyy',
                           onTap: () async {
                             FocusScope.of(context).unfocus();
-                            DateTime? pickdate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(1950),
-                                lastDate: DateTime.now());
-                            if (pickdate != null) {
-                              String formatdate =
-                                  DateFormat("dd/MM/yyyy").format(pickdate!);
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1950),
+                              lastDate: DateTime.now(),
+                            );
+                            if (pickedDate != null) {
+                              String formattedDate =
+                                  DateFormat("dd/MM/yyyy").format(pickedDate);
                               if (mounted) {
                                 setState(() {
-                                  _CompanyStartedDate.text = formatdate;
-                                  print(_CompanyStartedDate.text);
+                                  _Dob.text = formattedDate;
                                 });
+                              }
+                              DateTime currentDate = DateTime.now();
+                              int age = currentDate.year - pickedDate.year;
+                              if (age < 18) {
+                                _showErrorDialog(
+                                    "You must be at least 18 years old to register.");
                               }
                             }
                           },
-                          hintText: 'dd/MM/yyyy'),
-
-                      //ABOUT COMPANY
-                      Title_Style(Title: 'About Company', isStatus: true),
-                      textfieldDescription(
-                        Controller: _AboutCompany,
-                        maxLength: 500,
-                        validating: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please Enter ${'About Company'}";
-                          }
-                          if (value == null) {
-                            return "Please Enter ${'About Company'}";
-                          }
-                          return null;
-                        },
-                        hintT: 'Description',
-                      ),
-
-                      //Enter Official Email Address*
-                      Title_Style(
-                          Title: 'Enter Official Email Address',
-                          isStatus: true),
-                      textFormField(
-                        hintText: 'Email Address',
-                        keyboardtype: TextInputType.text,
-                        inputFormatters: null,
-                        Controller: _EnterOfficialEmail,
-                        validating: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your Official Email Address";
-                          } else if (!RegExp(
-                                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                              .hasMatch(value)) {
-                            return "Please Enter a Valid Email Address";
-                          }
-                          return null;
-                        },
-                        onChanged: null,
-                      ),
-
-                      //Enter Official Mobile Number*
-                      Title_Style(
-                          Title: 'Enter Official Mobile Number',
-                          isStatus: true),
-                      textFormField(
-                        hintText: 'Official Mobile Number',
-                        keyboardtype: TextInputType.phone,
-                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                        Controller: _EnterOfficialMobile,
-                        validating: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter a Mobile Number";
-                          } else if (!RegExp(r"^[0-9]{10}$").hasMatch(value)) {
-                            return "Please enter a valid 10-digit mobile number";
-                          }
-                          return null;
-                        },
-                        onChanged: null,
-                      ),
-
-                      //ADDRESS
-                      Title_Style(
-                          Title: 'Enter Company Address', isStatus: true),
-                      textfieldDescription(
-                        Controller: _Address,
-                        validating: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please Enter ${'Company Address'}";
-                          }
-                          if (value == null) {
-                            return "Please Enter ${'Company Address'}";
-                          }
-                          return null;
-                        },
-                        hintT: 'Company Address',
-                      ),
-
-                      //DO YOU HAVE ANY OTHER BRANCH
-                      Title_Style(
-                          Title: 'Do you have any other Branch?',
-                          isStatus: true),
-                      _RadioButton(),
-
-                      //Enter Branch Name*
-                      _isbranchNeed == true
-                          ? Title_Style(
-                              Title: 'Enter Branch Name', isStatus: true)
-                          : Container(),
-                      _isbranchNeed == true
-                          ? textfieldDescription(
-                              Controller: _EnterBranchName,
-                              validating: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "Please Enter ${'Branch Name'}";
-                                }
-                                if (value == null) {
-                                  return "Please Enter ${'Branch Name'}";
-                                }
-                                return null;
-                              },
-                              hintT: 'Branch Name',
-                            )
-                          : Container(),
-
-                      _isbranchNeed == true
-                          ? SubText(
-                              "If you have multiple Branches Add with Commas")
-                          : Container(),
-
-                      //Enter Phone Number*
-                      Title_Style_NoSp(
-                          Title: 'Enter Personal Mobile Number',
-                          isStatus: true),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              width: MediaQuery.sizeOf(context).width/1.5,
-                              child: Text(
-                                  'Is your personal mobile number is same as the official mobile number ?',maxLines: 2,)),
-                          const Spacer(),
-                          Checkbox(
-                            value: isSameAsOfficial,
-                            onChanged: (value) {
-                              setState(() {
-                                isSameAsOfficial = value!;
-                                if (isSameAsOfficial) {
-                                  _Phonenumber.text = _EnterOfficialMobile.text;
-                                } else {
-                                  _Phonenumber.clear();
-                                }
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      textFormField(
-                        hintText: 'Personal Mobile Number',
-                        keyboardtype: TextInputType.phone,
-                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                        Controller: _Phonenumber,
-                        validating: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter a Personal Mobile Number";
-                          } else if (!RegExp(r"^[0-9]{10}$").hasMatch(value)) {
-                            return "Please enter a valid 10-digit mobile number";
-                          }
-                          return null;
-                        },
-                        onChanged: null,
-                      ),
-
-                      //Create Password
-                      widget.isEdit == true
-                          ? Container()
-                          : Title_Style(
-                              Title: 'Create Password', isStatus: true),
-                      widget.isEdit == true
-                          ? Container()
-                          : textFieldPassword(
-                              Controller: _passwordController,
-                              obscure: _obscurePassword,
-                              onPressed: _togglePasswordVisibility,
-                              hintText: "Password",
-                              keyboardtype: TextInputType.text,
-                              onChanged: (value) {
-                                setState(() {
-                                  _password = value;
-                                });
-                              },
-                              validating: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please Enter a Password';
-                                } else if (!passwordSpecial.hasMatch(value)) {
-                                  return 'Password should be with the combination of Aa@#1';
-                                }else if(!passwordLength.hasMatch(value)){
-                                  return "Password should be with minimum 8 and maximum 15 characters";
-                                }
-                                return null;
-                              },
-                            ),
-
-                      //Referral Code
-                      widget.isEdit == true
-                          ? Container()
-                          : Title_Style(
-                              Title: 'Referral Code', isStatus: false),
-                      widget.isEdit == true
-                          ? Container()
-                          : textFormField(
-                              hintText: 'Referral Code',
-                              keyboardtype: TextInputType.text,
-                              inputFormatters: null,
-                              Controller: _referralCodeController,
-                              validating: null,
-                              onChanged: null,
-                            ),
-                      //MAP
-                      // Padding(
-                      //   padding: const EdgeInsets.only(bottom: 20),
-                      //   child: Container(
-                      //     height: 105,
-                      //     child: Common_Map(),
-                      //   ),
-                      // ),
-                      const SizedBox(height: 20,),
-
-                      //CHECK BOX
-                      widget.isEdit == true
-                          ? Container()
-                          : CheckBoxes(
-                              value: _isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  setState(() => _isChecked = !_isChecked);
-                                });
-                              },
-                          onTap: ()async{
-                            final url = "https://getifyjobs.com/terms-and-conditions";
-                            await launch(url,
-                              forceSafariVC: true,
-                              forceWebView: true,
-                              enableJavaScript: true,
-                            );
-                          },
-                              checkBoxText: 'Terms & Conditions'),
-
-                      widget.isEdit == true
-                          ? Container()
-                          : CheckBoxes(
-                              value: _isChecked1,
-                              onChanged: (value) {
-                                setState(() {
-                                  setState(() => _isChecked1 = !_isChecked1);
-                                });
-                              },
-                              checkBoxText:
-                                  'Do you wish to receive updates, \nnewsletters & marketing campaigns?'),
-                      widget.isEdit == true
-                          ? Container()
-                          : InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Recruiter_Login_Page()));
-                              },
-                              child: AlreadyAccount(
-                                txt1: 'If you already have an account, click ',
-                                txt2: 'Log in',
-                              )),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 50),
-                        child: CommonElevatedButton(context,
-                            widget.isEdit == true ? "Submit" : "Register", () {
-                          if (_formKey.currentState!.validate()) {
-
-                            if (_validateTerms(_isChecked) == null) {
-                              widget.isEdit == true
-                                  ? editProfileApiResponse()
-                                  : registrationApiResponse();
-
+                          validating: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please Select Date of Birth';
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Please read and agree to our T&C'),
-                                ),
-                              );
+                              DateTime selectedDate =
+                                  DateFormat("dd/MM/yyyy").parse(value);
+                              DateTime currentDate = DateTime.now();
+                              int age = currentDate.year - selectedDate.year;
+                              if (age < 18) {
+                                return 'You must be at least 18 years old to register.';
+                              } else {
+                                return null;
+                              }
                             }
+                          },
+                        ),
 
-                          }
-                        }),
-                      ),
-                    ],
+                        //COMPANY NAME
+                        Title_Style(Title: 'Company Name', isStatus: true),
+                        textFormField(
+                          hintText: 'Company Name',
+                          keyboardtype: TextInputType.text,
+                          inputFormatters: null,
+                          Controller: _CompanyName,
+                          focusNode: _focusNode1,
+                          validating: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please Enter Valid ${'Company Name'}";
+                            }
+                            if (value == null) {
+                              return "Please Enter Valid ${'Company Name'}";
+                            }
+                            return null;
+                          },
+                          onChanged: null,
+                        ),
+
+                        //INDUSTRY TYPE
+                        Title_Style(Title: 'Industry Type', isStatus: true),
+                    IndustryTypeField(
+                      hintText: "Please Select Industry Type",
+                      focus: focusind,
+                      listValue: IndustryVal,
+                      focusTagEnabled: false,
+                      values: industryOption ?? [],
+                      onPressed: (p0) {
+                        print(p0);
+
+                        setState(() {
+                          industryOption = p0;
+                        });
+                      },
+                    ),
+
+                        //COMPANY STARTED DATE
+                        Title_Style(
+                            Title: 'Company Started Date', isStatus: true),
+                        TextFieldDatePicker(
+                            Controller: _CompanyStartedDate,
+                            onChanged: null,
+                            validating: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please Select Your Company Started Date';
+                              } else {
+                                return null;
+                              }
+                            },
+                            onTap: () async {
+                              FocusScope.of(context).unfocus();
+                              DateTime? pickdate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1950),
+                                  lastDate: DateTime.now());
+                              if (pickdate != null) {
+                                String formatdate =
+                                    DateFormat("dd/MM/yyyy").format(pickdate!);
+                                if (mounted) {
+                                  setState(() {
+                                    _CompanyStartedDate.text = formatdate;
+                                    print(_CompanyStartedDate.text);
+                                  });
+                                }
+                              }
+                            },
+                            hintText: 'dd/MM/yyyy'),
+
+                        //ABOUT COMPANY
+                        Title_Style(Title: 'About Company', isStatus: true),
+                        textfieldDescription(
+                          Controller: _AboutCompany,
+                          maxLength: 500,
+                          focusNode: _focusNode3,
+                          validating: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please Enter ${'About Company'}";
+                            }
+                            if (value == null) {
+                              return "Please Enter ${'About Company'}";
+                            }
+                            return null;
+                          },
+                          hintT: 'Description',
+                        ),
+
+
+                        //Enter Official Email Address*
+                        Title_Style(
+                            Title: 'Enter Official Email Address',
+                            isStatus: true),
+                        textFormField(
+                          hintText: 'Email Address',
+                          keyboardtype: TextInputType.text,
+                          inputFormatters: null,
+                          Controller: _EnterOfficialEmail,
+                          validating: (value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter Your Official Email Address";
+                            } else if (!RegExp(
+                                    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                .hasMatch(value)) {
+                              return "Please Enter a Valid Email Address";
+                            }
+                            return null;
+                          },
+                          onChanged: null,
+                        ),
+
+                        //Enter Official Mobile Number*
+                        Title_Style(
+                            Title: 'Enter Official Mobile Number',
+                            isStatus: true),
+                        textFormField(
+                          hintText: 'Official Mobile Number',
+                          keyboardtype: TextInputType.phone,
+                          inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                          Controller: _EnterOfficialMobile,
+                          validating: (value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter a Mobile Number";
+                            } else if (!RegExp(r"^[0-9]{10}$").hasMatch(value)) {
+                              return "Please enter a valid 10-digit mobile number";
+                            }
+                            return null;
+                          },
+                          onChanged: null,
+                        ),
+
+                        //ADDRESS
+                        Title_Style(
+                            Title: 'Enter Company Address', isStatus: true),
+                        textfieldDescription(
+                          Controller: _Address,
+                          validating: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please Enter ${'Company Address'}";
+                            }
+                            if (value == null) {
+                              return "Please Enter ${'Company Address'}";
+                            }
+                            return null;
+                          },
+                          hintT: 'Company Address',
+                        ),
+
+                        //DO YOU HAVE ANY OTHER BRANCH
+                        Title_Style(
+                            Title: 'Do you have any other Branch?',
+                            isStatus: true),
+                        _RadioButton(),
+
+                        //Enter Branch Name*
+                        _isbranchNeed == true
+                            ? Title_Style(
+                                Title: 'Enter Branch Name', isStatus: true)
+                            : Container(),
+                        _isbranchNeed == true
+                            ? textfieldDescription(
+                                Controller: _EnterBranchName,
+                                validating: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please Enter ${'Branch Name'}";
+                                  }
+                                  if (value == null) {
+                                    return "Please Enter ${'Branch Name'}";
+                                  }
+                                  return null;
+                                },
+                                hintT: 'Branch Name',
+                              )
+                            : Container(),
+
+                        _isbranchNeed == true
+                            ? SubText(
+                                "If you have multiple Branches Add with Commas")
+                            : Container(),
+
+                        //Enter Phone Number*
+                        Title_Style_NoSp(
+                            Title: 'Enter Personal Mobile Number',
+                            isStatus: true),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                width: MediaQuery.sizeOf(context).width/1.5,
+                                child: Text(
+                                    'Is your personal mobile number is same as the official mobile number ?',maxLines: 2,)),
+                            const Spacer(),
+                            Checkbox(
+                              value: isSameAsOfficial,
+                              onChanged: (value) {
+                                setState(() {
+                                  isSameAsOfficial = value!;
+                                  if (isSameAsOfficial) {
+                                    _Phonenumber.text = _EnterOfficialMobile.text;
+                                  } else {
+                                    _Phonenumber.clear();
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        textFormField(
+                          hintText: 'Personal Mobile Number',
+                          keyboardtype: TextInputType.phone,
+                          inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                          Controller: _Phonenumber,
+                          validating: (value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter a Personal Mobile Number";
+                            } else if (!RegExp(r"^[0-9]{10}$").hasMatch(value)) {
+                              return "Please enter a valid 10-digit mobile number";
+                            }
+                            return null;
+                          },
+                          onChanged: null,
+                        ),
+
+                        //Create Password
+                        widget.isEdit == true
+                            ? Container()
+                            : Title_Style(
+                                Title: 'Create Password', isStatus: true),
+                        widget.isEdit == true
+                            ? Container()
+                            : textFieldPassword(
+                                Controller: _passwordController,
+                                obscure: _obscurePassword,
+                                onPressed: _togglePasswordVisibility,
+                                hintText: "Password",
+                                keyboardtype: TextInputType.text,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _password = value;
+                                  });
+                                },
+                                validating: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please Enter a Password';
+                                  } else if (!passwordSpecial.hasMatch(value)) {
+                                    return 'Password should be with the combination of Aa@#1';
+                                  }else if(!passwordLength.hasMatch(value)){
+                                    return "Password should be with minimum 8 and maximum 15 characters";
+                                  }
+                                  return null;
+                                },
+                              ),
+
+                        //Referral Code
+                        widget.isEdit == true
+                            ? Container()
+                            : Title_Style(
+                                Title: 'Referral Code', isStatus: false),
+                        widget.isEdit == true
+                            ? Container()
+                            : textFormField(
+                                hintText: 'Referral Code',
+                                keyboardtype: TextInputType.text,
+                                inputFormatters: null,
+                                Controller: _referralCodeController,
+                                validating: null,
+                                onChanged: null,
+                              ),
+                        //MAP
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 20),
+                        //   child: Container(
+                        //     height: 105,
+                        //     child: Common_Map(),
+                        //   ),
+                        // ),
+                        const SizedBox(height: 20,),
+
+                        //CHECK BOX
+                        widget.isEdit == true
+                            ? Container()
+                            : CheckBoxes(
+                                value: _isChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    setState(() => _isChecked = !_isChecked);
+                                  });
+                                },
+                            onTap: ()async{
+                              final url = "https://getifyjobs.com/terms-and-conditions";
+                              await launch(url,
+                                forceSafariVC: true,
+                                forceWebView: true,
+                                enableJavaScript: true,
+                              );
+                            },
+                                checkBoxText: 'Terms & Conditions'),
+
+                        widget.isEdit == true
+                            ? Container()
+                            : CheckBoxes(
+                                value: _isChecked1,
+                                onChanged: (value) {
+                                  setState(() {
+                                    setState(() => _isChecked1 = !_isChecked1);
+                                  });
+                                },
+                                checkBoxText:
+                                    'Do you wish to receive updates, \nnewsletters & marketing campaigns?'),
+                        widget.isEdit == true
+                            ? Container()
+                            : InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Recruiter_Login_Page()));
+                                },
+                                child: AlreadyAccount(
+                                  txt1: 'If you already have an account, click ',
+                                  txt2: 'Log in',
+                                )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15, bottom: 50),
+                          child: CommonElevatedButton(context,
+                              widget.isEdit == true ? "Submit" : "Register", () {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                            if (_formKey.currentState!.validate()) {
+
+
+                              if (_validateTerms(_isChecked) == null) {
+                                widget.isEdit == true
+                                    ? editProfileApiResponse()
+                                    : registrationApiResponse();
+                              } else if (_value == null) {
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Do you have any other branch'),
+                                  ),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Please read and agree to our T&C'),
+                                  ),
+                                );
+                              }
+
+                            }
+                          }),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -621,7 +621,7 @@ Widget customListItem(context,
                           //JOB ROLE
                           Container(
                             margin: EdgeInsets.only(top: 5),
-                            child: Text(appliedRole, style: countTextStyle),
+                            child: Text(appliedRole, style: blue),
                           ),
                         ],
                       ),

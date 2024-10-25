@@ -541,7 +541,7 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 15,),
-            _profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""),
+            //_profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""),
             _profileInformation(title: 'Email Id', data: candiateProfileData?.email ?? ""),
             _profileInformation(title: 'Phone Number', data: candiateProfileData?.phone ?? ""),
             _profileInformation(title: 'Address', data: candiateProfileData?.address ?? ""),
@@ -886,7 +886,3 @@ Widget _employeementHistory(CandidateCampusProfileData? candiateProfileData){
     ),
   );
 }
-
-
-
-

@@ -1,13 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:getifyjobs/Models/CampusListModel.dart';
+import 'package:getifyjobs/Models/DirectListModel.dart';
 import 'package:getifyjobs/Models/RecentAppliesModel.dart';
 import 'package:getifyjobs/Models/ShortlistedModel.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Candidate_Profile.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_List.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Image_Path.dart';
+import 'package:getifyjobs/Src/Common_Widgets/Text_Form_Field.dart';
+import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Notification_Page.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Wallet_Screens.dart';
+import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Recruiter_Request_Call%20_Ui/Recruiter_Request_Call_Screen.dart';
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
@@ -33,6 +38,12 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
   ScrollController _todayController = ScrollController();
   int todayTotalCount = 0;
   int todaypage = 1;
+  int switchIndex = 0;
+  bool isSearching = false;
+  List<DirectListItems>? tempDirectItemList = [];
+  List<DirectListItems>? directItemList = [];
+  List<CampusListItems>? tempCampusResponseData = [];
+  List<CampusListItems>? campusResponseData = [];
 
   @override
   void initState() {
@@ -59,25 +70,47 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
       appBar: Custom_AppBar(
         isUsed: false,
         actions: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Wallet_Coin_Screen()));
-            },
-            child: Row(
-              children: [
-                Text(
-                  RecentAppliesResponseData?.coins?.coins ?? "",
-                  style: TitleT,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 20, left: 10),
-                  child: ImgPathSvg("coin.svg"),
-                ),
-              ],
-            ),
+          Row(
+            children: [
+              Text(
+                RecentAppliesResponseData?.coins?.coins ?? "",
+                style: TitleT,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20, left: 10),
+                child: InkWell(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Wallet_Coin_Screen()));
+                  },
+                    child: ImgPathSvg("coin.svg")),
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Recruiter_Request_Call_Screen()));
+                  },
+                  icon: Icon(
+                    Icons.call_outlined,
+                    size: 25,
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(right: 20, left: 15),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NotificationScreen()),
+                      );
+                    },
+                    child: ImgPathSvg("bellalert.svg")),
+              ),
+            ],
           ),
         ],
         isLogoUsed: false,
@@ -89,6 +122,42 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
         margin: EdgeInsets.only(top: 10),
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  right: 20, left: 20, top: 20, bottom: 20),
+              child: textFormFieldSearchBar(
+                  keyboardtype: TextInputType.text,
+                  hintText: "Search ...",
+                  Controller: null,
+                  validating: null,
+                  onChanged: (value) {
+                    setState(() {
+                      if (switchIndex == 0) {
+                        if (value != "" && tempDirectItemList != []) {
+                          isSearching = true;
+                          directItemList = tempDirectItemList!
+                              .where((job) =>
+                              job.jobTitle!.toLowerCase().contains(value))
+                              .toList();
+                        } else {
+                          directItemList = tempDirectItemList;
+                          isSearching = false;
+                        }
+                      } else {
+                        if (value != "" && tempCampusResponseData != []) {
+                          isSearching = true;
+                          campusResponseData = tempCampusResponseData!
+                              .where((job) =>
+                              job.name!.toLowerCase().contains(value))
+                              .toList();
+                        } else {
+                          campusResponseData = tempCampusResponseData;
+                          isSearching = false;
+                        }
+                      }
+                    });
+                  }),
+            ),
             Container(
               color: white1,
               width: MediaQuery.of(context).size.width,
