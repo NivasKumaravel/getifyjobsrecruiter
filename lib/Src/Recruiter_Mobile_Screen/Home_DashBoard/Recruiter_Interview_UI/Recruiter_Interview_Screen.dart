@@ -279,7 +279,7 @@ class _Recuiter_Interview_ScreenState
                 userItems: interviewResponsemodel?.data?.items ?? [],
                 isWeb: false,
               )
-            : NoDataMobileWidget(content: "No Data Available"),
+            : NoDataMobileWidget(content: "Unlock New Possibilities"),
       ],
     );
   }
@@ -428,7 +428,7 @@ class _Recuiter_Interview_ScreenState
         );
       },
     )
-        : NoDataMobileWidget(content: "No Data Available");
+        : NoDataMobileWidget(content: "Unlock New Possibilities");
   }
 }
 
@@ -562,5 +562,5 @@ Widget allInterviewResult(context,
             );
           },
         )
-      : NoDataMobileWidget(content: "No Data Available");
+      : NoDataMobileWidget(content: "Unlock New Possibilities");
 }

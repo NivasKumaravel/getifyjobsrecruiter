@@ -247,7 +247,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                         )
                       : Center(
                           child:
-                              NoDataMobileWidget(content: "No Data Available")),
+                              NoDataMobileWidget(content: "Unlock New Possibilities")),
 
                   //CAMPUS
                   isCampusList == true
@@ -265,7 +265,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                         )
                       : Center(
                           child:
-                              NoDataMobileWidget(content: "No Data Available")),
+                              NoDataMobileWidget(content: "Unlock New Possibilities")),
                 ],
               ),
             ),

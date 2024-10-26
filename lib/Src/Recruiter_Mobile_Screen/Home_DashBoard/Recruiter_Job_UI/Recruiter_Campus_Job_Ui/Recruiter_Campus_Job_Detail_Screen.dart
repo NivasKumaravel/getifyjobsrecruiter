@@ -208,11 +208,11 @@ class _Recruiter_Campus_Job_Detail_ScreenState extends ConsumerState<Recruiter_C
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                 isApplied == true? appliedList(appliedCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'No Data Available'),
-                  isEnrolled==true?enrolledList(enrolledCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'No Data Available'),
-                 isShortlisted == true? shortListedList(shortlistedCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'No Data Available'),
-                 isSelected == true? selectedList(selectCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'No Data Available'),
-                  isRejected == true?rejectedList(rejectCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'No Data Available'),
+                 isApplied == true? appliedList(appliedCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'Unlock New Possibilities'),
+                  isEnrolled==true?enrolledList(enrolledCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'Unlock New Possibilities'),
+                 isShortlisted == true? shortListedList(shortlistedCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'Unlock New Possibilities'),
+                 isSelected == true? selectedList(selectCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'Unlock New Possibilities'),
+                  isRejected == true?rejectedList(rejectCandidateResponseData,widget.campusId,widget.jobId):NoDataMobileWidget(content: 'Unlock New Possibilities'),
                 ],
               ),
             ),
@@ -232,7 +232,7 @@ class _Recruiter_Campus_Job_Detail_ScreenState extends ConsumerState<Recruiter_C
             )
           ],
         ),
-      ):NoDataWidget(content: "No Data Available"),
+      ):NoDataWidget(content: "Unlock New Possibilities"),
     );
   }
   //APPLIED CANDIDATE RESPONSE

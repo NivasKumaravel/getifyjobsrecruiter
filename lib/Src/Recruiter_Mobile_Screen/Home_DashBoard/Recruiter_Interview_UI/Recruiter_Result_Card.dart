@@ -154,7 +154,7 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
           )
         : Padding(
           padding: const EdgeInsets.only(top: 250),
-          child: NoDataMobileWidget(content: "No Data Available"),
+          child: NoDataMobileWidget(content: "Unlock New Possibilities"),
         );
   }
 }

@@ -140,19 +140,19 @@ class _List_Of_Candidates_PageState extends ConsumerState<List_Of_Candidates_Pag
                 allListStatus == true? Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: allList(),
-                ):NoDataMobileWidget(content: "No Data Available"),
+                ):NoDataMobileWidget(content: "Unlock New Possibilities"),
                 shortlisteStatus == true? Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: shortListedList(),
-                ):NoDataMobileWidget(content: "No Data Available"),
+                ):NoDataMobileWidget(content: "Unlock New Possibilities"),
                 scheduleStatus == true?Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: scheduledList(),
-                ):NoDataMobileWidget(content: "No Data Available"),
+                ):NoDataMobileWidget(content: "Unlock New Possibilities"),
                 rejectStatus == true? Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: rejectedList(),
-                ):NoDataMobileWidget(content: "No Data Available"),
+                ):NoDataMobileWidget(content: "Unlock New Possibilities"),
               ],
             ),
           ),

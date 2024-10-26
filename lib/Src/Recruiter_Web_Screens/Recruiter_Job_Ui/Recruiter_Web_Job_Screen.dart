@@ -156,7 +156,7 @@ class _Recruiter_Web_Job_screenState
                             child: _jobsList(directResponseData),
                           ),
                         )
-                      : NoDataWidget(content: 'No Data Available'),
+                      : NoDataWidget(content: 'Unlock New Possibilities'),
                   isCampusList == true
                       ? SingleChildScrollView(
                           child: Padding(
@@ -165,7 +165,7 @@ class _Recruiter_Web_Job_screenState
                             child: _campusList(),
                           ),
                         )
-                      : NoDataWidget(content: 'No Data Available'),
+                      : NoDataWidget(content: 'Unlock New Possibilities'),
                   // AppliesListCandidate(),
                 ],
               ),

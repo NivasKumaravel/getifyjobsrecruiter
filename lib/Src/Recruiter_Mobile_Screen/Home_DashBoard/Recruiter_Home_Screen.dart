@@ -182,7 +182,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                     width: MediaQuery.of(context).size.width /
                         2, // Equal width for each tab
                     child: Tab(
-                      text: 'All',
+                      text: 'Applied',
                     ),
                   ),
                   Container(
@@ -206,7 +206,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                         isWeb: false),
                   )):Center(
                       child:
-                      NoDataMobileWidget(content: "No Data Available")),
+                      NoDataMobileWidget(content: "Unlock New Possibilities")),
                   Shortlist == true
                       ? SingleChildScrollView(
                           child: Padding(
@@ -215,7 +215,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                         ))
                       : Center(
                           child:
-                              NoDataMobileWidget(content: "No Data Available")),
+                              NoDataMobileWidget(content: "Unlock New Possibilities")),
                 ],
               ),
             ),

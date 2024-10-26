@@ -455,7 +455,7 @@ Widget dropDownField(context,
       String? hintText
     }) {
   return Container(
-    // height: 55,
+     height: 50,
     width: MediaQuery.of(context).size.width,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
@@ -469,14 +469,13 @@ Widget dropDownField(context,
         border: InputBorder.none,
         hintText: hintText,
         hintStyle: phoneHT,
-        contentPadding: EdgeInsets.only(left: 12.0, right: 12.0), // Ensures space for the error message
+        contentPadding: EdgeInsets.only(left: 12.0, right: 12.0,bottom: 5,top: 5), // Ensures space for the error message
       ),
       icon: Icon(
         Icons.keyboard_arrow_down_sharp,
         color: Colors.black,
-        size: 30,
+        size: 35,
       ),
-      iconSize: 35, // Ensure the icon size remains consistent
       iconEnabledColor: Colors.black,
       items: listValue.map((String option) {
         return DropdownMenuItem<String>(
@@ -488,9 +487,6 @@ Widget dropDownField(context,
     ),
   );
 }
-
-
-
 
 
 //DROPDOWN WHITE1

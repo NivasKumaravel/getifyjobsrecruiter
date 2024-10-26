@@ -220,10 +220,10 @@ class _Recruiter_JobDetail_PageState
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  allListStatus == true? allList():NoDataMobileWidget(content: "No Data Available"),
-                shortlisteStatus == true? shortListedList():NoDataMobileWidget(content: "No Data Available"),
-                  scheduleStatus == true?scheduledList():NoDataMobileWidget(content: "No Data Available"),
-                 rejectStatus == true? rejectedList():NoDataMobileWidget(content: "No Data Available"),
+                  allListStatus == true? allList():NoDataMobileWidget(content: "Unlock New Possibilities"),
+                shortlisteStatus == true? shortListedList():NoDataMobileWidget(content: "Unlock New Possibilities"),
+                  scheduleStatus == true?scheduledList():NoDataMobileWidget(content: "Unlock New Possibilities"),
+                 rejectStatus == true? rejectedList():NoDataMobileWidget(content: "Unlock New Possibilities"),
                 ],
               ),
             ),

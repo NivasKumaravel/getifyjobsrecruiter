@@ -116,7 +116,7 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
                           child: Padding(
                           padding: const EdgeInsets.only(top: 250),
                           child:
-                              NoDataMobileWidget(content: 'No Data Available'),
+                              NoDataMobileWidget(content: 'Unlock New Possibilities'),
                         )),
 
                   //INVOICE
@@ -130,7 +130,7 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
                           child: Padding(
                           padding: const EdgeInsets.only(top: 250),
                           child:
-                              NoDataMobileWidget(content: 'No Data Available'),
+                              NoDataMobileWidget(content: 'Unlock New Possibilities'),
                         )),
                 ],
               ),

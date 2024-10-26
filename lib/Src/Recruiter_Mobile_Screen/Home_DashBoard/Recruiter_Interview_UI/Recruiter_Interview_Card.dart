@@ -90,7 +90,7 @@ class _Recruiter_Interview_CardState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             requestedList == true? ScheduleList(context):
-          Center(child: NoDataMobileWidget(content: "No Data Available")),
+          Center(child: NoDataMobileWidget(content: "Unlock New Possibilities")),
           ],
         ),
       ),

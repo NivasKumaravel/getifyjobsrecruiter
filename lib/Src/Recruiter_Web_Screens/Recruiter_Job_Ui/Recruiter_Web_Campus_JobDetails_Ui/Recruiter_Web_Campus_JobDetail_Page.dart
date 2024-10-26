@@ -454,7 +454,7 @@ class _Recruiter_Web_Campus_JobDetail_PageState
                 ),
               ),
             )
-          : NoDataWidget(content: "No Data Available"),
+          : NoDataWidget(content: "Unlock New Possibilities"),
     );
   }
 

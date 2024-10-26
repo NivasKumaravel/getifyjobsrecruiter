@@ -111,7 +111,7 @@ class _Recruiter_College_Detail_ScreenState
             ],
           ),
         ),
-      ):NoDataMobileWidget(content: "No Data Available"),
+      ):NoDataMobileWidget(content: "Unlock New Possibilities"),
     );
   }
 

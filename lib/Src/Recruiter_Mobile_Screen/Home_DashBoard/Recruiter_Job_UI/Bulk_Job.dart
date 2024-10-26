@@ -521,10 +521,9 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
                           child: Container(
                             height: 45,
                             width: 200,
-                            child: CommonElevatedButton(
-                                context,
-                                "Create Job",
-                                () => widget.isEditBulk == true
+                            child: CommonElevatedButton(context,
+                                widget.isEditBulk == true ?"Update Job": "Create Job",
+                                    () => widget.isEditBulk == true
                                     ? EditBulkJobApiResponse()
                                     : BulkJobApiResponse()),
                           ),
