@@ -122,7 +122,6 @@ class _Recruiter_Direct_Job_Detail_ScreenState extends State<Recruiter_Direct_Jo
             ),
             Container(
               height: 300,
-              // color: Colors.cyan,
               child: TabBarView(
                 controller: _tabController,
                 children: [

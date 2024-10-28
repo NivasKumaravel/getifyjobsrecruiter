@@ -339,7 +339,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                         ):
                         Column(
                           children: [
-                            Center(child: Text('Recruiter Requested for Reschedule Interview on',style: attacht1,)),
+                            Center(child: Text('Recruiter Requested for Rescheduled Interview on',style: attacht1,)),
                             Center(child: Text('${candiateProfileData?.recruiterReschedule?.interviewTime == null?SingleTon().setTime:
                             candiateProfileData?.recruiterReschedule?.interviewTime ?? "" }, '
                                 '${candiateProfileData?.recruiterReschedule?.interviewDate == null?
@@ -491,11 +491,17 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 15,),
-          _profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""),
+
+          candiateProfileData?.careerStatus == 'Fresher' ? Container() :
+          candiateProfileData?.careerStatus == 'Student' ? Container() :
+          candiateProfileData?.careerStatus == 'Experienced' ?
+          _profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""):
+
+
           candiateProfileData?.experience == null?Container(): _profileInformation(title: 'Experience', data: candiateProfileData?.experience ?? ""),
           _profileInformation(title: 'Skill Set', data: candiateProfileData?.skill ?? ""),
           _profileInformation(title: 'Qualification', data: candiateProfileData?.qualification ?? ""),
-          _profileInformation(title: 'Specialization', data: candiateProfileData?.specialization ?? ""),
+          _profileInformation(title: 'Specialization', data: candiateProfileData?.specializationId ?? ""),
           _profileInformation(title: 'Preferred Location', data: candiateProfileData?.preferredLocation ?? ""),
           candiateProfileData?.currentSalary == null?Container():_profileInformation(title: 'Current Salary', data: candiateProfileData?.currentSalary ?? ""),
           _profileInformation(title: 'Expected Salary', data: candiateProfileData?.expectedSalary ?? ""),

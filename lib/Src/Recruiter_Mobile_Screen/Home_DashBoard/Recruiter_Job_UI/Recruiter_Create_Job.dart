@@ -91,7 +91,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
   ];
 
   List<String> workTypeVal = [
-    // "Please Select"
+    "Please Select",
     "Apprenticeship",
     "Trainee",
     "Employment on commission",
@@ -421,7 +421,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           });
                         },
                       ),
-
 
                       //Shift Details
                       Title_Style(Title: 'Shift Details', isStatus: true),

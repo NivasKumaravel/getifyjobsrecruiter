@@ -60,7 +60,7 @@ class _Recruiter_Campus_List_CandidatesState extends ConsumerState<Recruiter_Cam
     return Scaffold(
       backgroundColor: white2,
       appBar: Custom_AppBar(
-        title: "List of Candidates",
+        title: " List of Candidates",
         isUsed: true,
         actions: [],
         isLogoUsed: true,

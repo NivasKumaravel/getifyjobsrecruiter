@@ -466,9 +466,13 @@ class _Recruiter_JobDetail_PageState
             textWithheader(
                 headertxt: "Qualification",
                 subtxt: DirectJobDetailResponseData?.qualification ?? ""),
+
+            DirectJobDetailResponseData?.specialization == null ? Container() :
             textWithheader(
                 headertxt: "Specialization",
                 subtxt: DirectJobDetailResponseData?.specialization ?? ""),
+
+
             DirectJobDetailResponseData?.currentArrears == ''
                 ? Container()
                 : textWithheader(
@@ -489,7 +493,7 @@ class _Recruiter_JobDetail_PageState
             textWithheader(
                 headertxt: "Work Type",
                 subtxt: DirectJobDetailResponseData?.workType ?? ""),
-            DirectJobDetailResponseData?.workMode == ""
+            DirectJobDetailResponseData?.workMode == "Please Select"
                 ? Container()
                 : textWithheader(
                     headertxt: "Work Mode",

@@ -61,6 +61,8 @@ class _Otp_Verification_PageState extends ConsumerState<Recruiter_Otp_Verificati
     });
   }
 
+
+
   String _formatNumber(String number) {
     if (number.length < 6) {
       return number;
@@ -209,7 +211,7 @@ class _Otp_Verification_PageState extends ConsumerState<Recruiter_Otp_Verificati
                                   // }else{
                                   //   return null;
                                   // }
-        
+
                                 },
                                 child: Container(
                                   alignment: Alignment.topRight,
@@ -227,6 +229,12 @@ class _Otp_Verification_PageState extends ConsumerState<Recruiter_Otp_Verificati
                                 child: InkWell(
                                   onTap: (){
                                     _startTimer();
+                                    _OTP1.clear();
+                                    _OTP2.clear();
+                                    _OTP3.clear();
+                                    _OTP4.clear();
+                                    _OTP5.clear();
+                                    _OTP6.clear();
                                   },
                                   child: Text(
                                     _isTimerActive

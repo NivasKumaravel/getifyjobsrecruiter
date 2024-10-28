@@ -79,7 +79,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                               left: 20, top: 20, right: 20, bottom: 250),
                           child:  textFormField(
                             // isEnabled: false,
-                              hintText: "Mobile Number",
+                              hintText: "Enter Mobile Number",
                               keyboardtype: TextInputType.phone,
                               Controller: _mobileController,
                               inputFormatters: [
@@ -109,7 +109,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                                       text: 'If you already have an account, click ',
                                       style: richtext1,
                                       children: <TextSpan>[
-                                        TextSpan(text: 'Log in',
+                                        TextSpan(text: 'LOG IN',
                                             style: richtext2,
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
