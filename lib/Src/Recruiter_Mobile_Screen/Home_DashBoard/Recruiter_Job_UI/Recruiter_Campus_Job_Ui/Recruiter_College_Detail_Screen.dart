@@ -62,8 +62,13 @@ class _Recruiter_College_Detail_ScreenState
               buildCompanyInfoRow(campusResponseData?.logo ?? "",
                   campusResponseData?.name ?? "", pdfT, 39, 39, isMapLogo: false),
 
-              buildCompanyInfoRow(
-                  "map-pin (1).png", campusResponseData?.location ?? "", posttxt, 16, 16, isMapLogo: true),
+              const SizedBox(height: 12),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: buildCompanyInfoRow(
+                    "map-pin (1).png", campusResponseData?.location ?? "", posttxt, 16, 16, isMapLogo: true),
+              ),
               SizedBox(
                 height: 30,
               ),
