@@ -74,7 +74,7 @@ class _Branch_Detail_ScreenState extends ConsumerState<Branch_Detail_Screen> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5), color: white1),
-                margin: EdgeInsets.only(top: 25, left: 20, right: 20),
+                margin: EdgeInsets.only(top: 25, left: 20, right: 10),
                 child: Container(
                   margin: EdgeInsets.only(left: 15, top: 15),
                   child: Column(

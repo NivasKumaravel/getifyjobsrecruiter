@@ -1014,7 +1014,8 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
               _selectedTime = value;
             },),
           ),
-            branchResponseList?.length == 0? Padding(
+            //branchResponseList?.length == 0
+            BranchListOption.length == 0 ? Padding(
               padding: const EdgeInsets.only(bottom: 10,top: 5),
               child:   textfieldDescription1(
                 Controller: _Description,

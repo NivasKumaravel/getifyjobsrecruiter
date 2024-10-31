@@ -447,15 +447,16 @@ Widget buildListView(List<String> yourList) {
 }
 
 //DropDownExperience
-Widget dropDownField(context,
-    {required String? value,
+Widget dropDownField(
+    BuildContext context, {
+      required String? value,
       required List<String> listValue,
       required void Function(String?)? onChanged,
       String? Function(String?)? validator,
-      String? hintText
+      String? hintText,
     }) {
   return Container(
-     height: 50,
+    height: 50,
     width: MediaQuery.of(context).size.width,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
@@ -469,12 +470,12 @@ Widget dropDownField(context,
         border: InputBorder.none,
         hintText: hintText,
         hintStyle: phoneHT,
-        contentPadding: EdgeInsets.only(left: 12.0, right: 12.0,bottom: 5,top: 5), // Ensures space for the error message
+        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10), // Adjusted vertical padding
       ),
       icon: Icon(
         Icons.keyboard_arrow_down_sharp,
         color: Colors.black,
-        size: 35,
+        size: 30,
       ),
       iconEnabledColor: Colors.black,
       items: listValue.map((String option) {
@@ -484,6 +485,7 @@ Widget dropDownField(context,
         );
       }).toList(),
       onChanged: onChanged,
+      isDense: true, // Makes the dropdown more compact
     ),
   );
 }
@@ -542,6 +544,7 @@ Widget NotificationStack() {
       Padding(
         padding: EdgeInsets.only(right: 20, top: 10),
         child: ImgPathSvg("bell.svg"),
+
       ),
       // Positioned(
       //   top: 10,

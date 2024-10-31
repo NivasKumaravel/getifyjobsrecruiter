@@ -164,7 +164,7 @@ class _Recruiter_Response_PopUpState extends State<Recruiter_Response_PopUp> {
 //INTERVIEW SCHEDULE POPUP
   Widget InterviewSchedulePopup(BuildContext context,void Function()? onTap) {
     return AlertDialog(
-      surfaceTintColor: white1,
+      //surfaceTintColor: white1,
       content:Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -179,6 +179,7 @@ class _Recruiter_Response_PopUpState extends State<Recruiter_Response_PopUp> {
             padding: const EdgeInsets.only(top: 15,bottom: 15),
             child: TimePickerFormField(onValidate: (value) {_isTimeSelected = true;  },),
           ),
+
           Padding(
             padding: const EdgeInsets.only(bottom: 10,top: 50),
             child:   textfieldDescription1(
@@ -837,6 +838,9 @@ class _Common_PopUps_WebState extends State<Common_PopUps_Web> {
               padding: const EdgeInsets.only(top: 15,bottom: 15),
               child: TimePickerFormField(onValidate: (value) {_isTimeSelected = true;  },),
             ),
+
+
+
             Padding(
               padding: const EdgeInsets.only(bottom: 10,top: 5),
               child:   textfieldDescription1(

@@ -36,113 +36,121 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
           isTitleUsed: true,
           actions: [],
         ),
-        body: Form(
-          key: _formKey,
+        body: SingleChildScrollView(child: _mainbody())
+    );
+  }
+
+  Widget _mainbody(){
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Form(
+        key: _formKey,
+        child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(child: Logo(context)),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height,
-                    margin: EdgeInsets.only(top: 40),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(25),
-                        topLeft: Radius.circular(25),
-                      ),
-                      color: white1,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 20, top: 35),
-                          child: Center(
-                            child: Text(
-                              "OTP Verification",
-                              style: TitleT,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 20, top: 20),
-                          child: Text(
-                            "Phone Number",
-                            style: inboxcompany,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              left: 20, top: 20, right: 20, bottom: 250),
-                          child:  textFormField(
-                            // isEnabled: false,
-                              hintText: "Enter Mobile Number",
-                              keyboardtype: TextInputType.phone,
-                              Controller: _mobileController,
-                              inputFormatters: [
-                                LengthLimitingTextInputFormatter(10),
-                                FilteringTextInputFormatter.digitsOnly],
-                              onChanged: (value) {
-                                _mobileNumber = value!;
-                              },
-                              validating:(value){
-                                if (value!.isEmpty) {
-                                  return 'Please Enter a Mobile Number';
-                                } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
-                                  return 'Please enter a valid 10-digit mobile number';
-                                }
-                                return null;
-                              }
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 15),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                RichText(
-                                  text: TextSpan(
-                                      text: 'If you already have an account, click ',
-                                      style: richtext1,
-                                      children: <TextSpan>[
-                                        TextSpan(text: 'LOG IN',
-                                            style: richtext2,
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                // navigate to desired screen
-                                                print("object");
-                                              }
-                                        )
-                                      ]
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 16,bottom: 10),
-                                  child: Container(
-                                      width: 260,
-                                      child:CommonElevatedButton(context, "Verify", () {
-                                        if (_formKey.currentState!.validate()) {
-                                          ForgotMobileResponse();
-                                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>Recruiter_Otp_Verification_Screen(isForget: false, mobileNumber: _mobileController.text, recruiterId: '',)));
-                                        }
-                                      })),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                //height: MediaQuery.of(context).size.height/1.5,
+                margin: EdgeInsets.only(top: 40),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(25),
+                    topLeft: Radius.circular(25),
                   ),
+                  color: white1,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 20, top: 35),
+                      child: Center(
+                        child: Text(
+                          "OTP Verification",
+                          style: TitleT,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 20, top: 15),
+                      child: Text(
+                        "Phone Number",
+                        style: inboxcompany,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: 20, top: 20, right: 20, bottom: 150),
+                      child:  textFormField(
+                        // isEnabled: false,
+                          hintText: "Enter Mobile Number",
+                          keyboardtype: TextInputType.phone,
+                          Controller: _mobileController,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(10),
+                            FilteringTextInputFormatter.digitsOnly],
+                          onChanged: (value) {
+                            _mobileNumber = value!;
+                          },
+                          validating:(value){
+                            if (value!.isEmpty) {
+                              return 'Please Enter a Mobile Number';
+                            } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+                              return 'Please enter a valid 10-digit mobile number';
+                            }
+                            return null;
+                          }
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                      const EdgeInsets.only(left: 40, right: 40, top: 15),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  text: 'If you already have an account, click ',
+                                  style: richtext1,
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'LOG IN',
+                                        style: richtext2,
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            // navigate to desired screen
+                                            print("object");
+                                          }
+                                    )
+                                  ]
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16,bottom: 80),
+                              child: Container(
+                                  width: 260,
+                                  child:CommonElevatedButton(context, "Verify", () {
+                                    if (_formKey.currentState!.validate()) {
+                                      ForgotMobileResponse();
+                                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>Recruiter_Otp_Verification_Screen(isForget: false, mobileNumber: _mobileController.text, recruiterId: '',)));
+                                    }
+                                  })),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   //FORGOT MOBILE RESPONSE
