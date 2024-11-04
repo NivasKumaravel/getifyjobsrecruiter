@@ -551,8 +551,8 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
             _profileInformation(title: 'Current Arrears', data: candiateProfileData?.currentArrears ?? ""),
             _profileInformation(title: 'History of Arrears', data: candiateProfileData?.historyOfArrears ?? ""),
             _profileInformation(title: 'Current Percentage/CGPA', data: candiateProfileData?.currentPercentage ?? ""),
+            candiateProfileData?.expectedSalary == "" ? Container() :
             _profileInformation(title: 'Expected Salary', data: candiateProfileData?.expectedSalary ?? ""),
-
             _profileInformation(title: 'Preferred Location', data: candiateProfileData?.preferredLocation ?? ""),
           ],
         ),
@@ -785,12 +785,24 @@ Widget _personalDetailsSection(CandidateCampusProfileData? candiateProfileData){
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 15,),
+            candiateProfileData?.dob == "" ? Container() :
             _profileInformation(title: 'Date of Birth', data: candiateProfileData?.dob ?? ""),
+
+            candiateProfileData?.nationality == "" ? Container() :
             _profileInformation(title: 'Nationality', data: candiateProfileData?.nationality ?? ""),
+
             // _profileInformation(title: 'Languages Known', data: candiateProfileData?. ?? ""),
+
+            candiateProfileData?.maritalStatus == "" ? Container() :
             _profileInformation(title: 'Marital Status', data: candiateProfileData?.maritalStatus ?? ""),
+
+            candiateProfileData?.differentlyAbled == "" ? Container() :
             _profileInformation(title: 'Differently Abled', data: candiateProfileData?.differentlyAbled ?? ""),
+
+            candiateProfileData?.passport == "" ? Container() :
             _profileInformation(title: 'Passport Details', data: candiateProfileData?.passport ?? ""),
+
+            candiateProfileData?.careerBreak == "" ? Container() :
             _profileInformation(title: 'Career Break', data: candiateProfileData?.careerBreak ?? ""),
           ],
         ),

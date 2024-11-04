@@ -142,7 +142,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
         break;
       case "Interview Reschedule":
         containColor=orange3;
-        TagText =Text('Recruiter Reschedule Interview On',style: Yellow,) ;
+        TagText =Text('Recruiter Rescheduled Interview On',style: Yellow,) ;
         break;
       case "Rescheduled Video Interview":
         containColor=orange3;
@@ -496,8 +496,6 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
           candiateProfileData?.careerStatus == 'Student' ? Container() :
           candiateProfileData?.careerStatus == 'Experienced' ?
           _profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""):
-
-
           candiateProfileData?.experience == null?Container(): _profileInformation(title: 'Experience', data: candiateProfileData?.experience ?? ""),
           _profileInformation(title: 'Skill Set', data: candiateProfileData?.skill ?? ""),
           _profileInformation(title: 'Qualification', data: candiateProfileData?.qualification ?? ""),

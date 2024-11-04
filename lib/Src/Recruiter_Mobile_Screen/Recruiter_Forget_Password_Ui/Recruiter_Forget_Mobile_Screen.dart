@@ -114,10 +114,10 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                           children: [
                             RichText(
                               text: TextSpan(
-                                  text: 'If you already have an account, click ',
+                                  text: 'If you Already Have an Account, Click ',
                                   style: richtext1,
                                   children: <TextSpan>[
-                                    TextSpan(text: 'LOG IN',
+                                    TextSpan(text: 'Log in',
                                         style: richtext2,
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {

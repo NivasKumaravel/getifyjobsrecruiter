@@ -454,41 +454,66 @@ Widget dropDownField(
       required void Function(String?)? onChanged,
       String? Function(String?)? validator,
       String? hintText,
+      String? errorMessage, // Add an optional error message parameter
     }) {
-  return Container(
-    height: 50,
-    width: MediaQuery.of(context).size.width,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      color: white2,
-    ),
-    child: DropdownButtonFormField<String>(
-      value: value,
-      isExpanded: true,
-      validator: validator,
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: hintText,
-        hintStyle: phoneHT,
-        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10), // Adjusted vertical padding
+  // Create a variable for validation
+  final isError = (errorMessage != null && errorMessage.isNotEmpty);
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start, // Aligns children to the start
+    children: [
+      Container(
+        //height: 50, // Adjust height based on error presence
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: white2
+        ),
+        child: DropdownButtonFormField<String>(
+          value: value,
+          isExpanded: true,
+          validator: validator,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: hintText,
+            hintStyle: phoneHT,
+            contentPadding: isError
+                ? EdgeInsets.only(top: 25)
+                : EdgeInsets.only(bottom: 10,left: 10,right: 10),
+          ),
+          icon: Icon(
+            Icons.keyboard_arrow_down_sharp,
+            color: Colors.black,
+            size: 30,
+          ),
+          iconEnabledColor: Colors.black,
+          items: listValue.map((String option) {
+            return DropdownMenuItem<String>(
+              value: option,
+              child: Text(option),
+            );
+          }).toList(),
+          onChanged: onChanged,
+          isDense: true,
+        ),
       ),
-      icon: Icon(
-        Icons.keyboard_arrow_down_sharp,
-        color: Colors.black,
-        size: 30,
-      ),
-      iconEnabledColor: Colors.black,
-      items: listValue.map((String option) {
-        return DropdownMenuItem<String>(
-          value: option,
-          child: Text(option),
-        );
-      }).toList(),
-      onChanged: onChanged,
-      isDense: true, // Makes the dropdown more compact
-    ),
+      // Display the error message if there is one
+      if (isError)
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0), // Space between dropdown and error message
+          child: Text(
+            errorMessage!,
+            style: TextStyle(
+              color: Colors.red, // Error color
+              fontSize: 12, // Adjust font size as needed
+              height: 1.5, // Line height to create spacing
+            ),
+          ),
+        ),
+    ],
   );
 }
+
 
 
 //DROPDOWN WHITE1

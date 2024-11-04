@@ -685,7 +685,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "history_of_arrears": _historyOfArrear.text,
       "required_percentage": _requriedPercentage.text,
       "location": preferredlocationOption,
-      "experience": experienceOtion,
+      "experience": experienceVal,
       "work_mode": workTypeOption,
       "work_type": _value == 0
           ? "Full Time"
@@ -763,7 +763,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "history_of_arrears": _historyOfArrear.text,
       "required_percentage": _requriedPercentage.text,
       "location": preferredlocationOption,
-      "experience": experienceOtion,
+      "experience": experienceVal,
       "work_type": _value == 0
           ? "Full Time"
           : _value == 1

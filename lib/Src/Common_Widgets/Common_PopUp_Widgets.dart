@@ -1032,7 +1032,9 @@ class _RequestCallPopupWebState extends State<RequestCallPopupWeb> {
                     })),
                 Container(
                     width:MediaQuery.of(context).size.width/3.5,
-                    child: CommonElevatedButton(context, "Confirm", onPress)),
+                    child: CommonElevatedButton(context, "Confirm", (){
+                      //_insufficientCoinsPopup(context);
+                    })),
               ],
             ),
             const  SizedBox(height: 10,),
