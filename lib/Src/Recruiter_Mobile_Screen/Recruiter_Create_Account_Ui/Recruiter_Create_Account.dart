@@ -664,23 +664,21 @@ class _Recruiter_Create_Account_ScreenState
                               widget.isEdit == true ? "Submit" : "Register", () {
                                 FocusManager.instance.primaryFocus?.unfocus();
                             if (_formKey.currentState!.validate()) {
-
-
                               if (_validateTerms(_isChecked) == null) {
                                 widget.isEdit == true
                                     ? editProfileApiResponse()
                                     : registrationApiResponse();
-                              } else if (_value == null) {
-
+                              }
+                              else if (_value == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text('Do you have any other branch'),
+                                    content: Text('Branch Selection is Required'),
                                   ),
                                 );
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text('Please read and agree to our T&C'),
+                                    content: Text('Please Read and Agree to Our T&C'),
                                   ),
                                 );
                               }

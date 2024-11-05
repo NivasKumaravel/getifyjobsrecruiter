@@ -117,7 +117,9 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
     }
     return Scaffold(
       backgroundColor: white2,
-      bottomNavigationBar:     widget.TagContain == "Applied"?null: Container  (
+      bottomNavigationBar:
+      //widget.TagContain == "Applied"?null:
+      Container  (
         height: 90,
         color: white1,
         child: Row(

@@ -331,7 +331,7 @@ class _Recruiter_Campus_List_CandidatesState extends ConsumerState<Recruiter_Cam
   Widget appliedList(AppliedCandidateData? appliedCandidateResponseData, String? campusId, String? jobId){
     return ListView.builder(
       itemCount: appliedCandidateResponseData?.items?.length ?? 0,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: const ScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {

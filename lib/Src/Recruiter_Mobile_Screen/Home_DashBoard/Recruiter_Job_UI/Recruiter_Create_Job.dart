@@ -287,6 +287,29 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         },
                       ),
 
+                      //Experience
+                      Title_Style(Title: 'Experience Type', isStatus: true),
+                      dropDownField(
+                          context,
+                          hintText: "Select your Preference",
+                          value: experienceVal,
+                          listValue: experienceOtion,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              experienceVal = newValue;
+                            });
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please Add Experience Type";
+                            }
+                            if (value == null) {
+                              return "Please Add Experience Type";
+                            }
+                            return null;
+                          }
+                      ),
+
 
                       //Current Arrears
                       experienceVal == 'Experienced' ? Container() :
@@ -375,29 +398,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         ),
                       ),
 
-
-                      //Experience
-                      Title_Style(Title: 'Experience Type', isStatus: true),
-                      dropDownField(
-                        context,
-                        hintText: "Select your Preference",
-                        value: experienceVal,
-                        listValue: experienceOtion,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            experienceVal = newValue;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please Add Experience Type";
-                          }
-                          if (value == null) {
-                            return "Please Add Experience Type";
-                          }
-                          return null;
-                        }
-                      ),
                       //Years of Experience
                       experienceVal == 'Fresher' ? Container() :
                       Title_Style(Title: 'Years of Experience', isStatus: true),

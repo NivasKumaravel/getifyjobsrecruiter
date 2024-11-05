@@ -484,12 +484,12 @@ class _Recruiter_JobDetail_PageState
                     headertxt: "History of Arrears",
                     subtxt:
                         DirectJobDetailResponseData?.historyOfArrears ?? ""),
-            DirectJobDetailResponseData?.requiredPercentage == null
+
+            DirectJobDetailResponseData?.requiredPercentage == ''
                 ? Container()
                 : textWithheader(
                     headertxt: "Required Percentage/CGPA",
-                    subtxt:
-                        DirectJobDetailResponseData?.requiredPercentage ?? ""),
+                    subtxt: DirectJobDetailResponseData?.requiredPercentage ?? ""),
             textWithheader(
                 headertxt: "Work Type",
                 subtxt: DirectJobDetailResponseData?.workType ?? ""),
