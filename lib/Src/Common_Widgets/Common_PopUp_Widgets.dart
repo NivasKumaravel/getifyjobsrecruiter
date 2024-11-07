@@ -252,10 +252,10 @@ class _Recruiter_Response_PopUpState extends State<Recruiter_Response_PopUp> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                  width:MediaQuery.of(context).size.width/3.5,
+                  width:MediaQuery.of(context).size.width/3.4,
                   child: CommonElevatedButton(context, "Cancel", () {})),
               Container(
-                  width:MediaQuery.of(context).size.width/3.5,
+                  width:MediaQuery.of(context).size.width/3.4,
                   child: CommonElevatedButton(context, "Confirm", onTap)),
             ],
           ),
@@ -425,10 +425,10 @@ class _Recruiter_Response_PopUp_WebState extends State<Recruiter_Response_PopUp_
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                    width:MediaQuery.of(context).size.width/3.5,
+                    width:MediaQuery.of(context).size.width/3.4,
                     child: CommonElevatedButton(context, "Cancel", () {})),
                 Container(
-                    width:MediaQuery.of(context).size.width/3.5,
+                    width:MediaQuery.of(context).size.width/3.4,
                     child: CommonElevatedButton(context, "Confirm", onTap)),
               ],
             ),
@@ -622,12 +622,12 @@ Widget InterviewConfirmationPopupWeb(BuildContext context,{required void Functio
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                  width:MediaQuery.of(context).size.width/3.5,
+                  width:MediaQuery.of(context).size.width/3.4,
                   child: CommonElevatedButton(context, "Cancel", () {
                     Navigator.pop(context);
                   })),
               Container(
-                  width:MediaQuery.of(context).size.width/3.5,
+                  width:MediaQuery.of(context).size.width/3.4,
                   child: CommonElevatedButton(context, "Confirm", onPress)),
 
             ],
@@ -688,12 +688,12 @@ Widget RescheduleConfirmationPop(BuildContext context,{required String typeT,req
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                  width:MediaQuery.of(context).size.width/3.5,
+                  width:MediaQuery.of(context).size.width/3.8,
                   child: CommonElevatedButton(context, "Cancel", () {
                     Navigator.pop(context);
                   })),
               Container(
-                  width:MediaQuery.of(context).size.width/3.5,
+                  width:MediaQuery.of(context).size.width/3.8,
                   child: CommonElevatedButton(context, "Confirm", onPress)),
 
             ],
@@ -720,12 +720,12 @@ Widget InterviewRescheduleConfirmationPop(BuildContext context,{required String 
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                  width:MediaQuery.of(context).size.width/3.5,
+                  width:MediaQuery.of(context).size.width/3.8,
                   child: CommonElevatedButton(context, "Cancel", () {
                     Navigator.pop(context);
                   })),
               Container(
-                  width:MediaQuery.of(context).size.width/3.5,
+                  width:MediaQuery.of(context).size.width/3.8,
                   child: CommonElevatedButton(context, "Confirm", onPress)),
 
             ],

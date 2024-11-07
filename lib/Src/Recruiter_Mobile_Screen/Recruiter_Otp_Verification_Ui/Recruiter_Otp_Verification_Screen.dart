@@ -142,157 +142,159 @@ class _Otp_Verification_PageState extends ConsumerState<Recruiter_Otp_Verificati
         isLogoUsed: true,
         isTitleUsed: true,
       ),
-      body: SingleChildScrollView(
-        child: GestureDetector(
-          onTap: (){
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Column(
-            children: [
-              Center(child: Logo(context)),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Container(
-                  height:  MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
+      body: SingleChildScrollView(child: _Mainbody()),
+    );
+  }
+  
+  Widget _Mainbody (){
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Column(
+        children: [
+          Center(child: Logo(context)),
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Container(
+              //height:  MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
 
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(25),topLeft: Radius.circular(25)),
-                    color: white1,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20,right: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start  ,
-                      children: [
-                        Container(
-                            margin: EdgeInsets.only(top: 35,bottom: 25),
-                            alignment: Alignment.center,
-                            child: Text(widget.isForget==true?"Forgot Password":"OTP Verification",style: TitleT,)),
-                        Center(child: Text("We have sent a verification code to",style: inboxcompany,)),
-                        Center(child: Padding(
-                          padding: const EdgeInsets.only(bottom: 25),
-                          child: Text(_formatNumber(widget.mobileNumber ?? ""),style: TBlack,),
-                        )),
-                        Container(
-                          // color: Colors.green,
-                          width: MediaQuery.of(context).size.width,
-                          alignment: Alignment.centerLeft,
-                          height: 50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              _textFieldOTP(first: true, last: true, controllers: _OTP1),
-                              _textFieldOTP(first: true, last: true, controllers: _OTP2),
-                              _textFieldOTP(first: true, last: true, controllers: _OTP3),
-                              _textFieldOTP(first: true, last: true, controllers: _OTP4),
-                              _textFieldOTP(first: true, last: true, controllers: _OTP5),
-                              _textFieldOTP(first: true, last: true, controllers: _OTP6),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20,left: 20),
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap:
-                                // _isTimerActive ? null:
-                                    () {
-                                  _startTimer();
-                                  // if(ResendOut?.status=="success"){
-                                  //   _startTimer();
-                                  //   var response = ResendApi(context);
-                                  //   print(" final Responses ${response}");
-                                  // }else{
-                                  //   return null;
-                                  // }
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topRight: Radius.circular(25),topLeft: Radius.circular(25)),
+                color: white1,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20,right: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start  ,
+                  children: [
+                    Container(
+                        margin: EdgeInsets.only(top: 35,bottom: 25),
+                        alignment: Alignment.center,
+                        child: Text(widget.isForget==true?"Forgot Password":"OTP Verification",style: TitleT,)),
+                    Center(child: Text("We have sent a verification code to",style: inboxcompany,)),
+                    Center(child: Padding(
+                      padding: const EdgeInsets.only(bottom: 25),
+                      child: Text(_formatNumber(widget.mobileNumber ?? ""),style: TBlack,),
+                    )),
+                    Container(
+                      // color: Colors.green,
+                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.centerLeft,
+                      height: 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _textFieldOTP(first: true, last: true, controllers: _OTP1),
+                          _textFieldOTP(first: true, last: true, controllers: _OTP2),
+                          _textFieldOTP(first: true, last: true, controllers: _OTP3),
+                          _textFieldOTP(first: true, last: true, controllers: _OTP4),
+                          _textFieldOTP(first: true, last: true, controllers: _OTP5),
+                          _textFieldOTP(first: true, last: true, controllers: _OTP6),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20,left: 20),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap:
+                            // _isTimerActive ? null:
+                                () {
+                              _startTimer();
+                              // if(ResendOut?.status=="success"){
+                              //   _startTimer();
+                              //   var response = ResendApi(context);
+                              //   print(" final Responses ${response}");
+                              // }else{
+                              //   return null;
+                              // }
 
-                                },
-                                child: Container(
-                                  alignment: Alignment.topRight,
-                                  child: Text(
-                                      _isTimerActive? "00:$_timeLeft":
-                                      "",
-                                      // style: changeT,
-                                      style:TextStyle(color: red1)
-                                  ),
-                                ),
+                            },
+                            child: Container(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                  _isTimerActive? "00:$_timeLeft":
+                                  "",
+                                  // style: changeT,
+                                  style:TextStyle(color: red1)
                               ),
-                              Spacer(),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                child: InkWell(
-                                  onTap: (){
-                                    _startTimer();
-                                    _OTP1.clear();
-                                    _OTP2.clear();
-                                    _OTP3.clear();
-                                    _OTP4.clear();
-                                    _OTP5.clear();
-                                    _OTP6.clear();
-                                  },
-                                  child: Text(
-                                    _isTimerActive
-                                        ? 'Resend OTP'
-                                        : 'Resend OTP',
-                                    style: TextStyle(
-                                        color: _isTimerActive
-                                            ?  red1
-                                            : Color.fromRGBO(34, 152, 255, 1),
-                                        fontFamily: 'Inter', fontSize: 14, fontWeight: FontWeight.w400
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 100,),
-                        Padding(
-                          padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 15),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                RichText(
-                                  text: TextSpan(
-                                      text: 'If you already have an account, click ',
-                                      style: richtext1,
-                                      children: <TextSpan>[
-                                        TextSpan(text: 'Log in',
-                                            style: richtext2,
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                // navigate to desired screen
-                                                print("object");
-                                              }
-                                        )
-                                      ]
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 16,bottom: 10),
-                                  child: Container(
-                                      width: 260,
-                                      child:CommonElevatedButton(context, "Verify", () =>widget.isForget == true?ForgotOtpVerificationResponse():Otp_Verification_Response())),
-                                ),
-                              ],
                             ),
                           ),
-                        ),
-                      ],
+                          Spacer(),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: (){
+                                _startTimer();
+                                _OTP1.clear();
+                                _OTP2.clear();
+                                _OTP3.clear();
+                                _OTP4.clear();
+                                _OTP5.clear();
+                                _OTP6.clear();
+                              },
+                              child: Text(
+                                _isTimerActive
+                                    ? 'Resend OTP'
+                                    : 'Resend OTP',
+                                style: TextStyle(
+                                    color: _isTimerActive
+                                        ?  red1
+                                        : Color.fromRGBO(34, 152, 255, 1),
+                                    fontFamily: 'Inter', fontSize: 14, fontWeight: FontWeight.w400
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 100,),
+                    Padding(
+                      padding:
+                      const EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 15),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  text: 'If you Already Have an Account, Click ',
+                                  style: richtext1,
+                                  children: <TextSpan>[
+                                    TextSpan(text: 'Log in',
+                                        style: richtext2,
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            // navigate to desired screen
+                                            print("object");
+                                          }
+                                    )
+                                  ]
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16,bottom: 40),
+                              child: Container(
+                                  width: 260,
+                                  child:CommonElevatedButton(context, "Verify", () =>widget.isForget == true?ForgotOtpVerificationResponse():Otp_Verification_Response())),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

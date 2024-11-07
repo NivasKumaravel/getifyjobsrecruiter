@@ -481,7 +481,7 @@ class _Recruiter_Campus_Job_Detail_ScreenState extends ConsumerState<Recruiter_C
         //LOCATION
         _IconWithText(iconimg: "map-pin.svg", icontext: campusJobDetailResponseData?.location ?? ""),
         //SALARY
-        _IconWithText(iconimg: "wallet.svg", icontext: '₹ ${campusJobDetailResponseData?.salaryFrom ?? ""} - ${campusJobDetailResponseData?.salaryTo ?? ""} LPA')
+        _IconWithText(iconimg: "wallet.svg", icontext: '₹ ${campusJobDetailResponseData?.salaryFrom ?? ""} - ${campusJobDetailResponseData?.salaryTo ?? ""} Per Annum')
       ],
     );
   }

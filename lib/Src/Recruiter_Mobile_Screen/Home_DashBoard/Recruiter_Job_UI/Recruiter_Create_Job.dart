@@ -112,6 +112,40 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
   List<String> preferredlocationOption = [];
 
+  String _toTitleCase(String text) {
+    if (text.isEmpty) return '';
+
+    return text.toLowerCase().split(' ').map((word) {
+      if (word.isNotEmpty) {
+        return word[0].toUpperCase() + word.substring(1);
+      }
+      return '';
+    }).join(' ');
+  }
+
+  void _JobTitleFormat() {
+    final text = _jobTitleController.text;
+    final formattedText = _toTitleCase(text);
+    if (text != formattedText) {
+      _jobTitleController.value = TextEditingValue(
+        text: formattedText,
+        selection: TextSelection.collapsed(offset: formattedText.length),
+      );
+    }
+  }
+
+
+  void _JobDescriptionFormat() {
+    final text = _jobDescriptionController.text;
+    final formattedText = _toTitleCase(text);
+    if (text != formattedText) {
+      _jobDescriptionController.value = TextEditingValue(
+        text: formattedText,
+        selection: TextSelection.collapsed(offset: formattedText.length),
+      );
+    }
+  }
+
 
 
   EditSingleJob() async {
@@ -158,6 +192,8 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       loadApicalls();
     });
     widget.isEdit == true ? EditSingleJob() : null;
+    _jobTitleController.addListener(_JobTitleFormat);
+    _jobDescriptionController.addListener(_JobDescriptionFormat);
   }
 
   loadApicalls() async {
@@ -426,12 +462,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       Title_Style(Title: 'Shift Details', isStatus: true),
                       dropDownField(
                         context,
-                        hintText:'Select your Preference',
+                        hintText: 'Select your Preference',
                         validator: (value) {
-                          if (value == null ) {
-                            return "Please Add Shift Details";
-                          }
-                          if (value == null) {
+                          if (value == null || value.isEmpty) {
                             return "Please Add Shift Details";
                           }
                           return null;
@@ -468,7 +501,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                                   Controller: _salaryFrom,
                                   validating:  (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please Enter Current Salary';
+                                      return 'Please Enter From Salary';
                                     }
                                     if (double.tryParse(value) == null) {
                                       return 'Please Enter a valid number';

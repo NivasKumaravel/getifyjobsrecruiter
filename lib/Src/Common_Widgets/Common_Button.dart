@@ -203,7 +203,7 @@ Widget Floating_Button_Campus(context, {required Function()? onTap}) {
           // shape: CircleBorder(),
           // child: Icon(Icons.group_add),
           onTap: onTap,
-          label: "Bulk Jobs"),
+          label: "Bulk Job"),
     ],
   );
 }

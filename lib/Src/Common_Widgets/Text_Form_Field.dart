@@ -454,20 +454,19 @@ Widget dropDownField(
       required void Function(String?)? onChanged,
       String? Function(String?)? validator,
       String? hintText,
-      String? errorMessage, // Add an optional error message parameter
+      String? errorMessage,
     }) {
   // Create a variable for validation
   final isError = (errorMessage != null && errorMessage.isNotEmpty);
 
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start, // Aligns children to the start
+    crossAxisAlignment: CrossAxisAlignment.start, // Align the error to the left
     children: [
       Container(
-        //height: 50, // Adjust height based on error presence
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: white2
+          color: white2,
         ),
         child: DropdownButtonFormField<String>(
           value: value,
@@ -479,7 +478,7 @@ Widget dropDownField(
             hintStyle: phoneHT,
             contentPadding: isError
                 ? EdgeInsets.only(top: 25)
-                : EdgeInsets.only(bottom: 10,left: 10,right: 10),
+                : EdgeInsets.only(bottom: 10, left: 10, right: 10),
           ),
           icon: Icon(
             Icons.keyboard_arrow_down_sharp,
@@ -497,10 +496,10 @@ Widget dropDownField(
           isDense: true,
         ),
       ),
-      // Display the error message if there is one
+      // Display the error message outside the container if there is one
       if (isError)
         Padding(
-          padding: const EdgeInsets.only(top: 8.0), // Space between dropdown and error message
+          padding: const EdgeInsets.only(top: 4.0), // Adjust padding as needed
           child: Text(
             errorMessage!,
             style: TextStyle(
@@ -513,6 +512,7 @@ Widget dropDownField(
     ],
   );
 }
+
 
 
 

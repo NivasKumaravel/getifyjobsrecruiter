@@ -498,6 +498,8 @@ class _Recruiter_JobDetail_PageState
                 : textWithheader(
                     headertxt: "Work Mode",
                     subtxt: DirectJobDetailResponseData?.workMode ?? ""),
+
+
             textWithheader(
                 headertxt: "Shift Details",
                 subtxt: DirectJobDetailResponseData?.shiftDetails ?? ""),
@@ -506,6 +508,7 @@ class _Recruiter_JobDetail_PageState
             // textWithheader(
             //     headertxt: "Salary Range",
             //     subtxt: '₹${DirectJobDetailResponseData?.salaryFrom ?? ""} - ₹${DirectJobDetailResponseData?.salaryTo ?? ""}'),
+
 
             DirectJobDetailResponseData?.statutoryBenefits == ''
                 ? Container()
@@ -549,7 +552,7 @@ class _Recruiter_JobDetail_PageState
         _IconWithText(
             iconimg: "wallet.svg",
             icontext:
-                '₹ ${DirectJobDetailResponseData?.salaryFrom ?? ""} - ${DirectJobDetailResponseData?.salaryTo ?? ""} LPA')
+                '₹ ${DirectJobDetailResponseData?.salaryFrom ?? ""} - ${DirectJobDetailResponseData?.salaryTo ?? ""} Per Annum')
       ],
     );
   }

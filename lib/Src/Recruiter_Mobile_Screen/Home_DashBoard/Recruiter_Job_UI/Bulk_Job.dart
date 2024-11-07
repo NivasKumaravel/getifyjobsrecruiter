@@ -158,7 +158,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
           isUsed: false,
           actions: [],
           isLogoUsed: true,
-          title: "Bulk Jobs",
+          title: "Bulk Job",
           isTitleUsed: true,
         ),
         body: Form(
