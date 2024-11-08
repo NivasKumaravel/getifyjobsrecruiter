@@ -354,7 +354,7 @@ Widget buildCompanyInfoRow(String pathPNG, String companyName,
                       border: const Radius.circular(25), fit: BoxFit.cover),
                 ),
           SizedBox(
-            width: 20,
+            width: 25,
           ),
           Expanded(
             child: Container(

@@ -70,6 +70,7 @@ class _Recruiter_Create_Account_ScreenState
     _focusNode.dispose();
     _focusNode1.dispose();
     _focusNode3.dispose();
+    focusind.dispose();
     super.dispose();
   }
 
@@ -531,7 +532,8 @@ class _Recruiter_Create_Account_ScreenState
                                   isSameAsOfficial = value!;
                                   if (isSameAsOfficial) {
                                     _Phonenumber.text = _EnterOfficialMobile.text;
-                                  } else {
+                                  }
+                                  else {
                                     _Phonenumber.clear();
                                   }
                                 });
@@ -668,8 +670,7 @@ class _Recruiter_Create_Account_ScreenState
                                 widget.isEdit == true
                                     ? editProfileApiResponse()
                                     : registrationApiResponse();
-                              }
-                              else if (_value == null) {
+                              } else if (_value == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text('Branch Selection is Required'),

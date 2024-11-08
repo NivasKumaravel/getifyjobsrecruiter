@@ -336,8 +336,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                               builder: (context) =>
                                   Recruiter_College_Detail_Screen(
                                     campusId:
-                                        campusResponseData?[index].campusId ??
-                                            "",
+                                        campusResponseData?[index].campusId ?? "",
                                   ))).then((value) {
                           campusResponseData = [];
                           tempCampusResponseData = [];

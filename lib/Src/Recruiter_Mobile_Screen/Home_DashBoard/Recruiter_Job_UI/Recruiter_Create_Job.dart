@@ -448,7 +448,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       ),
                       dropDownField(
                         context,
-                        hintText: 'Work Type',
+                        hintText: 'Work Mode',
                         value: workTypeOption,
                         listValue: workTypeVal,
                         onChanged: (String? newValue) {

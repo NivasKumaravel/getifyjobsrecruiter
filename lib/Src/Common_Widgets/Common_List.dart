@@ -257,7 +257,7 @@ Widget CampusList({
                   margin:
                       EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 15),
                   child: buildCompanyInfoRow(
-                      "map-pin (1).png", collegeLocation, Homegrey2, 20, 20,
+                      "map-pin (1).png", collegeLocation, Homegrey2, 22, 22,
                       isMapLogo: true)),
               iscampTag == "Not Applied"
                   ? Container()

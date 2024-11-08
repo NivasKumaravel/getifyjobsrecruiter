@@ -287,7 +287,7 @@ class _Recruiter_JobDetail_PageState
               ),
               //POSTED DATE
               Text(
-                "Deadline : " +"${DirectJobDetailResponseData?.expiryDate ?? ""}",
+                "Deadline   : " +"${DirectJobDetailResponseData?.expiryDate ?? ""}",
                 style: deadtxt,
               ),
               SizedBox(
@@ -526,7 +526,6 @@ class _Recruiter_JobDetail_PageState
                 : textWithheader(
                     headertxt: "Other Benefits",
                     subtxt: DirectJobDetailResponseData?.otherBenefits ?? ""),
-
 
           ],
         ),

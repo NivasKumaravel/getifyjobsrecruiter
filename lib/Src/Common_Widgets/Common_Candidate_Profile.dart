@@ -291,7 +291,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                         Center(child: Text('${candiateProfileData?.scheduleRequested?.interviewTime ?? ""}, ${candiateProfileData?.scheduleRequested?.interviewDate ?? ""}',style: Wbalck4,)),
                         //RESCHEDULE REQUEST
                         const SizedBox(height: 15,),
-                        Center(child: Text('Requested for Reschedule Interview on',style: attacht1,)),
+                        Center(child: Text('Reschedule Requested',style: attacht1,)),
                         Center(child: Text('${candiateProfileData?.candidateReschedule?.interviewTime ?? ""}, ${candiateProfileData?.candidateReschedule?.interviewDate ?? ""}',style: Wbalck4,)),
                         const SizedBox(height: 10,),
                         //RESCHEDULE BUTTON
@@ -405,7 +405,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                         padding: const EdgeInsets.only(top: 25),
                         child: Column(
                           children: [
-                            Center(child: Text('Reschedule Direct Interview on',style: attacht1,)),
+                            Center(child: Text('Rescheduled Direct Interview on',style: attacht1,)),
                             Center(child: Text('${candiateProfileData?.interviewReschedule?.interviewTime == null?SingleTon().setTime:
                             candiateProfileData?.interviewReschedule?.interviewTime ?? "" }, '
                             '${candiateProfileData?.interviewReschedule?.interviewDate == null?

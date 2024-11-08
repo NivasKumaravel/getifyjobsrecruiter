@@ -100,7 +100,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                             if (value!.isEmpty) {
                               return 'Please Enter a Mobile Number';
                             } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
-                              return 'Please enter a valid 10-digit mobile number';
+                              return 'Please Enter a valid 10-digit Mobile Number';
                             }
                             return null;
                           }
@@ -168,7 +168,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
         mobileNumber: _mobileController.text,
         recruiterId: "${forgotMobileApiResponse?.data?.updateRecruiter ?? 0}",)));
     }else{
-      ShowToastMessage(forgotMobileApiResponse.message ?? "");
+      ShowToastMessage("Please Enter Valid Mobile Number");
     }
   }
 }

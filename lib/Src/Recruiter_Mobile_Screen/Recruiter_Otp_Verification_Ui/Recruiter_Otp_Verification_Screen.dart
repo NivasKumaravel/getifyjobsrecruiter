@@ -282,8 +282,26 @@ class _Otp_Verification_PageState extends ConsumerState<Recruiter_Otp_Verificati
                             Padding(
                               padding: const EdgeInsets.only(top: 16,bottom: 40),
                               child: Container(
-                                  width: 260,
-                                  child:CommonElevatedButton(context, "Verify", () =>widget.isForget == true?ForgotOtpVerificationResponse():Otp_Verification_Response())),
+                                width: 260,
+                                child: CommonElevatedButton(
+                                    context,
+                                    "Verify",
+                                        () {
+                                      // Validate OTP fields before proceeding
+                                      if (_OTP1.text.isEmpty || _OTP2.text.isEmpty || _OTP3.text.isEmpty ||
+                                          _OTP4.text.isEmpty || _OTP5.text.isEmpty || _OTP6.text.isEmpty) {
+                                        // Show error message if any OTP field is empty
+                                        ShowToastMessage("Please Enter the OTP");
+                                      } else {
+                                        // If OTP is valid, proceed with the appropriate API call
+                                        widget.isForget == true
+                                            ? ForgotOtpVerificationResponse()
+                                            : Otp_Verification_Response();
+                                      }
+                                    }
+                                ),
+                              )
+
                             ),
                           ],
                         ),
