@@ -51,6 +51,7 @@ class DirectDetailsData {
   String? createdDate;
   String? expiryDate;
   InterviewSchedule? interviewSchedule;
+  String? yearsofexperience;
 
   DirectDetailsData(
       {this.jobId,
@@ -78,7 +79,9 @@ class DirectDetailsData {
       this.recruiterId,
       this.createdDate,
       this.expiryDate,
-      this.interviewSchedule});
+      this.interviewSchedule,
+      this.yearsofexperience,
+      });
 
   DirectDetailsData.fromJson(Map<String, dynamic> json) {
     jobId = json['job_id'];
@@ -106,6 +109,7 @@ class DirectDetailsData {
     recruiterId = json['recruiter_id'];
     createdDate = json['created_date'];
     expiryDate = json['expiry_date'];
+    yearsofexperience = json['years_of_experience'];
 
     dynamic interviewSchedule = json['interview_schedule'];
 
@@ -144,6 +148,7 @@ class DirectDetailsData {
     data['recruiter_id'] = this.recruiterId;
     data['created_date'] = this.createdDate;
     data['expiry_date'] = this.expiryDate;
+    data['years_of_experience'] = this.yearsofexperience;
     if (this.interviewSchedule != []) {
       data['interview_schedule'] = this.interviewSchedule!.toJson();
     }

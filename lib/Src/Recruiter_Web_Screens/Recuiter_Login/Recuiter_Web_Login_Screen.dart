@@ -289,7 +289,7 @@ class _Recuiter_Web_Login_ScreenState
           text: TextSpan(
             children: <TextSpan>[
               TextSpan(
-                text: 'If you don’t Have a Account, Click  ',
+                text: 'If you don’t Have a Account, Click  ,',
                 style: richtext1,
               ),
               TextSpan(

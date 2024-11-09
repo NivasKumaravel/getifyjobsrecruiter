@@ -504,6 +504,11 @@ class _Recruiter_JobDetail_PageState
                 headertxt: "Shift Details",
                 subtxt: DirectJobDetailResponseData?.shiftDetails ?? ""),
 
+            DirectJobDetailResponseData?.yearsofexperience == null ? Container() :
+            textWithheader(
+                headertxt: "Years of Experience",
+                subtxt: DirectJobDetailResponseData?.yearsofexperience ?? ""),
+
             // DirectJobDetailResponseData?.salaryFrom == '' && DirectJobDetailResponseData?.salaryTo == '' ? Container() :
             // textWithheader(
             //     headertxt: "Salary Range",
@@ -526,6 +531,7 @@ class _Recruiter_JobDetail_PageState
                 : textWithheader(
                     headertxt: "Other Benefits",
                     subtxt: DirectJobDetailResponseData?.otherBenefits ?? ""),
+
 
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getifyjobs/Models/CollegeProfileModel.dart';
 import 'package:getifyjobs/Models/DirectDetailsModel.dart';
@@ -354,7 +355,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       textFormField(
                         hintText: 'Current Arrears',
                         keyboardtype: TextInputType.number,
-                        inputFormatters: null,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         Controller: _currentArrear,
                         // validating: (value) {
                         //   if (value == null || value.isEmpty) {
@@ -375,7 +378,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       textFormField(
                         hintText: 'History of Arrears',
                         keyboardtype: TextInputType.number,
-                        inputFormatters: null,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         Controller: _historyOfArrear,
                         // validating: (value) {
                         //   if (value == null || value.isEmpty) {
@@ -394,7 +399,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       textFormField(
                         hintText: 'Required Percentage',
                         keyboardtype: TextInputType.number,
-                        inputFormatters: null,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         Controller: _requriedPercentage,
                         validating: null,
                         onChanged: null,

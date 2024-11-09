@@ -98,6 +98,8 @@ class _Recruiter_College_Detail_ScreenState
                   subtxt: "Staffs: ${campusResponseData?.volunteerStaffs ?? ""}\nStudents: ${campusResponseData?.volunteerStudents ?? ""}"),
               textWithheader(
                   headertxt: "Campus Held at", subtxt: campusResponseData?.campusHeldAt ?? ''),
+
+
               Padding(
                 padding: const EdgeInsets.only(bottom: 20, top: 20),
                 child: Center(
@@ -132,7 +134,7 @@ class _Recruiter_College_Detail_ScreenState
             buildCompanyInfoRow(campusResponseData?.logo ?? '',
                 campusResponseData?.name ?? '', dateT, 40, 40, isMapLogo: false),
             buildCompanyInfoRow(
-                "map-pin (1).png", campusResponseData?.location ?? "", Wgrey, 16, 16, isMapLogo: true),
+                "map-pin (1).png", campusResponseData?.location ?? "", Wgrey, 19, 19, isMapLogo: true),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(

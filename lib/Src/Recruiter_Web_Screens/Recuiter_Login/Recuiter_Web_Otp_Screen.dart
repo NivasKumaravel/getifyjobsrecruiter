@@ -119,7 +119,7 @@ class _Recuiter_Web_Otp_ScreenState extends State<Recuiter_Web_Otp_Screen> {
                                           style: richtext1,
                                           children: <TextSpan>[
                                             TextSpan(
-                                                text: 'Log in',
+                                                text: 'Log In',
                                                 style: richtext2,
                                                 recognizer:
                                                     TapGestureRecognizer()

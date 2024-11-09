@@ -122,6 +122,8 @@ class _RecuiterProfileState extends ConsumerState<Recuiter_Profile_Screen> {
               margin: EdgeInsets.only(left: 15, top: 15),
               child: Column(
                 children: [
+
+                  profileDataResponse?.phone == profileDataResponse?.personalPhone ? Container() :
                   Padding(
                     padding: const EdgeInsets.only(bottom: 15),
                     child: Row(

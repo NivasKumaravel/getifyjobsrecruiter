@@ -212,7 +212,7 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
           text: TextSpan(
             children: <TextSpan>[
               TextSpan(
-                text: 'If you don’t have an Account, Click  ',
+                text: 'If you Don’t Have an Account, Click  ',
                 style: richtext1,
               ),
               TextSpan(

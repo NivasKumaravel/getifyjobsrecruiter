@@ -259,7 +259,7 @@ class _Recuiter_Web_Otp_VerificationState extends State<Recuiter_Web_Otp_Verific
                                       text: 'If you already have a account, click ',
                                       style: richtext1,
                                       children: <TextSpan>[
-                                        TextSpan(text: 'Log in',
+                                        TextSpan(text: 'Log In',
                                             style: richtext2,
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {

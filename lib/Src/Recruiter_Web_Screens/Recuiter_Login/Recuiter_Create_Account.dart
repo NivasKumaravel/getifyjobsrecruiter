@@ -605,7 +605,7 @@ class _Recruiter_Web_Create_AccountState
                               },
                               child: AlreadyAccount(
                                 txt1: 'If you already have a account, click ',
-                                txt2: 'Log in',
+                                txt2: 'Log In',
                               )),
 
                           //COMMON ELEVATED BUTTON

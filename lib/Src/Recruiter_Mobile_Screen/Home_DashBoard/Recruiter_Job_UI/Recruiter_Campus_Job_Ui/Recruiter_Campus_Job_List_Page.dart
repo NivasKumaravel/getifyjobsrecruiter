@@ -77,8 +77,9 @@ class _Recuiter_Campus_Job_List_ScreenState
                         isEditBulk: false,
                       ))).then((value) => ref.refresh(CampusJobListResponse()));
         }),
-        body: campusJobList == true
-            ? Column(
+        body:
+        //campusJobList == true ?
+        Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _campusList(CampusJobListResponseData),
@@ -95,10 +96,16 @@ class _Recuiter_Campus_Job_List_ScreenState
                   _jobsList(CampusJobListResponseData),
                   SizedBox(
                     height: 50,
-                  )
+                  ),
+                  campusJobList == false ?
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: Center(child: NoDataWidget(content: "Post your first job")),
+                  ) : Container(),
                 ],
-              )
-            : Center(child: NoDataWidget(content: "Post your first job")));
+              ),
+            //: Center(child: NoDataWidget(content: "Post your first job"))
+    );
   }
 
   //RESPONSE

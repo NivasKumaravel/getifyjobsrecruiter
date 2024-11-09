@@ -108,7 +108,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                     ),
                     Padding(
                       padding:
-                      const EdgeInsets.only(left: 40, right: 40, top: 15),
+                      const EdgeInsets.only(left: 40, right: 40, top: 65),
                       child: Center(
                         child: Column(
                           children: [
@@ -117,7 +117,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                                   text: 'If you Already Have an Account, Click ',
                                   style: richtext1,
                                   children: <TextSpan>[
-                                    TextSpan(text: 'Log in',
+                                    TextSpan(text: 'Log In',
                                         style: richtext2,
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
@@ -129,7 +129,7 @@ class _Recruiter_Forget_Mobile_ScreenState extends ConsumerState<Recruiter_Forge
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 16,bottom: 80),
+                              padding: const EdgeInsets.only(top: 16,bottom: 150),
                               child: Container(
                                   width: 260,
                                   child:CommonElevatedButton(context, "Verify", () {

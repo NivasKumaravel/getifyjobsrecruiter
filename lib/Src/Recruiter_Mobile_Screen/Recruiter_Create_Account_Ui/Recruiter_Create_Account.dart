@@ -360,6 +360,7 @@ class _Recruiter_Create_Account_ScreenState
                       listValue: IndustryVal,
                       focusTagEnabled: false,
                       values: industryOption ?? [],
+
                       onPressed: (p0) {
                         print(p0);
 
@@ -657,8 +658,8 @@ class _Recruiter_Create_Account_ScreenState
                                               Recruiter_Login_Page()));
                                 },
                                 child: AlreadyAccount(
-                                  txt1: 'If you already have an account, click ',
-                                  txt2: 'Log in',
+                                  txt1: 'If you Already Have an Account, Click ',
+                                  txt2: 'Log In',
                                 )),
                         Padding(
                           padding: const EdgeInsets.only(top: 15, bottom: 50),
@@ -683,7 +684,6 @@ class _Recruiter_Create_Account_ScreenState
                                   ),
                                 );
                               }
-
                             }
                           }),
                         ),

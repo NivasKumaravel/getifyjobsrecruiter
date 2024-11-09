@@ -134,7 +134,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
         break;
       case "Candidate Reschedule":
         containColor=orange3;
-        TagText =Text('Rescheduled Requested Interview On',style: Yellow,) ;
+        TagText =Text('Reschedule Requested',style: Yellow,) ;
         break;
       case "Recruiter Reschedule":
         containColor=orange3;
