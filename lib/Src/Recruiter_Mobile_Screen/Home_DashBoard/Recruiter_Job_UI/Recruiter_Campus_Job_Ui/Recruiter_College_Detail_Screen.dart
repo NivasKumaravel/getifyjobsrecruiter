@@ -17,8 +17,9 @@ import 'package:getifyjobs/Src/utilits/Text_Style.dart';
 
 class Recruiter_College_Detail_Screen extends ConsumerStatefulWidget {
   String? campusId;
+  bool? isEdit;
 
-  Recruiter_College_Detail_Screen({super.key, required this.campusId});
+  Recruiter_College_Detail_Screen({super.key, required this.campusId,required this.isEdit});
 
   @override
   ConsumerState<Recruiter_College_Detail_Screen> createState() =>
@@ -62,13 +63,26 @@ class _Recruiter_College_Detail_ScreenState
               buildCompanyInfoRow(campusResponseData?.logo ?? "",
                   campusResponseData?.name ?? "", pdfT, 39, 39, isMapLogo: false),
 
-              const SizedBox(height: 12),
 
               Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: buildCompanyInfoRow(
-                    "map-pin (1).png", campusResponseData?.location ?? "", posttxt, 16, 16, isMapLogo: true),
+                padding: const EdgeInsets.only(left: 24,top: 12),
+                child: Row(
+                  children: [
+                    Container(
+                        height: 20,width: 20,
+                        child: ImgPathPng("map-pin (1).png")),
+                    const SizedBox(width: 36,),
+                    Expanded(child: Container(child: Text(campusResponseData?.location ?? "",style: Wgrey,maxLines: 2,))),
+                  ],
+                ),
               ),
+
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 10),
+              //   child: buildCompanyInfoRow(
+              //       "map-pin (1).png", campusResponseData?.location ?? "", posttxt, 16, 16, isMapLogo: true),
+              // ),
+
               SizedBox(
                 height: 30,
               ),
@@ -87,6 +101,20 @@ class _Recruiter_College_Detail_ScreenState
               textWithheader(
                   headertxt: "Campus Drive Date", subtxt: campusResponseData?.recruitmentDate ?? ""),
               textWithheader(
+                  headertxt: "Qualification", subtxt: campusResponseData?.qualifications?.map((item)  => item.qualification).join(', ') ?? ''),
+
+              textWithheader(
+                  headertxt: "Specialization", subtxt: campusResponseData?.qualifications?.map((item)
+              => item.specialization).join(', ') ?? ''),
+
+              textWithheader(
+                headertxt: "Total No of Students",
+                subtxt: campusResponseData?.qualifications
+                    ?.map((item) => int.tryParse(item.noStudents.toString()) ?? 0)
+                    .reduce((a, b) => a + b) // Sum all values
+                    .toString() ?? '0',
+              ),
+              textWithheader(
                   headertxt: "Eligible industries", subtxt: campusResponseData?.industries ?? ""),
               campusResponseData?.preferedDepartment == null?Container(): textWithheader(
                   headertxt: "Department’s prefered", subtxt: campusResponseData?.preferedDepartment ?? ""),
@@ -100,6 +128,7 @@ class _Recruiter_College_Detail_ScreenState
                   headertxt: "Campus Held at", subtxt: campusResponseData?.campusHeldAt ?? ''),
 
 
+              widget.isEdit == false ?
               Padding(
                 padding: const EdgeInsets.only(bottom: 20, top: 20),
                 child: Center(
@@ -114,7 +143,7 @@ class _Recruiter_College_Detail_ScreenState
                     }),
                   ),
                 ),
-              )
+              ) : Container()
             ],
           ),
         ),
@@ -133,8 +162,22 @@ class _Recruiter_College_Detail_ScreenState
           children: [
             buildCompanyInfoRow(campusResponseData?.logo ?? '',
                 campusResponseData?.name ?? '', dateT, 40, 40, isMapLogo: false),
-            buildCompanyInfoRow(
-                "map-pin (1).png", campusResponseData?.location ?? "", Wgrey, 19, 19, isMapLogo: true),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 22,top: 5),
+              child: Row(
+                children: [
+                  Container(
+                    height: 20,width: 20,
+                      child: ImgPathPng("map-pin (1).png")),
+                  const SizedBox(width: 36,),
+                  Expanded(child: Container(child: Text(campusResponseData?.location ?? "",style: Wgrey,maxLines: 2,))),
+                ],
+              ),
+            ),
+
+            //buildCompanyInfoRow("map-pin (1).png", campusResponseData?.location ?? "", Wgrey, 19, 19, isMapLogo: true),
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(

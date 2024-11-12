@@ -495,26 +495,24 @@ Widget dropDownField(
           isDense: true,
         ),
       ),
-      // If there is an error, display the message outside the container
+
+      // If there is an error, display the message outside the container with spacing
       if (isError)
         Padding(
-          padding: const EdgeInsets.only(top: 4.0), // Adjust padding to avoid collision with dropdown
+          padding: const EdgeInsets.only(top: 8.0), // Add space between dropdown and error message
           child: Text(
             errorMessage!,
             style: TextStyle(
               color: Colors.red, // Error color
               fontSize: 12, // Font size for error message
               height: 1.5, // Line height to create spacing
+
             ),
           ),
         ),
     ],
   );
 }
-
-
-
-
 
 
 

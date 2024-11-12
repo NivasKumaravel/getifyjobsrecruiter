@@ -8,6 +8,7 @@ import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Image_Path.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Recruiter_Job_UI/Bulk_Job.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Recruiter_Job_UI/Recruiter_Campus_Job_Ui/Recruiter_Campus_Job_Detail_Screen.dart';
+import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Recruiter_Job_UI/Recruiter_Campus_Job_Ui/Recruiter_College_Detail_Screen.dart';
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
@@ -82,7 +83,7 @@ class _Recuiter_Campus_Job_List_ScreenState
         Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _campusList(CampusJobListResponseData),
+                  _campusList(context,CampusJobListResponseData, campusid: widget.campusId),
                   SizedBox(
                     height: 15,
                   ),
@@ -175,14 +176,25 @@ class _Recuiter_Campus_Job_List_ScreenState
   }
 }
 
-Widget _campusList(CampusJobListData? campusJobListResponseData) {
+Widget _campusList(context,CampusJobListData? campusJobListResponseData,
+    {required campusid}) {
   return Column(children: [
-    Container(
-      child: CampusList(
-          iscampTag: 'Assigned',
-          collegeName: campusJobListResponseData?.items?.name ?? "",
-          collegeLogo: campusJobListResponseData?.items?.logo ?? "",
-          collegeLocation: campusJobListResponseData?.items?.location ?? ""),
+    InkWell(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => 
+              Recruiter_College_Detail_Screen(campusId: campusid, isEdit: true,)),
+        );
+
+      },
+      child: Container(
+        child: CampusList(
+            iscampTag: 'Assigned',
+            collegeName: campusJobListResponseData?.items?.name ?? "",
+            collegeLogo: campusJobListResponseData?.items?.logo ?? "",
+            collegeLocation: campusJobListResponseData?.items?.location ?? ""),
+      ),
     )
   ]);
 }
