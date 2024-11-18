@@ -455,7 +455,7 @@ class _Recruiter_JobDetail_PageState
             ),
             Text(
               DirectJobDetailResponseData?.jobDescription ?? "",
-              style: desctxt,
+              style: desctxt,textAlign: TextAlign.justify,
             ),
             SizedBox(
               height: 20,
@@ -493,7 +493,7 @@ class _Recruiter_JobDetail_PageState
             textWithheader(
                 headertxt: "Work Type",
                 subtxt: DirectJobDetailResponseData?.workType ?? ""),
-            DirectJobDetailResponseData?.workMode == "Please Select"
+            DirectJobDetailResponseData?.workMode == "Please Select" || DirectJobDetailResponseData?.workMode == ""
                 ? Container()
                 : textWithheader(
                     headertxt: "Work Mode",

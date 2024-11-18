@@ -86,6 +86,7 @@ class _Recruiter_College_Detail_ScreenState
               SizedBox(
                 height: 30,
               ),
+
               textWithheader(
                   headertxt: "About",
                   subtxt:
@@ -101,11 +102,12 @@ class _Recruiter_College_Detail_ScreenState
               textWithheader(
                   headertxt: "Campus Drive Date", subtxt: campusResponseData?.recruitmentDate ?? ""),
               textWithheader(
-                  headertxt: "Qualification", subtxt: campusResponseData?.qualifications?.map((item)  => item.qualification).join(', ') ?? ''),
+                  headertxt: "Qualification", subtxt: campusResponseData?.qualifications?.map((item)
+              => item.qualification).join(', ') ?? ''),
 
               textWithheader(
                   headertxt: "Specialization", subtxt: campusResponseData?.qualifications?.map((item)
-              => item.specialization).join(', ') ?? ''),
+              => item.specialization).join(' ') ?? ''),
 
               textWithheader(
                 headertxt: "Total No of Students",

@@ -456,7 +456,7 @@ class _Recruiter_Campus_Job_Detail_ScreenState extends ConsumerState<Recruiter_C
             _JobDescriptionSection1(),
             //JOB DESCRIPTION CONTENT
             Text("Job Description",style: TitleT,),
-            Text(campusJobDetailResponseData?.jobDescription ?? "".toString(),style:desctxt ,),
+            Text(campusJobDetailResponseData?.jobDescription ?? "".toString(),style:desctxt,textAlign: TextAlign.justify,),
             SizedBox(height: 20,),
             textWithheader(headertxt: "No of Vacancies", subtxt: campusJobDetailResponseData?.vacancies ?? ""),
             textWithheader(headertxt: "No of Rounds", subtxt: campusJobDetailResponseData?.rounds ?? ""),

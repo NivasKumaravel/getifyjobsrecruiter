@@ -121,7 +121,7 @@ class _Common_Direct_Job_Detail_SectionState extends State<Common_Direct_Job_Det
             _JobDescriptionSection1(),
             //JOB DESCRIPTION CONTENT
             Text("Job Description",style: TitleT,),
-            Text(widget.jobDescription.toString(),style:desctxt ,),
+            Text(widget.jobDescription.toString(),style:desctxt,textAlign: TextAlign.justify,),
             SizedBox(height: 20,),
             textWithheader(headertxt: "Skill Set", subtxt: widget.skillSet.toString()),
             textWithheader(headertxt: "Qualification", subtxt: widget.qualification.toString()),

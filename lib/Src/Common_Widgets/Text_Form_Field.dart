@@ -429,6 +429,7 @@ Widget textWithheader({required String headertxt, required String subtxt}) {
         Text(
           subtxt,
           style: stxt,
+          textAlign: TextAlign.justify,
         ),
       ],
     ),
