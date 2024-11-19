@@ -648,14 +648,13 @@ Widget customListItem(context,
                     ),
                     const Spacer(),
                     Container(
-                      width: MediaQuery.of(context).size.width / 5,
+                      //width: MediaQuery.of(context).size.width / 5,
                       padding: EdgeInsets.symmetric(horizontal: 5),
                       decoration: BoxDecoration(color: containerColor),
                       child: Center(
                           child: Text(
                         status,
                         style: getStatusTextStyle(status),
-                        maxLines: 2,
                       )),
                     ),
                   ],

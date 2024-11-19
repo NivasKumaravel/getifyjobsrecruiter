@@ -78,7 +78,11 @@ Widget ReferalCard(context,
                 children: [
                   InkWell(
                     onTap: () {
-                      Share.share("https://play.google.com/store/apps/details?id=com.getifyjobs.recuriter");
+                      Share.share("Looking for top talent? "
+                          "https://play.google.com/store/apps/details?id=com.getifyjobs.recuriter"
+                          'on Google Play has been a game-changer for me. Refer and unlock rewards! '
+                          'My Referral ID : ABR47645'
+                      );
                     },
                     child: Text(
                       "Refer Now",

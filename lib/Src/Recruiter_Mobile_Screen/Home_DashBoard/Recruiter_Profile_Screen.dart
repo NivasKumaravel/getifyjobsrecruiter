@@ -110,7 +110,7 @@ class _RecuiterProfileState extends ConsumerState<Recuiter_Profile_Screen> {
           child: Text(
             profileDataResponse?.aboutCompany ?? "",
             style: typeT,
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.justify,
           ),
         ),
         Container(

@@ -360,10 +360,8 @@ class _Recruiter_Create_Account_ScreenState
                       listValue: IndustryVal,
                       focusTagEnabled: false,
                       values: industryOption ?? [],
-
                       onPressed: (p0) {
                         print(p0);
-
                         setState(() {
                           industryOption = p0;
                         });
@@ -671,7 +669,15 @@ class _Recruiter_Create_Account_ScreenState
                                 widget.isEdit == true
                                     ? editProfileApiResponse()
                                     : registrationApiResponse();
-                              } else if (_value == null) {
+                              }
+                              //  else if (IndustryVal.isEmpty){
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     SnackBar(
+                              //       content: Text("Please Select Valid Industry Type"),
+                              //     ),
+                              //   );
+                              // }
+                              else if (_value == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text('Branch Selection is Required'),

@@ -309,15 +309,15 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
                   profileImg(ProfileImg: candiateProfileData?.profilePic ?? ""),
                   Center(child: Text(candiateProfileData?.name ?? "",style: TitleT,)),
                 PdfContainer(),
-                  widget.TagContain == "Applied"?Container():   _recruiterResponse(context,onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) =>
-                      BuildPopupDialog(context),
-                    );
-                  }),
+                  // widget.TagContain == "Applied"?Container():   _recruiterResponse(context,onTap: () {
+                  //   showDialog(
+                  //     context: context,
+                  //     builder: (BuildContext context) =>
+                  //     BuildPopupDialog(context),
+                  //   );
+                  // }),
 
-                  contactDetails(context,ContactLogo: 'mapblue.svg', Details: candiateProfileData?.location ?? ""),
+                  contactDetails(context,ContactLogo: 'mapblue.svg', Details: candiateProfileData?.preferredLocation ?? ""),
                   _detailInfo(),
                   _personalDetailsSection(candiateProfileData),
                   //EDUCATION HISTORY
@@ -790,7 +790,7 @@ Widget _personalDetailsSection(CandidateCampusProfileData? candiateProfileData){
             candiateProfileData?.dob == "" ? Container() :
             _profileInformation(title: 'Date of Birth', data: candiateProfileData?.dob ?? ""),
 
-            candiateProfileData?.nationality == "" ? Container() :
+            candiateProfileData?.nationality == null ? Container() :
             _profileInformation(title: 'Nationality', data: candiateProfileData?.nationality ?? ""),
 
             // _profileInformation(title: 'Languages Known', data: candiateProfileData?. ?? ""),
@@ -798,13 +798,13 @@ Widget _personalDetailsSection(CandidateCampusProfileData? candiateProfileData){
             candiateProfileData?.maritalStatus == "" ? Container() :
             _profileInformation(title: 'Marital Status', data: candiateProfileData?.maritalStatus ?? ""),
 
-            candiateProfileData?.differentlyAbled == "" ? Container() :
+            candiateProfileData?.differentlyAbled == null ? Container() :
             _profileInformation(title: 'Differently Abled', data: candiateProfileData?.differentlyAbled ?? ""),
 
-            candiateProfileData?.passport == "" ? Container() :
+            candiateProfileData?.passport == null ? Container() :
             _profileInformation(title: 'Passport Details', data: candiateProfileData?.passport ?? ""),
 
-            candiateProfileData?.careerBreak == "" ? Container() :
+            candiateProfileData?.careerBreak == null ? Container() :
             _profileInformation(title: 'Career Break', data: candiateProfileData?.careerBreak ?? ""),
           ],
         ),
