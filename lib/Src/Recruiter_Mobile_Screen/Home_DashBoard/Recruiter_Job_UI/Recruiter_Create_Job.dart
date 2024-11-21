@@ -24,11 +24,13 @@ import 'package:searchfield/searchfield.dart';
 
 class CreateJob extends ConsumerStatefulWidget {
   bool? isEdit;
+  bool? isClone;
   String? Job_Id;
   DirectDetailsData? DirectJobDetailResponseData;
   CreateJob(
       {super.key,
       required this.isEdit,
+      required this.isClone,
       required this.Job_Id,
       required this.DirectJobDetailResponseData});
 
@@ -192,7 +194,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       loadApicalls();
     });
-    widget.isEdit == true ? EditSingleJob() : null;
+    widget.isEdit == true ? EditSingleJob() : widget.isClone == true ?EditSingleJob() :null;
     _jobTitleController.addListener(_JobTitleFormat);
     _jobDescriptionController.addListener(_JobDescriptionFormat);
   }
@@ -665,12 +667,13 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           child: Container(
                             height: 45,
                             width: 200,
-                            child: CommonElevatedButton(context,widget.isEdit ==true?"Update Job": "Create Job",
+                            child: CommonElevatedButton(context,widget.isEdit ==true?"Update Job": widget.isClone == true?"Clone Job":"Create Job",
                                 () async {
                               if (_formKey.currentState!.validate()) {
                                 widget.isEdit == true
-                                    ? editSingleJob()
-                                    : AddJobResposne();
+                                    ? editSingleJob() :
+                                widget.isClone == true?
+                                AddJobResposne():AddJobResposne();
                               }
                             }),
                           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Recruiter_Login_Ui/Recruiter_Login_Page.dart';
+import 'package:getifyjobs/Src/utilits/Generic.dart';
 
 import '../utilits/Common_Colors.dart';
 import '../utilits/Text_Style.dart';
@@ -11,7 +12,7 @@ Widget LogOutButton(BuildContext context) {
       padding: EdgeInsets.all(8), // Add padding to all sides
 
       decoration: BoxDecoration(
-        color: Colors.blue, // Change the color as needed
+        color: Colors.red, // Change the color as needed
         borderRadius:
             BorderRadius.circular(10), // Customize the border radius as needed
       ),
@@ -83,6 +84,8 @@ Widget LogOutPopup(BuildContext context) {
                   )),
               InkWell(
                 onTap: () {
+                  RecruiterId("");
+                  Routes("false");
                   Navigator.push(
                       context,
                       MaterialPageRoute(

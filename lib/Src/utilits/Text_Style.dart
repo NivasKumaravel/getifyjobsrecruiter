@@ -32,7 +32,7 @@ TextStyle ActiveT = TextStyle(
     fontWeight: FontWeight.w500);
 TextStyle phoneHT = TextStyle(
     fontFamily: 'Roboto',
-    fontSize: 18,
+    fontSize: 14,
     color: Color.fromRGBO(140, 140, 140, 1),
     fontWeight: FontWeight.w400);
 TextStyle phoneHT1 = TextStyle(
@@ -45,6 +45,12 @@ TextStyle ButtonT = TextStyle(
     fontSize: 16,
     color: white1,
     fontWeight: FontWeight.w700);
+
+TextStyle ButtonPopT = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 14,
+    color: white1,
+    fontWeight: FontWeight.w600);
 TextStyle Textfield_Style = TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
@@ -127,9 +133,9 @@ TextStyle DateStyle = TextStyle(
     fontWeight: FontWeight.w500);
 TextStyle TabT = TextStyle(
     fontFamily: 'Roboto',
-    fontSize: 16,
+    fontSize: 14,
     color: Color.fromRGBO(52, 52, 52, 1),
-    fontWeight: FontWeight.w700);
+    fontWeight: FontWeight.w600);
 TextStyle Sub_Style = TextStyle(
     fontFamily: 'Roboto',
     fontSize: 20,
@@ -593,6 +599,12 @@ TextStyle refferalCountT = TextStyle(
     fontSize: 18,
     color: Black1,
     fontWeight: FontWeight.w500);
+
+TextStyle PopUp_Menu_T = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 18,
+    color: Colors.black38,
+    fontWeight: FontWeight.w500);
 TextStyle logOutRed = TextStyle(
     fontFamily: 'Inter',
     fontSize: 18,
@@ -729,12 +741,12 @@ TextStyle green12 = TextStyle(
     fontWeight: FontWeight.w700);
 TextStyle green = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 14,
+    fontSize: 12,
     color: Color.fromRGBO(61, 186, 40, 1),
     fontWeight: FontWeight.w500);
 TextStyle blue = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 14,
+    fontSize: 12,
     color: Color.fromRGBO(0, 160, 226, 1),
     fontWeight: FontWeight.w500);
 TextStyle blue5 = TextStyle(
@@ -754,12 +766,12 @@ TextStyle blu = TextStyle(
     fontWeight: FontWeight.w600);
 TextStyle grey = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 14,
+    fontSize: 12,
     color: Color.fromRGBO(245, 245, 245, 1),
     fontWeight: FontWeight.w500);
 TextStyle red = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 14,
+    fontSize: 12,
     color: Color.fromRGBO(255, 0, 13, 1),
     fontWeight: FontWeight.w500);
 TextStyle orange = TextStyle(

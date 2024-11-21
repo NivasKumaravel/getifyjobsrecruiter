@@ -13,7 +13,7 @@ import 'package:getifyjobs/Src/Common_Widgets/Common_Button.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_PopUp_Widgets.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Image_Path.dart';
-import 'package:getifyjobs/Src/Recruiter_Web_Screens/Recuiter_Login/WebRecutierProfileExperence.dart';
+
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
@@ -497,6 +497,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
           candiateProfileData?.careerStatus == 'Experienced' ?
           _profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""):
           candiateProfileData?.experience == null?Container(): _profileInformation(title: 'Experience', data: candiateProfileData?.experience ?? ""),
+          _profileInformation(title: 'Career Status', data: candiateProfileData?.careerStatus ?? ""),
           _profileInformation(title: 'Skill Set', data: candiateProfileData?.skill ?? ""),
           _profileInformation(title: 'Qualification', data: candiateProfileData?.qualification ?? ""),
           _profileInformation(title: 'Specialization', data: candiateProfileData?.specializationId ?? ""),
