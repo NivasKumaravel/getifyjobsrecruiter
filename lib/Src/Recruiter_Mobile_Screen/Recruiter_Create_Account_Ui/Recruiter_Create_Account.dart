@@ -664,34 +664,37 @@ class _Recruiter_Create_Account_ScreenState
                           child: CommonElevatedButton(context,
                               widget.isEdit == true ? "Submit" : "Register", () {
                                 FocusManager.instance.primaryFocus?.unfocus();
-                            if (_formKey.currentState!.validate()) {
-                              if (_validateTerms(_isChecked) == null) {
-                                widget.isEdit == true
-                                    ? editProfileApiResponse()
-                                    : registrationApiResponse();
-                              }
-                              //  else if (IndustryVal.isEmpty){
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //     SnackBar(
-                              //       content: Text("Please Select Valid Industry Type"),
-                              //     ),
-                              //   );
-                              // }
-                              else if (_value == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Branch Selection is Required'),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Please Read and Agree to Our T&C'),
-                                  ),
-                                );
-                              }
-                            }
-                          }),
+                                if (_formKey.currentState!.validate()) {
+
+                                  if (_value == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Branch Selection is Required'),
+                                      ),
+                                    );
+                                  }
+                                  else if (_isChecked == false){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Please Read and Agree to Our T&C'),
+                                      ),
+                                    );
+                                  }
+                                  else if (industryOption == null || industryOption!.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("Please Select Valid Industry Type"),
+                                      ),
+                                    );
+                                  }
+
+                                  else if (_validateTerms(_isChecked) == null) {
+                                    widget.isEdit == true
+                                        ? editProfileApiResponse()
+                                        : registrationApiResponse();
+                                  }
+                                }
+                              }),
                         ),
                       ],
                     ),

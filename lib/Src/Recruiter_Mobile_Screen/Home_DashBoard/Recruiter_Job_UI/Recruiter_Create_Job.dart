@@ -398,9 +398,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           Title: 'Required Percentage/CGPA', isStatus: false),
                       textFormField(
                         hintText: 'Required Percentage',
-                        keyboardtype: TextInputType.number,
+                        keyboardtype: TextInputType.numberWithOptions(decimal: true),
                         inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d{0,3}(\.\d{0,2})?$')),
                         ],
                         Controller: _requriedPercentage,
                         validating: null,

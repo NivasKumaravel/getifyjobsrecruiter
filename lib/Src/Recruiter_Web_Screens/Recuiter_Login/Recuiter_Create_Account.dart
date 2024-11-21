@@ -244,8 +244,7 @@ class _Recruiter_Web_Create_AccountState
                                           inputFormatters: null,
                                           Controller: _IndustryType,
                                           validating: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
+                                            if (value == null || value.isEmpty) {
                                               return "Please Enter valid Industry Type";
                                             }
                                             if (value == null) {
