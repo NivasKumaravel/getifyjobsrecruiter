@@ -42,9 +42,9 @@ TextStyle phoneHT1 = TextStyle(
     fontWeight: FontWeight.w400);
 TextStyle ButtonT = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 16,
+    fontSize: 14,
     color: white1,
-    fontWeight: FontWeight.w700);
+    fontWeight: FontWeight.w600);
 
 TextStyle ButtonPopT = TextStyle(
     fontFamily: 'Inter',
@@ -194,7 +194,7 @@ TextStyle richtext2 = TextStyle(
 //CREATE ACCOUNT
 TextStyle TitleT = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 24,
+    fontSize: 20,
     color: Color.fromRGBO(0, 0, 0, 1),
     fontWeight: FontWeight.w700);
 
@@ -836,7 +836,7 @@ TextStyle Wbalck1 = TextStyle(
     fontWeight: FontWeight.w400);
 TextStyle Wbalck2 = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 14,
+    fontSize: 16,
     color: Color.fromRGBO(0, 0, 0, 1),
     fontWeight: FontWeight.w500);
 TextStyle recbalck = TextStyle(

@@ -20,6 +20,7 @@ import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
 import 'package:getifyjobs/Src/utilits/Generic.dart';
 import 'package:getifyjobs/Src/utilits/Text_Style.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Recruiter_JobDetail_Page extends ConsumerStatefulWidget {
   String? job_Id;
@@ -635,7 +636,12 @@ class _Recruiter_JobDetail_PageState
           ),
           Expanded(child: Text(icontext, style: posttxt)),
           const Spacer(),
-          ImgPathSvg('share.svg'),
+          InkWell(
+            onTap: () async{
+              await
+              Share.share("https://play.google.com/store/apps/details?id=com.getifyjobs.recuriter");
+            },
+              child: ImgPathSvg('share.svg')),
         ],
       ),
     );

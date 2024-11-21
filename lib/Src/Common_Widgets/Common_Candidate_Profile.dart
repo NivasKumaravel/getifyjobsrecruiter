@@ -211,21 +211,20 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
             Icon(Icons.more_vert_outlined),
             itemBuilder: (BuildContext context) => [
               PopupMenuItem(
+                onTap: (){
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => InterviewRescheduleConfirmationPop(context, typeT: 'cancel',
+                      onPress: () {
+                        ScheduleCanceledResponse();
+                      },),
+                  );
+                },
                   child:
-                  InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => InterviewRescheduleConfirmationPop(context, typeT: 'cancel',
-                            onPress: () {
-                              ScheduleCanceledResponse();
-                            },),
-                        );
-                      },
-                      child: Text(
-                        'Schedule Cancel',
-                        style: refferalCountT,
-                      ))),
+                  Text(
+                    'Schedule Cancel',
+                    style: refferalCountT,
+                  )),
             ]),
       ], isLogoUsed: true, isTitleUsed: true,title: 'Profile',),
       backgroundColor: white2,
@@ -891,7 +890,6 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
       surfaceTintColor: white1,
       content:Container(
         width: 350,
-        color: white1,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -928,13 +926,13 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
 
               }),
             ),
-            CommonElevatedButton(context, "Video Interview", () {
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => InterviewSchedulePopupWeb(context),
-              );
-            }),
+            // CommonElevatedButton(context, "Video Interview", () {
+            //   Navigator.pop(context);
+            //   showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) => InterviewSchedulePopupWeb(context),
+            //   );
+            // }),
           ],
         ),
       ),
@@ -1156,7 +1154,6 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
     return AlertDialog(
       surfaceTintColor: white1,
       content:Container(
-        color: white1,
         width: 350,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -1164,7 +1161,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //DATE PICKER
-            Text("Please select the reschedule date & time for the Interview",style: Wbalck1,textAlign: TextAlign.center,),
+            Text("Please select the reschedule date & time for the Interview",style: Wbalck2,textAlign: TextAlign.center,),
             TextFormField(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               readOnly: true,

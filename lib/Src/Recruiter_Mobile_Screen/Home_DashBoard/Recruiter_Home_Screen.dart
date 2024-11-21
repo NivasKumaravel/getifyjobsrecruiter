@@ -236,7 +236,6 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
     final ApplyListApiResponse =
         await ApplyListApiService.post<RecentAppliesModel>(
             context, ConstantApi.recentAppliedListUrl, formData);
-    print("JOB ID : ${ApplyListApiResponse.data?.all?.items?[0].jobId ?? ''}");
     if (ApplyListApiResponse.status == true) {
       print('SUCESS');
       setState(() {

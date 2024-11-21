@@ -349,15 +349,15 @@ Widget AppliesList(
       campTagColor = pink3;
       campTagTextStyle = red; // Assuming appliedT is defined
       break;
-    case "Candidate Reschedule":
+    case "Candidate Rescheduled":
       campTagColor = grey4;
       campTagTextStyle = grey; // Assuming appliedT is defined
       break;
-      case "Interview Reschedule":
+      case "Interview Rescheduled":
       campTagColor = grey4;
       campTagTextStyle = grey; // Assuming appliedT is defined
       break;
-    case "Recruiter Reschedule":
+    case "Recruiter Rescheduled":
       campTagColor = grey4;
       campTagTextStyle = grey; // Assuming appliedT is defined
       break;
@@ -552,13 +552,13 @@ Widget customListItem(context,
     case "Schedule Requested":
       containerColor = blue2;
       break;
-    case "Candidate Reschedule":
+    case "Candidate Rescheduled":
       containerColor = grey4;
       break;
-    case "Recruiter Reschedule":
+    case "Recruiter Rescheduled":
       containerColor = grey4;
       break;
-    case "Interview Reschedule":
+    case "Interview Rescheduled":
       containerColor = grey4;
       break;
     case "Not Attended":
@@ -720,19 +720,19 @@ TextStyle getStatusTextStyle(String status) {
           fontSize: 12,
           color: Color.fromRGBO(0, 160, 226, 1),
           fontWeight: FontWeight.w500);
-    case "Candidate Reschedule":
+    case "Candidate Rescheduled":
       return TextStyle(
           fontFamily: 'Inter',
           fontSize: 12,
           color: Color.fromRGBO(245, 245, 245, 1),
           fontWeight: FontWeight.w500);
-    case "Recruiter Reschedule":
+    case "Recruiter Rescheduled":
       return TextStyle(
           fontFamily: 'Inter',
           fontSize: 12,
           color: Color.fromRGBO(245, 245, 245, 1),
           fontWeight: FontWeight.w500);
-    case "Interview Reschedule":
+    case "Interview Rescheduled":
       return TextStyle(
           fontFamily: 'Inter',
           fontSize: 12,

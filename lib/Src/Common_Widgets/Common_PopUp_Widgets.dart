@@ -708,24 +708,23 @@ Widget InterviewRescheduleConfirmationPop(BuildContext context,{required String 
   return AlertDialog(
     surfaceTintColor: white1,
     content:Container(
-      color: white1,
       width: 350,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('Are you sure want to ${typeT} the interview date and time',style: Wbalck1,textAlign: TextAlign.center,maxLines: 3,),
+          Text('Are you sure want to ${typeT} the interview date and time',style: Wbalck2,textAlign: TextAlign.center,maxLines: 3,),
           SizedBox(height: 15,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                  width:MediaQuery.of(context).size.width/3.8,
+                  width:MediaQuery.of(context).size.width/3.5,
                   child: CommonElevatedButton(context, "Cancel", () {
                     Navigator.pop(context);
                   })),
               Container(
-                  width:MediaQuery.of(context).size.width/3.8,
+                  width:MediaQuery.of(context).size.width/3.5,
                   child: CommonElevatedButton(context, "Confirm", onPress)),
 
             ],
