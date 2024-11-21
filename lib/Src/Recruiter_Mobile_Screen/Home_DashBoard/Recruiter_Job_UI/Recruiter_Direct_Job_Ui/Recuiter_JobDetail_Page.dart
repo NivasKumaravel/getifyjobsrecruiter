@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:getifyjobs/Models/AddBranchModel.dart';
 import 'package:getifyjobs/Models/DirectApplyListModel.dart';
 import 'package:getifyjobs/Models/DirectCandidateListModel.dart';
 import 'package:getifyjobs/Models/DirectDetailsModel.dart';
@@ -22,8 +23,9 @@ import 'package:getifyjobs/Src/utilits/Text_Style.dart';
 
 class Recruiter_JobDetail_Page extends ConsumerStatefulWidget {
   String? job_Id;
+  int? appliedCount;
 
-  Recruiter_JobDetail_Page({super.key, required this.job_Id});
+  Recruiter_JobDetail_Page({super.key, required this.job_Id, required this.appliedCount});
 
   @override
   ConsumerState<Recruiter_JobDetail_Page> createState() =>
@@ -43,6 +45,7 @@ class _Recruiter_JobDetail_PageState
   bool? shortlisteStatus;
   bool? scheduleStatus;
   bool? rejectStatus;
+  bool? isResume;
 
   @override
   void initState() {
@@ -52,6 +55,7 @@ class _Recruiter_JobDetail_PageState
       DirectJobDetailResponse();
     });
     AllListResponse();
+    isResume = false;
     allListStatus = true;
     shortlisteStatus = true;
     scheduleStatus = true;
@@ -72,23 +76,24 @@ class _Recruiter_JobDetail_PageState
         title: "",
         isUsed: true,
         actions: [
+
           PopupMenuButton(
               surfaceTintColor: white1,
               icon: Icon(Icons.more_vert_outlined),
               itemBuilder: (BuildContext context) => [
-                    PopupMenuItem(
-                        child: InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    _DownloadPopUp(context),
-                              );
-                            },
-                            child: Text(
-                              'Download',
-                              style: refferalCountT,
-                            ))),
+                    // PopupMenuItem(
+                    //     child: InkWell(
+                    //         onTap: () {
+                    //           showDialog(
+                    //             context: context,
+                    //             builder: (BuildContext context) =>
+                    //                 _DownloadPopUp(context),
+                    //           );
+                    //         },
+                    //         child: Text(
+                    //           'Download',
+                    //           style: refferalCountT,
+                    //         ))),
                     PopupMenuItem(
                         onTap: () {
                           Navigator.push(
@@ -100,7 +105,7 @@ class _Recruiter_JobDetail_PageState
                                         isEdit: true,
                                         Job_Id: DirectJobDetailResponseData
                                                 ?.jobId ??
-                                            "",
+                                            "", isClone: false,
                                       ))).then((value) =>
                               ref.refresh(DirectJobDetailResponse()));
                         },
@@ -110,32 +115,50 @@ class _Recruiter_JobDetail_PageState
                         )),
                     PopupMenuItem(
                         child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CreateJob(
+                                        DirectJobDetailResponseData:
+                                        DirectJobDetailResponseData,
+                                        isEdit: false,
+                                        Job_Id: DirectJobDetailResponseData
+                                            ?.jobId ??
+                                            "", isClone: true,
+                                      ))).then((value) =>
+                                  ref.refresh(DirectJobDetailResponse()));
+                            },
                             child: Text(
                               'Clone',
                               style: refferalCountT,
                             ))),
                     PopupMenuItem(
-                        child: InkWell(
-                            onTap: () {},
-                            child: Text(
-                              'Pause',
-                              style: refferalCountT,
-                            ))),
+                      onTap: (){
+                        SingleTon().isResume == true?
+                        jobMoreOptionResponse(statusId: '1'):
+                        jobMoreOptionResponse(statusId: '0');
+                      },
+                        child: Text(
+                          SingleTon().isResume == true?"Resume":'Pause',
+                          style: refferalCountT,
+                        )),
                     PopupMenuItem(
-                        child: InkWell(
-                            onTap: () {},
-                            child: Text(
-                              'Stop',
-                              style: refferalCountT,
-                            ))),
+                      onTap: (){
+                        jobMoreOptionResponse(statusId: '2');
+                      },
+                        child: Text(
+                          'Stop',
+                          style: refferalCountT,
+                        )),
                     PopupMenuItem(
-                        child: InkWell(
-                            onTap: () {},
-                            child: Text(
-                              'Delete',
-                              style: refferalCountT,
-                            ))),
+                      onTap:widget.appliedCount == 0? (){
+                        jobMoreOptionResponse(statusId: '4');
+                      }:null,
+                        child: Text(
+                          'Delete',
+                          style: widget.appliedCount == 0?refferalCountT:PopUp_Menu_T,
+                        )),
                     // PopupMenuItem(child: Text('Download',style: refferalCountT,)),
                   ]),
         ],
@@ -435,6 +458,31 @@ class _Recruiter_JobDetail_PageState
         rejectStatus = false;
       });
       ShowToastMessage(allListApiResponse.message ?? "");
+    }
+  }
+
+  //REJECTED LIST RESPONSE
+  jobMoreOptionResponse({required String statusId})async{
+    final jobUpdatedApiService = ApiService(ref.read(dioProvider));
+    var formData = FormData.fromMap({
+      "recruiter_id":await getRecruiterId(),
+      "job_id":widget.job_Id,
+      "status":statusId,
+    });
+    final jobUpdateResponse = await jobUpdatedApiService.post<AddBranchModel>(context,
+        ConstantApi.updateJobStatus, formData);
+    if(jobUpdateResponse?.status == true){
+      ShowToastMessage(jobUpdateResponse.message ?? "");
+      Navigator.pop(context);
+      print("JOB UPDATE SUCCESS");
+      SingleTon singleton = SingleTon();
+      setState(() {
+        isResume = statusId == "0"?true:false;
+        singleton.isResume = isResume ?? false;
+      });
+    }else{
+      print("JOB UPDATE ERROR");
+      ShowToastMessage(jobUpdateResponse.message ?? "");
     }
   }
 

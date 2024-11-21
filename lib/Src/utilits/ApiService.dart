@@ -48,16 +48,6 @@ final dioProvider = Provider<Dio>((ref) {
   return dio;
 });
 
-// final apiServiceProvider = Provider<ApiService>((ref) {
-//   final dio = ref.read(dioProvider);
-//   return ApiService(dio);
-// });
-//
-// class ApiService {
-//   final Dio _dio;
-//   ApiService(this._dio);
-//
-// }
 
 class ApiService {
   final Dio _dio;

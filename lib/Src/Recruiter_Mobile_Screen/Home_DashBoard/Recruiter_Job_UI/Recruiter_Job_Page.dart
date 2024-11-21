@@ -141,7 +141,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                 builder: (context) => CreateJob(
                       isEdit: false,
                       Job_Id: '',
-                      DirectJobDetailResponseData: null,
+                      DirectJobDetailResponseData: null, isClone: false,
                     ))).then((value) {
           directItemList = [];
           tempDirectItemList = [];
@@ -412,7 +412,9 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                     context,
                     MaterialPageRoute(
                         builder: (context) => Recruiter_JobDetail_Page(
+
                               job_Id: directResponseData?[index].jobId ?? "",
+                            appliedCount:directResponseData?[index].appliedCandidate ?? 0,
                             ))).then(onValue);
               },
               child: Padding(

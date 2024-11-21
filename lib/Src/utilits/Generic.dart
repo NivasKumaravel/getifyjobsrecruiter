@@ -167,6 +167,7 @@ class SingleTon {
   String longitude = "";
   File? setPdf;
   bool isLoading = true;
+  bool isResume = false;
 }
 
 void showBottomLoader(BuildContext context) {

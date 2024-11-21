@@ -705,61 +705,61 @@ TextStyle getStatusTextStyle(String status) {
     case "Schedule Rejected":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(255, 0, 13, 1),
           fontWeight: FontWeight.w500);
     case "Rejected":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(255, 0, 13, 1),
           fontWeight: FontWeight.w500);
     case "Schedule Requested":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(0, 160, 226, 1),
           fontWeight: FontWeight.w500);
     case "Candidate Reschedule":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(245, 245, 245, 1),
           fontWeight: FontWeight.w500);
     case "Recruiter Reschedule":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(245, 245, 245, 1),
           fontWeight: FontWeight.w500);
     case "Interview Reschedule":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(245, 245, 245, 1),
           fontWeight: FontWeight.w500);
     case "Not Attended":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(245, 245, 245, 1),
           fontWeight: FontWeight.w500);
     case "Schedule Accepted":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(61, 186, 40, 1),
           fontWeight: FontWeight.w500);
     case "Selected":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: Color.fromRGBO(61, 186, 40, 1),
           fontWeight: FontWeight.w500);
     case "Wait List":
       return TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 12,
           color: orange4,
           fontWeight: FontWeight.w500);
     default:
