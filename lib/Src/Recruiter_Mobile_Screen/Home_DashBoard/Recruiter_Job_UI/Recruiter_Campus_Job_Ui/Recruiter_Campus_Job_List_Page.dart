@@ -94,15 +94,11 @@ class _Recuiter_Campus_Job_List_ScreenState
                       style: dateT,
                     ),
                   ),
-                  _jobsList(CampusJobListResponseData),
-                  SizedBox(
-                    height: 50,
-                  ),
                   campusJobList == false ?
                   Padding(
-                    padding: const EdgeInsets.only(top: 50),
+                    padding: const EdgeInsets.only(top: 70),
                     child: Center(child: NoDataWidget(content: "Post your first job")),
-                  ) : Container(),
+                  ) : _jobsList(CampusJobListResponseData),
                 ],
               ),
             //: Center(child: NoDataWidget(content: "Post your first job"))

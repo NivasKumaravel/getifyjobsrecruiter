@@ -654,7 +654,7 @@ Widget customListItem(context,
                       child: Center(
                           child: Text(
                         status,
-                        style: getStatusTextStyle(status),
+                        style: getStatusTextStyle(status), maxLines: 1,
                       )),
                     ),
                   ],

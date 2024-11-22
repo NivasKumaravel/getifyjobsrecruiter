@@ -463,7 +463,7 @@ Widget dropDownField(
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start, // Align the error to the left
     children: [
-      // Dropdown container
+      // Dropdown container (No error handling inside here)
       Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -497,7 +497,7 @@ Widget dropDownField(
         ),
       ),
 
-      // If there is an error, display the message outside the container with spacing
+      // Error message displayed outside the dropdown container, if available
       if (isError)
         Padding(
           padding: const EdgeInsets.only(top: 8.0), // Add space between dropdown and error message
@@ -507,14 +507,12 @@ Widget dropDownField(
               color: Colors.red, // Error color
               fontSize: 12, // Font size for error message
               height: 1.5, // Line height to create spacing
-
             ),
           ),
         ),
     ],
   );
 }
-
 
 
 //DROPDOWN WHITE1
