@@ -132,15 +132,15 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
         containColor=orange3;
         TagText =Text('Scheduled Video Interview',style: Yellow,) ;
         break;
-      case "Candidate Reschedule":
+      case "Candidate Rescheduled":
         containColor=orange3;
         TagText =Text('Reschedule Requested',style: Yellow,) ;
         break;
-      case "Recruiter Reschedule":
+      case "Recruiter Rescheduled":
         containColor=orange3;
         TagText =Text('Recruiter Rescheduled Interview On',style: Yellow,) ;
         break;
-      case "Interview Reschedule":
+      case "Interview Rescheduled":
         containColor=orange3;
         TagText =Text('Recruiter Rescheduled Interview On',style: Yellow,) ;
         break;
@@ -160,10 +160,10 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
     return Scaffold(
       bottomNavigationBar: widget.TagContain == "Schedule Requested"?null:
       widget.TagContain == "Schedule Accepted"?null:
-      widget.TagContain == "Candidate Reschedule"?null:
+      widget.TagContain == "Candidate Rescheduled"?null:
       widget.TagContain == "Schedule Rejected"?null:
       widget.TagContain == "Rejected"?null:
-      widget.TagContain == "Interview Reschedule"?null:
+      widget.TagContain == "Interview Rescheduled"?null:
       Container(
         height: 75,
         color: white1,
@@ -280,7 +280,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                         Center(child: Text('9.00 AM, 02 Oct 2023',style: Wbalck4,)),
                       ],
                     ),
-                  ):widget.TagContain=="Candidate Reschedule"?
+                  ):widget.TagContain=="Candidate Rescheduled"?
                   Padding(
                     padding: const EdgeInsets.only(top: 25),
                     child: Column(
@@ -348,7 +348,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                         ),
                       ],
                     ),
-                  ):widget.TagContain == "Recruiter Reschedule"?
+                  ):widget.TagContain == "Recruiter Rescheduled"?
                   Padding(
                     padding: const EdgeInsets.only(top: 25),
                     child: Column(
@@ -399,7 +399,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                       ],
                     ),
                   ):
-                      widget.TagContain == "Interview Reschedule"?
+                      widget.TagContain == "Interview Rescheduled"?
                       Padding(
                         padding: const EdgeInsets.only(top: 25),
                         child: Column(
@@ -427,11 +427,11 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
 
                     widget.TagContain == "Schedule Requested"?Container():
                     widget.TagContain == "Schedule Accepted"?Container():
-                    widget.TagContain == "Candidate Reschedule"?Container():
+                    widget.TagContain == "Candidate Rescheduled"?Container():
                     widget.TagContain == "Schedule Rejected"?Container():
                     widget.TagContain == "Rejected"?Container():
                     widget.TagContain == "Wait List"? Container():
-                    widget.TagContain == "Interview Reschedule"? Container():
+                    widget.TagContain == "Interview Rescheduled"? Container():
                     _requestCallButton(
                         onTap: () {
                           showDialog(
@@ -809,7 +809,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
       Navigator.pop(context);
       setState(() {
         isRecReschedule = true;
-        widget.TagContain = 'Recruiter Reschedule';
+        widget.TagContain = 'Recruiter Rescheduled';
       });
       ShowToastMessage(rescheduleApiResponse.message ?? "");
 
