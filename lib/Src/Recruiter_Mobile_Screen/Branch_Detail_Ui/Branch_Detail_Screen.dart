@@ -147,6 +147,7 @@ class _Branch_Detail_ScreenState extends ConsumerState<Branch_Detail_Screen> {
         context, ConstantApi.deleteBranchUrl, formData);
     if (addBrachApiResponse.status == true) {
       print("SUCESS");
+      Navigator.pop(context);
     } else {
       ShowToastMessage(addBrachApiResponse.message ?? "");
       print('ERROR');
