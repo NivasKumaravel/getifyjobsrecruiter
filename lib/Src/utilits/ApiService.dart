@@ -26,6 +26,7 @@ import 'package:getifyjobs/Models/InterviewModel.dart';
 import 'package:getifyjobs/Models/JobModel.dart';
 import 'package:getifyjobs/Models/LoginModel.dart';
 import 'package:getifyjobs/Models/NewPasswordModel.dart';
+import 'package:getifyjobs/Models/NotififcationModel.dart';
 import 'package:getifyjobs/Models/ProfileModel.dart';
 import 'package:getifyjobs/Models/QualificationModel.dart';
 import 'package:getifyjobs/Models/RecentAppliesModel.dart';
@@ -131,6 +132,8 @@ class ApiService {
         return ForgotMobileModel.fromJson(json) as T;
       }else if (T == NewPasswordModel) {
         return NewPasswordModel.fromJson(json) as T;
+      }else if (T == NotificationModel) {
+        return NotificationModel.fromJson(json) as T;
       }
     }
 

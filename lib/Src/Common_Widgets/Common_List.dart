@@ -998,48 +998,51 @@ Widget CampusList2({
 }
 
 Widget buildCompanyInfoRowNotifacation(
-  context, {
-  required String pathSVG,
-  required String jobName,
-  required String name,
-  required double imageWidth,
-  required double imageHeight,
-}) {
+    context, {
+      required String jobName,
+      required String name,
+      required String Date,
+      required String Time,
+    }) {
   return Padding(
-    padding: const EdgeInsets.only(top: 5),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-            height: imageHeight, width: imageWidth, child: ImgPathSvg(pathSVG)),
-        Padding(
-          padding: const EdgeInsets.only(left: 5),
-          child: Container(
-            // width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Container(
+      // width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: MediaQuery.sizeOf(context).width/1.8,
+                child: Text(
                   name,
                   style: appliesT,
                   maxLines: 2,
                   // overflow: TextOverflow.ellipsis,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.5,
-                  child: Text(
-                    jobName,
-                    style: Homegrey,
-                    // You can use the same style as the company name or customize it as needed
-                    maxLines: 2,
-                    // overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
+              ),
+              const Spacer(),
+              Text(
+                Date,
+                style: attacht1,
+                maxLines: 2,
+                // overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 1.2,
+            child: Text(
+              jobName,
+              style:
+              Homegrey, // You can use the same style as the company name or customize it as needed
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
@@ -1060,6 +1063,10 @@ Widget NoOfCandidatesSection(
       containerColor = orange3;
       statusStyle = orange;
       break;
+    case "Paused":
+      containerColor = orange3;
+      statusStyle = orange;
+      break;
     case "Active":
       containerColor = green3;
       statusStyle = shortlistedT;
@@ -1068,6 +1075,11 @@ Widget NoOfCandidatesSection(
       containerColor = pink3;
       statusStyle = red;
       break;
+    case "Stopped":
+      containerColor = pink3;
+      statusStyle = red;
+      break;
+
     default:
       containerColor = Colors.white;
       break;
@@ -1119,7 +1131,35 @@ Widget NoOfCandidatesSection(
                             style: statusStyle,
                           )),
                     )
-                        : status == "Expired"
+                        :    status == "Paused"
+                        ? Container(
+                      height: 25,
+                      width: 100,
+                      // margin: EdgeInsets.only(top: 15),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: containerColor),
+                      child: Center(
+                          child: Text(
+                            status,
+                            style: statusStyle,
+                          )),
+                    ):
+
+                    status == "Expired"
+                        ? Container(
+                      height: 25,
+                      width: 100,
+                      // margin: EdgeInsets.only(top: 15),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: containerColor),
+                      child: Center(
+                          child: Text(
+                            status,
+                            style: statusStyle,
+                          )),
+                    ):  status == "Stopped"
                         ? Container(
                       height: 25,
                       width: 100,
