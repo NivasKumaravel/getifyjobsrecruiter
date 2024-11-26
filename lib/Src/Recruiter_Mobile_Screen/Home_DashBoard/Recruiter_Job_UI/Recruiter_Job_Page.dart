@@ -414,7 +414,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                         builder: (context) => Recruiter_JobDetail_Page(
 
                               job_Id: directResponseData?[index].jobId ?? "",
-                            appliedCount:directResponseData?[index].appliedCandidate ?? 0,
+                            appliedCount:directResponseData?[index].appliedCandidate ?? 0, current_status: directResponseData?[index].current_status ?? "",
                             ))).then(onValue);
               },
               child: Padding(

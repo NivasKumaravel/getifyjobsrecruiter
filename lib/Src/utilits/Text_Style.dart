@@ -655,11 +655,21 @@ TextStyle typeT = TextStyle(
     fontSize: 16,
     color: grey4,
     fontWeight: FontWeight.w400);
+
+
 TextStyle dateT = TextStyle(
     fontFamily: 'Inter',
     fontSize: 20,
     color: Color.fromRGBO(0, 0, 0, 1),
     fontWeight: FontWeight.w600);
+
+TextStyle walletContent = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 14,
+    color: Color.fromRGBO(0, 0, 0, 1),
+    fontWeight: FontWeight.w400);
+
+
 TextStyle appliesT = TextStyle(
     fontFamily: 'Inter',
     fontSize: 18,
@@ -714,12 +724,12 @@ TextStyle appBarSelect = TextStyle(
     decorationColor: blue1);
 TextStyle debitedT = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 20,
+    fontSize: 14,
     color: green4,
     fontWeight: FontWeight.w400);
 TextStyle debitedRT = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 20,
+    fontSize: 14,
     color: Color.fromRGBO(255, 0, 13, 1),
     fontWeight: FontWeight.w400);
 TextStyle creditedT = TextStyle(
@@ -729,9 +739,12 @@ TextStyle creditedT = TextStyle(
     fontWeight: FontWeight.w400);
 TextStyle walletT = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 20,
+    fontSize: 18,
     color: Color.fromRGBO(0, 0, 0, 1),
     fontWeight: FontWeight.w500);
+
+
+
 
 //PRAVEEN
 TextStyle green12 = TextStyle(

@@ -54,17 +54,26 @@ class DirectListItems {
   String? jobTitle;
   String? recruiter_id;
   String? job_status;
+  String? current_status;
   int? appliedCandidate;
   String? createdDate;
 
   DirectListItems(
-      {this.jobId, this.jobTitle, this.appliedCandidate, this.createdDate,this.recruiter_id,this.job_status});
+      {this.jobId,
+        this.jobTitle,
+        this.appliedCandidate,
+        this.createdDate,
+        this.recruiter_id,
+        this.job_status,
+        this.current_status,
+      });
 
   DirectListItems.fromJson(Map<String, dynamic> json) {
     jobId = json['job_id'];
     jobTitle = json['job_title'];
     recruiter_id = json['recruiter_id'];
     job_status = json['job_status'];
+    current_status = json['current_status'];
     appliedCandidate = json['applied_candidate'];
     createdDate = json['created_date'];
   }
@@ -75,6 +84,7 @@ class DirectListItems {
     data['job_title'] = this.jobTitle;
     data['recruiter_id'] = this.recruiter_id;
     data['job_status'] = this.job_status;
+    data['current_status'] = this.current_status;
     data['applied_candidate'] = this.appliedCandidate;
     data['created_date'] = this.createdDate;
     return data;

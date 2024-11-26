@@ -24,9 +24,10 @@ import 'package:share_plus/share_plus.dart';
 
 class Recruiter_JobDetail_Page extends ConsumerStatefulWidget {
   String? job_Id;
+  String? current_status;
   int? appliedCount;
 
-  Recruiter_JobDetail_Page({super.key, required this.job_Id, required this.appliedCount});
+  Recruiter_JobDetail_Page({super.key, required this.job_Id, required this.current_status,required this.appliedCount});
 
   @override
   ConsumerState<Recruiter_JobDetail_Page> createState() =>
@@ -135,22 +136,22 @@ class _Recruiter_JobDetail_PageState
                               style: refferalCountT,
                             ))),
                     PopupMenuItem(
-                      onTap: (){
-                        SingleTon().isResume == true?
-                        jobMoreOptionResponse(statusId: '1'):
-                        jobMoreOptionResponse(statusId: '0');
+                      onTap:widget.current_status =="Stopped"?null: (){
+                        widget.current_status == 'Pause'?jobMoreOptionResponse(statusId: '2'):
+                        jobMoreOptionResponse(statusId: '1');
+                        ;
                       },
                         child: Text(
-                          SingleTon().isResume == true?"Resume":'Pause',
-                          style: refferalCountT,
+                          widget.current_status == 'Pause'?'Pause':"Resume",
+                          style: widget.current_status =="Stopped"?PopUp_Menu_T:refferalCountT,
                         )),
                     PopupMenuItem(
-                      onTap: (){
-                        jobMoreOptionResponse(statusId: '2');
+                      onTap:widget.current_status =="Stopped"?null: (){
+                        jobMoreOptionResponse(statusId: '3');
                       },
                         child: Text(
                           'Stop',
-                          style: refferalCountT,
+                          style: widget.current_status =="Stopped"?PopUp_Menu_T:refferalCountT,
                         )),
                     PopupMenuItem(
                       onTap:widget.appliedCount == 0? (){

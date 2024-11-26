@@ -244,12 +244,14 @@ Widget applyContain() {
             strokeWidth: 2,
             child: Container(
               height: 45,
-              width: 250,
-              child: Center(
-                  child: Text(
-                'QR32JND2099',
-                style: walletT,
-              )),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10,right: 10),
+                child: Center(
+                    child: Text(
+                  'QR32JND2099',
+                  style: walletT,
+                )),
+              ),
             )),
         Padding(
           padding: const EdgeInsets.only(left: 20),
@@ -352,9 +354,13 @@ Widget HistoryList(WalletHistoryData? walletResponseData) {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Row(
                 children: [
-                  Text(
-                    walletResponseData?.history?[index].message ?? "",
-                    style: profileT,
+                  Container(
+                    width: MediaQuery.sizeOf(context).width/2,
+                    child: Text(
+                      walletResponseData?.history?[index].message ?? "",
+                      style: walletContent,
+                      maxLines: 2,
+                    ),
                   ),
                   const Spacer(),
                   walletResponseData?.history?[index].transactionType ==
@@ -401,7 +407,7 @@ Widget InvoiceList(WalletHistoryData? walletResponseData) {
                     children: [
                       Text(
                         walletResponseData?.history?[index].created_at ?? "",
-                        style: dateT,
+                        style: walletContent,
                       ),
                       const Spacer(),
                       walletResponseData?.history?[index].transactionType ==

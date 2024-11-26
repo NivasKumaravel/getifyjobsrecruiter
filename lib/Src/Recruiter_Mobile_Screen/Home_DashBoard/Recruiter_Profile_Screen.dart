@@ -58,19 +58,19 @@ class _RecuiterProfileState extends ConsumerState<Recuiter_Profile_Screen> {
                               .then((value) => ref.refresh(ProfileResponse()));
                         },
                         child: Text('Edit')),
-                    PopupMenuItem(
-                        child: InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return alertDialogBox(context, onPress: () {
-                                    Navigator.pop(context);
-                                  });
-                                },
-                              );
-                            },
-                            child: Text('Download'))),
+                    // PopupMenuItem(
+                    //     child: InkWell(
+                    //         onTap: () {
+                    //           showDialog(
+                    //             context: context,
+                    //             builder: (context) {
+                    //               return alertDialogBox(context, onPress: () {
+                    //                 Navigator.pop(context);
+                    //               });
+                    //             },
+                    //           );
+                    //         },
+                    //         child: Text('Download'))),
                   ]),
         ],
         isLogoUsed: false,

@@ -75,14 +75,14 @@ class _Recruiter_Campus_Job_Detail_ScreenState extends ConsumerState<Recruiter_C
               surfaceTintColor: white1,
               icon: Icon(Icons.more_vert_outlined),
               itemBuilder: (BuildContext context)=>[
-                PopupMenuItem(child: InkWell(
-                    onTap: (){
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => _DownloadPopUp(context),
-                      );
-                    },
-                    child: Text('Download',style: refferalCountT,))),
+                // PopupMenuItem(child: InkWell(
+                //     onTap: (){
+                //       showDialog(
+                //         context: context,
+                //         builder: (BuildContext context) => _DownloadPopUp(context),
+                //       );
+                //     },
+                //     child: Text('Download',style: refferalCountT,))),
                 PopupMenuItem(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute
@@ -97,18 +97,18 @@ class _Recruiter_Campus_Job_Detail_ScreenState extends ConsumerState<Recruiter_C
                     onTap: (){
                     },
                     child: Text('Clone',style: refferalCountT,))),
-                PopupMenuItem(child: InkWell(
-                    onTap: (){
-                    },
-                    child: Text('Pause',style: refferalCountT,))),
-                PopupMenuItem(child: InkWell(
-                    onTap: (){
-                    },
-                    child: Text('Stop',style: refferalCountT,))),
-                PopupMenuItem(child: InkWell(
-                    onTap: (){
-                    },
-                    child: Text('Delete',style: refferalCountT,))),
+                // PopupMenuItem(child: InkWell(
+                //     onTap: (){
+                //     },
+                //     child: Text('Pause',style: refferalCountT,))),
+                // PopupMenuItem(child: InkWell(
+                //     onTap: (){
+                //     },
+                //     child: Text('Stop',style: refferalCountT,))),
+                // PopupMenuItem(child: InkWell(
+                //     onTap: (){
+                //     },
+                //     child: Text('Delete',style: refferalCountT,))),
                 // PopupMenuItem(child: Text('Download',style: refferalCountT,)),
               ]),
         ],

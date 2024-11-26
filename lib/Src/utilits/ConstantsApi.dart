@@ -58,6 +58,7 @@ class ConstantApi {
   static String forgotOtpUrl = SERVER_ONE + "recruiter/forgot_otp_verification";
   static String newPasswordUrl = SERVER_ONE + "recruiter/reset_password";
   static String updateJobStatus = SERVER_ONE + "jobs/update_job_status";
+  static String notificationUrl = SERVER_ONE + "recruiter/notification";
 
 
   static String SOMETHING_WRONG = "Some thing wrong";
