@@ -65,6 +65,7 @@ Widget TextFieldDatePicker(
     String? Function(String?)? validating,
     void Function(String)? onChanged,
     required String hintText,
+      required bool isDownArrow,
     void Function()? onTap}) {
   return TextFormField(
     controller: Controller,
@@ -282,6 +283,7 @@ Widget textFormFieldSearchBar(
     {TextEditingController? Controller,
     String? Function(String?)? validating,
     bool? isEnabled,
+      void Function()? MultifilteronTap,
     void Function(String)? onChanged,
     required String hintText,
     List<TextInputFormatter>? inputFormatters,
@@ -313,11 +315,14 @@ Widget textFormFieldSearchBar(
           size: 24,
           color: grey4,
         ),
-        suffixIcon: Icon(
-          Icons.filter_list,
-          size: 24,
-          color: Colors.black,
-        ),
+        suffixIcon:InkWell(
+          onTap: MultifilteronTap,
+          child: Icon(
+            Icons.filter_list,
+            size: 24,
+            color: Colors.black,
+          ),
+        )
       ),
       onChanged: onChanged,
       textInputAction: TextInputAction.next,

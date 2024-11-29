@@ -211,6 +211,26 @@ Widget Floating_Button_Campus(context, {required Function()? onTap}) {
   );
 }
 
+Widget PopButton(
+    BuildContext context,
+    String titleName,
+    void Function()? onPress,
+    ) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: blue1,
+      minimumSize: Size(double.infinity, 45),
+      elevation: 9,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    ),
+    onPressed: onPress,
+    child: Text(
+      titleName,
+      style: popT,
+    ),
+  );
+}
+
 // CHECK BOX
 Widget CheckBoxes(
     {required bool? value,

@@ -5,6 +5,7 @@ import 'package:getifyjobs/Models/CampusListModel.dart';
 import 'package:getifyjobs/Models/DirectListModel.dart';
 import 'package:getifyjobs/Models/RecentAppliesModel.dart';
 import 'package:getifyjobs/Models/ShortlistedModel.dart';
+import 'package:getifyjobs/Src/Common_Widgets/Common_Button.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Candidate_Profile.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_List.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
@@ -62,6 +63,15 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
     _tabController.dispose();
     super.dispose();
   }
+
+  RegExp onlyText = RegExp(r'^[a-zA-Z ]+$');
+  TextEditingController _From = TextEditingController();
+  TextEditingController _To = TextEditingController();
+  TextEditingController _location = TextEditingController();
+  TextEditingController _jobTitle = TextEditingController();
+  TextEditingController _SalaryRange = TextEditingController();
+  TextEditingController _CompanyName = TextEditingController();
+  TextEditingController _careerStatus = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +136,13 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
               padding: const EdgeInsets.only(
                   right: 20, left: 20, top: 20, bottom: 20),
               child: textFormFieldSearchBar(
+                  MultifilteronTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          InterviewSchedulePopup(context),
+                    );
+                  },
                   keyboardtype: TextInputType.text,
                   hintText: "Search ...",
                   Controller: null,
@@ -363,10 +380,235 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
 
 
   }
+  Widget InterviewSchedulePopup(
+      BuildContext context,
+      ) {
+    return Container(
+      child: AlertDialog(
+        surfaceTintColor: white1,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Multiple selection of ${"Job title, Location, Salary etc"}",
+              style: Wbalck1,
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+              ),
+              child: textFormField(
+                hintText: 'Job Title',
+                keyboardtype: TextInputType.text,
+                inputFormatters: null,
+                Controller: _jobTitle,
+                focusNode: null,
+                validating: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please Enter Job Title";
+                  } else if (!onlyText.hasMatch(value)) {
+                    return "(Special Characters are Not Allowed)";
+                  }
+                  return null;
+                },
+                onChanged: null,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: textFormField(
+                hintText: 'Location',
+                keyboardtype: TextInputType.text,
+                inputFormatters: null,
+                Controller: _location,
+                focusNode: null,
+                validating: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please Enter Location";
+                  } else if (!onlyText.hasMatch(value)) {
+                    return "(Special Characters are Not Allowed)";
+                  }
+                  return null;
+                },
+                onChanged: null,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.sizeOf(context).width / 3,
+                    child: TextFieldDatePicker(
+                        Controller: _From,
+                        onChanged: (value) {},
+                        validating: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please select  Date';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onTap: () async {
+                          FocusScope.of(context).unfocus();
+                          DateTime? pickdate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1980),
+                              lastDate: DateTime(2050));
+                          if (pickdate != null) {
+                            String formatdate =
+                            DateFormat("yyyy-MM-dd").format(pickdate!);
+                            if (mounted) {
+                              setState(() {
+                                _From.text = formatdate;
+                                print(_From.text);
+                              });
+                            }
+                          }
+                        },
+                        hintText: 'Form',
+                        isDownArrow: false),
+                  ),
+                  const Spacer(),
+                  Container(
+                    width: MediaQuery.sizeOf(context).width / 3.1,
+                    child: TextFieldDatePicker(
+                        Controller: _To,
+                        onChanged: (value) {},
+                        validating: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please select  Date';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onTap: () async {
+                          FocusScope.of(context).unfocus();
+                          DateTime? pickdate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1980),
+                              lastDate: DateTime(2050));
+                          if (pickdate != null) {
+                            String formatdate =
+                            DateFormat("yyyy-MM-dd").format(pickdate!);
+                            if (mounted) {
+                              setState(() {
+                                _To.text = formatdate;
+                                print(_To.text);
+                              });
+                            }
+                          }
+                        },
+                        hintText: 'To',
+                        isDownArrow: false),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+              ),
+              child: textFormField(
+                hintText: 'Expected Salary',
+                keyboardtype: TextInputType.text,
+                inputFormatters: null,
+                Controller: _SalaryRange,
+                focusNode: null,
+                validating: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please Enter Salary";
+                  } else {
+                    return "Please Enter Valid Salary";
+                  }
+                },
+                onChanged: null,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+              ),
+              child: textFormField(
+                hintText: 'Career Status',
+                keyboardtype: TextInputType.text,
+                inputFormatters: null,
+                Controller: _careerStatus,
+                focusNode: null,
+                validating: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please Enter CareerStatus";
+                  } else if (!onlyText.hasMatch(value)) {
+                    return "(Special Characters are Not Allowed)";
+                  }
+                  return null;
+                },
+                onChanged: null,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+              ),
+              child: textFormField(
+                hintText: 'Company Name',
+                keyboardtype: TextInputType.text,
+                inputFormatters: null,
+                Controller: _CompanyName,
+                focusNode: null,
+                validating: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please Enter Company Name";
+                  } else if (!onlyText.hasMatch(value)) {
+                    return "(Special Characters are Not Allowed)";
+                  }
+                  return null;
+                },
+                onChanged: null,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      child: PopButton(context, "Cancel", () {
+                        Navigator.pop(context);
+                      })),
+                  Container(
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      child: PopButton(context, "Okay", () {
+                        //jobLists = [];
+                        //tempjobLists = [];
+                        //_visibleItemCount = 0;
+
+                        // directJobListResponse(
+                        //     JobT: _jobTitle.text,
+                        //     location: _location.text,
+                        //     Fdate: _From.text,
+                        //     Tdate: _To.text,
+                        //     ExpT: _careerStatus.text,
+                        //     CompanyT: _CompanyName.text,
+                        //     isFilter: true,
+                        //     SalaryT: _SalaryRange.text);
+                      })),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }
-
-
-
 
 
 //APPLIES
@@ -451,6 +693,7 @@ Widget shortListedTabContent(ShortlistedData? shortlistedResponseData) {
     ],
   );
 }
+
 
 Widget shortlistedCandidatesList(ShortlistedData? shortlistedResponseData,
     {required bool isWeb}) {

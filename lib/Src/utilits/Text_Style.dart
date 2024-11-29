@@ -303,6 +303,11 @@ TextStyle Torange = TextStyle(
     fontSize: 30,
     color: Color.fromRGBO(255, 148, 122, 1),
     fontWeight: FontWeight.w700);
+TextStyle popT = TextStyle(
+    fontFamily: 'Inter',
+    fontSize: 14,
+    color: white1,
+    fontWeight: FontWeight.w600);
 
 TextStyle Tgreen = TextStyle(
     fontFamily: 'Inter',

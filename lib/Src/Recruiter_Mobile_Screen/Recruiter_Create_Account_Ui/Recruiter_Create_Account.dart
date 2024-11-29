@@ -329,7 +329,7 @@ class _Recruiter_Create_Account_ScreenState
                                 return null;
                               }
                             }
-                          },
+                          }, isDownArrow: false,
                         ),
 
                         //COMPANY NAME
@@ -399,7 +399,7 @@ class _Recruiter_Create_Account_ScreenState
                                 }
                               }
                             },
-                            hintText: 'dd/MM/yyyy'),
+                            hintText: 'dd/MM/yyyy', isDownArrow: false),
 
                         //ABOUT COMPANY
                         Title_Style(Title: 'About Company', isStatus: true),
