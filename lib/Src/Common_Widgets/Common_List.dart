@@ -682,9 +682,9 @@ Widget customListItem(context,
                           decoration: BoxDecoration(color: containerColor),
                           margin: EdgeInsets.only(right: 5, bottom: 10),
                           child: Container(
-                              width: MediaQuery.of(context).size.width / 2.9,
+                             // width: MediaQuery.of(context).size.width / 2.1,
                               child: Padding(
-                                padding: const EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(6),
                                 child: Center(
                                     child: Text(status,
                                         style: getStatusTextStyle(status))),

@@ -42,6 +42,11 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
   bool isLoading = false;
   bool? isDirectList;
   bool? isCampusList;
+  String? experienceVal;
+  List<String> experienceOtion = [
+    "Fresher",
+    "Experienced",
+  ];
 
   @override
   void initState() {
@@ -472,6 +477,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
               style: Wbalck1,
               textAlign: TextAlign.center,
             ),
+
             Padding(
               padding: const EdgeInsets.only(
                 top: 10,
@@ -607,47 +613,72 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-              ),
-              child: textFormField(
-                hintText: 'Career Status',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _careerStatus,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter CareerStatus";
-                  } else if (!onlyText.hasMatch(value)) {
-                    return "(Special Characters are Not Allowed)";
+              padding: const EdgeInsets.only(top: 10),
+              child: dropDownField(
+                  context,
+                  hintText: "Select your Preference",
+                  value: experienceVal,
+                  listValue: experienceOtion,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      experienceVal = newValue;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Add Experience Type";
+                    }
+                    if (value == null) {
+                      return "Please Add Experience Type";
+                    }
+                    return null;
                   }
-                  return null;
-                },
-                onChanged: null,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-              ),
-              child: textFormField(
-                hintText: 'Company Name',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _CompanyName,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter Company Name";
-                  } else if (!onlyText.hasMatch(value)) {
-                    return "(Special Characters are Not Allowed)";
-                  }
-                  return null;
-                },
-                onChanged: null,
-              ),
-            ),
+
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //     top: 10,
+            //   ),
+            //   child: textFormField(
+            //     hintText: 'Career Status',
+            //     keyboardtype: TextInputType.text,
+            //     inputFormatters: null,
+            //     Controller: _careerStatus,
+            //     focusNode: null,
+            //     validating: (value) {
+            //       if (value == null || value.isEmpty) {
+            //         return "Please Enter CareerStatus";
+            //       } else if (!onlyText.hasMatch(value)) {
+            //         return "(Special Characters are Not Allowed)";
+            //       }
+            //       return null;
+            //     },
+            //     onChanged: null,
+            //   ),
+            // ),
+
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //     top: 10,
+            //   ),
+            //   child: textFormField(
+            //     hintText: 'Company Name',
+            //     keyboardtype: TextInputType.text,
+            //     inputFormatters: null,
+            //     Controller: _CompanyName,
+            //     focusNode: null,
+            //     validating: (value) {
+            //       if (value == null || value.isEmpty) {
+            //         return "Please Enter Company Name";
+            //       } else if (!onlyText.hasMatch(value)) {
+            //         return "(Special Characters are Not Allowed)";
+            //       }
+            //       return null;
+            //     },
+            //     onChanged: null,
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(top: 15),
               child: Row(

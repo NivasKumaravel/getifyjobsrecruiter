@@ -69,9 +69,6 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
   TextEditingController _To = TextEditingController();
   TextEditingController _location = TextEditingController();
   TextEditingController _jobTitle = TextEditingController();
-  TextEditingController _SalaryRange = TextEditingController();
-  TextEditingController _CompanyName = TextEditingController();
-  TextEditingController _careerStatus = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -378,7 +375,6 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
       },
     );
 
-
   }
   Widget InterviewSchedulePopup(
       BuildContext context,
@@ -420,14 +416,14 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: textFormField(
-                hintText: 'Location',
+                hintText: 'Name',
                 keyboardtype: TextInputType.text,
                 inputFormatters: null,
                 Controller: _location,
                 focusNode: null,
                 validating: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please Enter Location";
+                    return "Please Enter Name";
                   } else if (!onlyText.hasMatch(value)) {
                     return "(Special Characters are Not Allowed)";
                   }
@@ -438,138 +434,38 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width / 3,
-                    child: TextFieldDatePicker(
-                        Controller: _From,
-                        onChanged: (value) {},
-                        validating: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please select  Date';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onTap: () async {
-                          FocusScope.of(context).unfocus();
-                          DateTime? pickdate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1980),
-                              lastDate: DateTime(2050));
-                          if (pickdate != null) {
-                            String formatdate =
-                            DateFormat("yyyy-MM-dd").format(pickdate!);
-                            if (mounted) {
-                              setState(() {
-                                _From.text = formatdate;
-                                print(_From.text);
-                              });
-                            }
-                          }
-                        },
-                        hintText: 'Form',
-                        isDownArrow: false),
-                  ),
-                  const Spacer(),
-                  Container(
-                    width: MediaQuery.sizeOf(context).width / 3.1,
-                    child: TextFieldDatePicker(
-                        Controller: _To,
-                        onChanged: (value) {},
-                        validating: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please select  Date';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onTap: () async {
-                          FocusScope.of(context).unfocus();
-                          DateTime? pickdate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1980),
-                              lastDate: DateTime(2050));
-                          if (pickdate != null) {
-                            String formatdate =
-                            DateFormat("yyyy-MM-dd").format(pickdate!);
-                            if (mounted) {
-                              setState(() {
-                                _To.text = formatdate;
-                                print(_To.text);
-                              });
-                            }
-                          }
-                        },
-                        hintText: 'To',
-                        isDownArrow: false),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-              ),
-              child: textFormField(
-                hintText: 'Expected Salary',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _SalaryRange,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter Salary";
-                  } else {
-                    return "Please Enter Valid Salary";
-                  }
-                },
-                onChanged: null,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-              ),
-              child: textFormField(
-                hintText: 'Career Status',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _careerStatus,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter CareerStatus";
-                  } else if (!onlyText.hasMatch(value)) {
-                    return "(Special Characters are Not Allowed)";
-                  }
-                  return null;
-                },
-                onChanged: null,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-              ),
-              child: textFormField(
-                hintText: 'Company Name',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _CompanyName,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter Company Name";
-                  } else if (!onlyText.hasMatch(value)) {
-                    return "(Special Characters are Not Allowed)";
-                  }
-                  return null;
-                },
-                onChanged: null,
+              child: Container(
+                width: MediaQuery.sizeOf(context).width,
+                child: TextFieldDatePicker(
+                    Controller: _From,
+                    onChanged: (value) {},
+                    validating: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please select  Date';
+                      } else {
+                        return null;
+                      }
+                    },
+                    onTap: () async {
+                      FocusScope.of(context).unfocus();
+                      DateTime? pickdate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1980),
+                          lastDate: DateTime(2050));
+                      if (pickdate != null) {
+                        String formatdate =
+                        DateFormat("yyyy-MM-dd").format(pickdate!);
+                        if (mounted) {
+                          setState(() {
+                            _From.text = formatdate;
+                            print(_From.text);
+                          });
+                        }
+                      }
+                    },
+                    hintText: 'Form',
+                    isDownArrow: false),
               ),
             ),
             Padding(
