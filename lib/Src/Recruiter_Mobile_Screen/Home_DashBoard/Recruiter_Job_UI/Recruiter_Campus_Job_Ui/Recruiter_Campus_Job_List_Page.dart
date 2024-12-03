@@ -66,7 +66,7 @@ class _Recuiter_Campus_Job_List_ScreenState
           title: '',
           isTitleUsed: true,
         ),
-        floatingActionButton: Floating_Button_Campus(context, onTap: () {
+        floatingActionButton: Floating_Button(context, onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(

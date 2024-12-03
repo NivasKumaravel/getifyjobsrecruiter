@@ -69,6 +69,7 @@ class CandidateCampusProfileData {
   ScheduleRequested? recruiterReschedule;
   ScheduleRequested? scheduleAccepted;
   ScheduleRequested? interviewReschedule;
+  String? languagesknown;
 
   CandidateCampusProfileData(
       {this.candidateId,
@@ -117,6 +118,7 @@ class CandidateCampusProfileData {
         this.recruiterReschedule,
         this.scheduleAccepted,
         this.interviewReschedule,
+        this.languagesknown
       });
 
   CandidateCampusProfileData.fromJson(Map<String, dynamic> json) {
@@ -155,6 +157,7 @@ class CandidateCampusProfileData {
     totalReferral = json['total_referral'];
     referralUrl = json['referral_url'];
     skill = json['skill'];
+    languagesknown = json['language_known'];
     skillSet = json['skill_set'];
     differentlyAbled = json['differently_abled'];
     passport = json['passport'];
@@ -262,6 +265,7 @@ class CandidateCampusProfileData {
     data['skill_set'] = this.skillSet;
     data['differently_abled'] = this.differentlyAbled;
     data['passport'] = this.passport;
+    data['language_known'] = this.languagesknown;
     data['career_break'] = this.careerBreak;
     if (this.employment != null) {
       data['employment'] = this.employment!.map((v) => v.toJson()).toList();

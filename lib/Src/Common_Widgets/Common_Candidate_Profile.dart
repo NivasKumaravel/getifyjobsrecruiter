@@ -330,6 +330,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                                       typeT: 'reject',
                                       onPress: () {
                                         ScheduleRejectedResponse();
+                                        Navigator.pop(context);
                                       }),
                                 );
                               }),
@@ -451,7 +452,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                     _personalDetailsSection(
                         DOB: candiateProfileData?.dob ?? "",
                         Nationality: candiateProfileData?.nationality ?? "",
-                        LanguagesKnown: "LanguagesKnown",
+                        LanguagesKnown: candiateProfileData?.languagesknown ?? '',
                         MaritalStatus: candiateProfileData?.maritalStatus ?? "",
                         StringDifferentlyAbled: candiateProfileData?.differentlyAbled ?? "",
                         Doyouhavepassport: candiateProfileData?.passport ?? "",
@@ -499,7 +500,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
           _profileInformation(title: 'Career Status', data: candiateProfileData?.careerStatus ?? ""),
           _profileInformation(title: 'Skill Set', data: candiateProfileData?.skill ?? ""),
           _profileInformation(title: 'Qualification', data: candiateProfileData?.qualification ?? ""),
-          _profileInformation(title: 'Specialization', data: candiateProfileData?.specializationId ?? ""),
+          _profileInformation(title: 'Specialization', data: candiateProfileData?.specialization ?? ""),
           _profileInformation(title: 'Preferred Location', data: candiateProfileData?.preferredLocation ?? ""),
           candiateProfileData?.currentSalary == null?Container():_profileInformation(title: 'Current Salary', data: candiateProfileData?.currentSalary ?? ""),
           _profileInformation(title: 'Expected Salary', data: candiateProfileData?.expectedSalary ?? ""),

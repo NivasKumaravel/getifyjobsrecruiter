@@ -107,17 +107,17 @@ class _Recuiter_Interview_ScreenState
       appBar: Custom_AppBar(
         isUsed: true,
         actions: [
-          Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: InkWell(
-                onTap: (){
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) =>
-                        InterviewSchedulePopup(context),
-                  );
-                },
-                  child: ImgPathSvg("filter.svg")))
+          // Padding(
+          //     padding: EdgeInsets.only(right: 20),
+          //     child: InkWell(
+          //       onTap: (){
+          //         showDialog(
+          //           context: context,
+          //           builder: (BuildContext context) =>
+          //               InterviewSchedulePopup(context),
+          //         );
+          //       },
+          //         child: ImgPathSvg("filter.svg")))
         ],
         isLogoUsed: false,
         title: "",

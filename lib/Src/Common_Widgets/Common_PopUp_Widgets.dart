@@ -725,7 +725,9 @@ Widget InterviewRescheduleConfirmationPop(BuildContext context,{required String 
                   })),
               Container(
                   width:MediaQuery.of(context).size.width/3.5,
-                  child: CommonElevatedButton(context, "Confirm", onPress)),
+                  child: CommonElevatedButton(context, "Confirm", (){
+                    Navigator.pop(context);
+                  })),
 
             ],
           ),

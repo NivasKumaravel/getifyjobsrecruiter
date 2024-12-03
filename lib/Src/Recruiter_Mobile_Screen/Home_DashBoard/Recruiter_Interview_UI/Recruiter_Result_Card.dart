@@ -103,18 +103,18 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
       backgroundColor: white2,
       appBar: Custom_AppBar(
         isUsed: false,
-        actions: [
-          Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: InkWell(
-                onTap: (){
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) =>
-                        InterviewSchedulePopup(context),
-                  );
-                },
-                  child: ImgPathSvg("filter.svg")))
+        actions: const [
+          // Padding(
+          //     padding: EdgeInsets.only(right: 20),
+          //     child: InkWell(
+          //       onTap: (){
+          //         showDialog(
+          //           context: context,
+          //           builder: (BuildContext context) =>
+          //               InterviewSchedulePopup(context),
+          //         );
+          //       },
+          //         child: ImgPathSvg("filter.svg")))
         ],
         isLogoUsed: true,
         title: cardTitle(widget.CardType ?? ""),
