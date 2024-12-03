@@ -59,6 +59,16 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
 
     _tabController = TabController(length: 2, vsync: this);
 
+    getRecruiter_Id();
+  }
+
+  getRecruiter_Id() async {
+    formData = FormData.fromMap({
+      'recruiter_id': await getRecruiterId(),
+      "no_of_records": "10",
+      "page_no": page,
+    });
+
     DirectResponse(true);
   }
 
@@ -148,23 +158,25 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
         title: '',
         isTitleUsed: true,
       ),
-      floatingActionButton: switchIndex == 1?null:
-      Floating_Button(context, onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CreateJob(
-                      isEdit: false,
-                      Job_Id: '',
-                      DirectJobDetailResponseData: null, isClone: false,
-                    ))).then((value) {
-          directItemList = [];
-          tempDirectItemList = [];
-          campusResponseData = [];
-          tempCampusResponseData = [];
-          ref.refresh(DirectResponse(true));
-        });
-      }),
+      floatingActionButton: switchIndex == 1
+          ? null
+          : Floating_Button(context, onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CreateJob(
+                            isEdit: false,
+                            Job_Id: '',
+                            DirectJobDetailResponseData: null,
+                            isClone: false,
+                          ))).then((value) {
+                directItemList = [];
+                tempDirectItemList = [];
+                campusResponseData = [];
+                tempCampusResponseData = [];
+                ref.refresh(DirectResponse(true));
+              });
+            }),
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -182,7 +194,6 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                   },
                   keyboardtype: TextInputType.text,
                   hintText: "Search ...",
-
                   Controller: null,
                   validating: null,
                   onChanged: (value) {
@@ -218,14 +229,24 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
               width: MediaQuery.of(context).size.width,
               height: 50,
               child: TabBar(
-                onTap: (index) {
+                onTap: (index) async {
                   if (index == 0) {
                     switchIndex = index;
+                    formData = FormData.fromMap({
+                      'recruiter_id': await getRecruiterId(),
+                      "no_of_records": "10",
+                      "page_no": 1,
+                    });
                     DirectResponse(true);
                   } else if (index == 1) {
                     switchIndex = index;
                     campusResponseData = [];
                     tempCampusResponseData = [];
+                    formData = FormData.fromMap({
+                      'recruiter_id': await getRecruiterId(),
+                      "no_of_records": "10",
+                      "page_no": 1,
+                    });
                     CampusResponse();
                   } else if (index == 2) {}
                 },
@@ -269,8 +290,8 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                                   ref.refresh(DirectResponse(true))),
                         )
                       : Center(
-                          child:
-                              NoDataMobileWidget(content: "Unlock New Possibilities")),
+                          child: NoDataMobileWidget(
+                              content: "Unlock New Possibilities")),
 
                   //CAMPUS
                   isCampusList == true
@@ -287,8 +308,8 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                           ),
                         )
                       : Center(
-                          child:
-                              NoDataMobileWidget(content: "Unlock New Possibilities")),
+                          child: NoDataMobileWidget(
+                              content: "Unlock New Possibilities")),
                 ],
               ),
             ),
@@ -301,11 +322,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
 //CAMPUS LIST
   CampusResponse() async {
     final campusListApiService = ApiService(ref.read(dioProvider));
-    var formData = FormData.fromMap({
-      'recruiter_id': await getRecruiterId(),
-      "no_of_records": "10",
-      "page_no": campuspage,
-    });
+
     final campusListResponse = await campusListApiService.post<CampusListModel>(
         context, ConstantApi.campusListUrl, formData);
     if (campusListResponse.status == true) {
@@ -359,7 +376,8 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                               builder: (context) =>
                                   Recruiter_College_Detail_Screen(
                                     campusId:
-                                        campusResponseData?[index].campusId ?? "",
+                                        campusResponseData?[index].campusId ??
+                                            "",
                                     isEdit: false,
                                   ))).then((value) {
                           campusResponseData = [];
@@ -390,11 +408,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
     }
 
     final directListApiService = ApiService(ref.read(dioProvider));
-    var formData = FormData.fromMap({
-      'recruiter_id': await getRecruiterId(),
-      "no_of_records": "10",
-      "page_no": page,
-    });
+
     final directListResponse = await directListApiService.post<DirectListModel>(
         context, ConstantApi.directListUrl, formData);
     if (directListResponse.status == true) {
@@ -435,9 +449,13 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                     context,
                     MaterialPageRoute(
                         builder: (context) => Recruiter_JobDetail_Page(
-
                               job_Id: directResponseData?[index].jobId ?? "",
-                            appliedCount:directResponseData?[index].appliedCandidate ?? 0, current_status: directResponseData?[index].current_status ?? "",
+                              appliedCount:
+                                  directResponseData?[index].appliedCandidate ??
+                                      0,
+                              current_status:
+                                  directResponseData?[index].current_status ??
+                                      "",
                             ))).then(onValue);
               },
               child: Padding(
@@ -462,8 +480,8 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
   }
 
   Widget InterviewSchedulePopup(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     return Container(
       child: AlertDialog(
         surfaceTintColor: white1,
@@ -472,39 +490,41 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            switchIndex == 1 ?
-            Text(
-              "Multiple selection of ${"College Name, Location, Date etc"}",
-              style: Wbalck1,
-              textAlign: TextAlign.center,
-            ) : Text(
-              "Multiple selection of ${"Job Title, Location, Date, Expected Salary etc"}",
-              style: Wbalck1,
-              textAlign: TextAlign.center,
-            ),
+            switchIndex == 1
+                ? Text(
+                    "Multiple selection of ${"College Name, Location, Date etc"}",
+                    style: Wbalck1,
+                    textAlign: TextAlign.center,
+                  )
+                : Text(
+                    "Multiple selection of ${"Job Title, Location, Date, Expected Salary etc"}",
+                    style: Wbalck1,
+                    textAlign: TextAlign.center,
+                  ),
 
-            switchIndex == 0 ?
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-              ),
-              child: textFormField(
-                hintText: 'Job Title',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _jobTitle,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter Job Title";
-                  } else if (!onlyText.hasMatch(value)) {
-                    return "(Special Characters are Not Allowed)";
-                  }
-                  return null;
-                },
-                onChanged: null,
-              ),
-            ) : Container(),
+            switchIndex == 0
+                ? Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                    ),
+                    child: textFormField(
+                      hintText: 'Job Title',
+                      keyboardtype: TextInputType.text,
+                      inputFormatters: null,
+                      Controller: _jobTitle,
+                      focusNode: null,
+                      validating: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please Enter Job Title";
+                        } else if (!onlyText.hasMatch(value)) {
+                          return "(Special Characters are Not Allowed)";
+                        }
+                        return null;
+                      },
+                      onChanged: null,
+                    ),
+                  )
+                : Container(),
 
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -526,145 +546,187 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
               ),
             ),
 
-            switchIndex == 0 ?
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width / 3.2,
-                    child: TextFieldDatePicker(
-                        Controller: _From,
-                        onChanged: (value) {},
-                        validating: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please select  Date';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onTap: () async {
-                          FocusScope.of(context).unfocus();
-                          DateTime? pickdate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1980),
-                              lastDate: DateTime(2050));
-                          if (pickdate != null) {
-                            String formatdate =
-                            DateFormat("yyyy-MM-dd").format(pickdate!);
-                            if (mounted) {
-                              setState(() {
-                                _From.text = formatdate;
-                                print(_From.text);
-                              });
+            switchIndex == 0
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.sizeOf(context).width / 3.2,
+                          child: TextFieldDatePicker(
+                              Controller: _From,
+                              onChanged: (value) {},
+                              validating: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please select  Date';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onTap: () async {
+                                FocusScope.of(context).unfocus();
+                                DateTime? pickdate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1980),
+                                    lastDate: DateTime(2050));
+                                if (pickdate != null) {
+                                  String formatdate = DateFormat("yyyy-MM-dd")
+                                      .format(pickdate!);
+                                  if (mounted) {
+                                    setState(() {
+                                      _From.text = formatdate;
+                                      print(_From.text);
+                                    });
+                                  }
+                                }
+                              },
+                              hintText: 'Form',
+                              isDownArrow: false),
+                        ),
+                        const Spacer(),
+                        Container(
+                          width: MediaQuery.sizeOf(context).width / 3.2,
+                          child: TextFieldDatePicker(
+                              Controller: _To,
+                              onChanged: (value) {},
+                              validating: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please select  Date';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onTap: () async {
+                                FocusScope.of(context).unfocus();
+                                DateTime? pickdate = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1980),
+                                    lastDate: DateTime(2050));
+                                if (pickdate != null) {
+                                  String formatdate = DateFormat("yyyy-MM-dd")
+                                      .format(pickdate!);
+                                  if (mounted) {
+                                    setState(() {
+                                      _To.text = formatdate;
+                                      print(_To.text);
+                                    });
+                                  }
+                                }
+                              },
+                              hintText: 'To',
+                              isDownArrow: false),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(),
+
+            switchIndex == 0
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: textFormField(
+                      hintText: 'Expected Salary',
+                      keyboardtype: TextInputType.text,
+                      inputFormatters: null,
+                      Controller: _salary,
+                      focusNode: null,
+                      validating: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please Enter Expected Salary";
+                        } else if (!onlyText.hasMatch(value)) {
+                          return "(Special Characters are Not Allowed)";
+                        }
+                        return null;
+                      },
+                      onChanged: null,
+                    ),
+                  )
+                : Container(),
+
+            switchIndex == 1
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: textFormField(
+                      hintText: 'College Name',
+                      keyboardtype: TextInputType.text,
+                      inputFormatters: null,
+                      Controller: _Collegegname,
+                      focusNode: null,
+                      validating: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please Enter College Name";
+                        } else if (!onlyText.hasMatch(value)) {
+                          return "(Special Characters are Not Allowed)";
+                        }
+                        return null;
+                      },
+                      onChanged: null,
+                    ),
+                  )
+                : Container(),
+
+            switchIndex == 1
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Container(
+                      child: TextFieldDatePicker(
+                          Controller: _From,
+                          onChanged: (value) {},
+                          validating: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please select  Date';
+                            } else {
+                              return null;
                             }
-                          }
-                        },
-                        hintText: 'Form',
-                        isDownArrow: false),
-                  ),
-                  const Spacer(),
-                  Container(
-                    width: MediaQuery.sizeOf(context).width / 3.2,
-                    child: TextFieldDatePicker(
-                        Controller: _To,
-                        onChanged: (value) {},
-                        validating: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please select  Date';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onTap: () async {
-                          FocusScope.of(context).unfocus();
-                          DateTime? pickdate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1980),
-                              lastDate: DateTime(2050));
-                          if (pickdate != null) {
-                            String formatdate =
-                            DateFormat("yyyy-MM-dd").format(pickdate!);
-                            if (mounted) {
-                              setState(() {
-                                _To.text = formatdate;
-                                print(_To.text);
-                              });
+                          },
+                          onTap: () async {
+                            FocusScope.of(context).unfocus();
+                            DateTime? pickdate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1980),
+                                lastDate: DateTime(2050));
+                            if (pickdate != null) {
+                              String formatdate =
+                                  DateFormat("yyyy-MM-dd").format(pickdate!);
+                              if (mounted) {
+                                setState(() {
+                                  _From.text = formatdate;
+                                  print(_From.text);
+                                });
+                              }
                             }
-                          }
-                        },
-                        hintText: 'To',
-                        isDownArrow: false),
-                  ),
-                ],
-              ),
-            ) : Container(),
+                          },
+                          hintText: 'Form',
+                          isDownArrow: false),
+                    ),
+                  )
+                : Container(),
 
-            switchIndex == 0 ?
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: textFormField(
-                hintText: 'Expected Salary',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _salary,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter Expected Salary";
-                  } else if (!onlyText.hasMatch(value)) {
-                    return "(Special Characters are Not Allowed)";
-                  }
-                  return null;
-                },
-                onChanged: null,
-              ),
-            ) : Container(),
-
-            switchIndex == 1 ?
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: textFormField(
-                hintText: 'College Name',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _Collegegname,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter College Name";
-                  } else if (!onlyText.hasMatch(value)) {
-                    return "(Special Characters are Not Allowed)";
-                  }
-                  return null;
-                },
-                onChanged: null,
-              ),
-            ): Container(),
-
-            switchIndex == 0 ?
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: dropDownField(context,
-                  hintText: "Select your Preference",
-                  value: experienceVal,
-                  listValue: experienceOtion,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      experienceVal = newValue;
-                    });
-                  }, validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please Add Experience Type";
-                    }
-                    if (value == null) {
-                      return "Please Add Experience Type";
-                    }
-                    return null;
-                  }),
-            ) : Container(),
+            switchIndex == 0
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: dropDownField(context,
+                        hintText: "Select your Preference",
+                        value: experienceVal,
+                        listValue: experienceOtion,
+                        onChanged: (String? newValue) {
+                      setState(() {
+                        experienceVal = newValue;
+                      });
+                    }, validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please Add Experience Type";
+                      }
+                      if (value == null) {
+                        return "Please Add Experience Type";
+                      }
+                      return null;
+                    }),
+                  )
+                : Container(),
 
             // Padding(
             //   padding: const EdgeInsets.only(top: 10),
@@ -715,15 +777,34 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                   Container(
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: PopButton(context, "Okay", () async {
+                        if (switchIndex == 0) {
+                          formData = FormData.fromMap({
+                            'recruiter_id': await getRecruiterId(),
+                            "no_of_records": "10",
+                            "page_no": 1,
+                            "job_title": _jobTitle.text,
+                            "location": _location.text,
+                            "from_date": _From.text,
+                            "to_date": _To.text,
+                            "experience": experienceVal,
+                            "salary_from": _salary.text
+                          });
 
-                        formData = FormData.fromMap({
-                          'recruiter_id': await getRecruiterId(),
-                          "no_of_records": '10',
-                          "page_no": 1,
-                          "job_title": _jobTitle.text,
-                          "name": _location.text,
-                          "applied_date": _From.text
-                        });
+                          DirectResponse(true);
+                        } else if (switchIndex == 1) {
+                          campusResponseData = [];
+                          tempCampusResponseData = [];
+                          formData = FormData.fromMap({
+                            'recruiter_id': await getRecruiterId(),
+                            "no_of_records": "10",
+                            "page_no": 1,
+                            "name": _Collegegname.text,
+                            "location": _location.text,
+                            "recruitment_date": _From.text,
+                          });
+                          CampusResponse();
+                        }
+                        Navigator.pop(context);
 
                         // directItemList = [];
                         // tempDirectItemList = [];
@@ -747,5 +828,4 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
       ),
     );
   }
-
 }

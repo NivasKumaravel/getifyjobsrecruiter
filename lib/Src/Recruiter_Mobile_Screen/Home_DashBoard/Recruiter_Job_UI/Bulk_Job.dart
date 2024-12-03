@@ -32,10 +32,9 @@ class BulkJobs extends ConsumerStatefulWidget {
 
 class _BulkJobsState extends ConsumerState<BulkJobs> {
   String? noOfRoundsOption;
-  String? statutoryVal;
-  String? socialVal;
-  String? otherVal;
-
+  List<String>? statutoryVal;
+  List<String>? socialVal;
+  List<String>? otherVal;
 
   List<String>? qualificationOption;
   List<String>? specilizationOption;
@@ -84,7 +83,6 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
     }
   }
 
-
   void _JobDescriptionFormat() {
     final text = _jobDescriptionController.text;
     final formattedText = _toTitleCase(text);
@@ -101,9 +99,21 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         widget.campusJobDetailResponseData?.jobTitle ?? "";
     _jobDescriptionController.text =
         widget.campusJobDetailResponseData?.jobDescription ?? "";
-    qualificationOption=(widget.campusJobDetailResponseData?.qualification ?? "").split(",").map((e) => e.trim()).toList();
-    specilizationOption=(widget.campusJobDetailResponseData?.specialization ?? "").split(",").map((e) => e.trim()).toList();
-    preferredlocationOption=(widget.campusJobDetailResponseData?.location ?? "").split(",").map((e) => e.trim()).toList();
+    qualificationOption =
+        (widget.campusJobDetailResponseData?.qualification ?? "")
+            .split(",")
+            .map((e) => e.trim())
+            .toList();
+    specilizationOption =
+        (widget.campusJobDetailResponseData?.specialization ?? "")
+            .split(",")
+            .map((e) => e.trim())
+            .toList();
+    preferredlocationOption =
+        (widget.campusJobDetailResponseData?.location ?? "")
+            .split(",")
+            .map((e) => e.trim())
+            .toList();
 
     _currentArrear.text =
         widget.campusJobDetailResponseData?.currentArrears ?? "";
@@ -114,12 +124,12 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
     _Location.text = widget.campusJobDetailResponseData?.location ?? "";
     _salaryFrom.text = widget.campusJobDetailResponseData?.salaryFrom ?? "";
     _salaryTo.text = widget.campusJobDetailResponseData?.salaryTo ?? "";
-    statutoryVal =
-        widget.campusJobDetailResponseData?.statutoryBenefits ?? "";
-    socialVal =
-        widget.campusJobDetailResponseData?.socialBenefits ?? "";
-    otherVal =
-        widget.campusJobDetailResponseData?.otherBenefits ?? "";
+    // statutoryVal =
+    //     widget.campusJobDetailResponseData?.statutoryBenefits ?? "";
+    // socialVal =
+    //     widget.campusJobDetailResponseData?.socialBenefits ?? "";
+    // otherVal =
+    //     widget.campusJobDetailResponseData?.otherBenefits ?? "";
     _vacancies.text = widget.campusJobDetailResponseData?.vacancies ?? "";
     noOfRoundsOption = widget.campusJobDetailResponseData?.rounds ?? "";
   }
@@ -131,9 +141,9 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
     widget.isEditBulk == true ? EditBulkJob() : null;
     loadQualificationOptions();
     loadSpecilizationOptions();
-     StatutoryBenifitsResponse();
-     SocialBenifitsResponse();
-     OtherBenifitsResponse();
+    StatutoryBenifitsResponse();
+    SocialBenifitsResponse();
+    OtherBenifitsResponse();
     _jobTitleController.addListener(_JobTitleFormat);
     _jobDescriptionController.addListener(_JobDescriptionFormat);
   }
@@ -417,101 +427,148 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
                           });
                         },
                       ),
-                      //Statutory Benefits
                       Title_Style(Title: 'Statutory Benefits', isStatus: false),
-                      statutoryField(
-                        context,
+
+                      tagStatutorySearchField(
+                        hintText: "Statutory Benefits",
+                        focus: focus5,
                         listValue: statutoryData,
-                        onChanged: ((x) {
-                          focus5.unfocus();
+                        focusTagEnabled: false,
+                        values: statutoryVal ?? [],
+                        onPressed: (p0) {
+                          print(p0);
 
                           setState(() {
-                            StatutoryBenefitsData result = statutoryData
-                                .firstWhere((value) => value.benefits == x.searchKey);
-
-                            // Print the result
-                            print(result.id);
-
-                            statutoryVal = result.benefits;
-
-
-                            // specializationOption = "";
-                            // specializationonVal = [];
-                            // SetSpecializrion();
+                            statutoryVal = p0;
                           });
-                        }),
-                        focus: focus5,
-                        validator: null,
-
-                        searchText: (SearchValue) {
-                          statutoryVal = SearchValue;
                         },
-                        hintT: 'Statutory Benefits',
                       ),
 
                       //Social Benefits
                       Title_Style(Title: 'Social Benefits', isStatus: false),
-                      statutoryField(
-                        context,
+                      tagStatutorySearchField(
+                        hintText: "Social Benefits",
+                        focus: focus6,
                         listValue: socialData,
-                        onChanged: ((x) {
-                          focus6.unfocus();
+                        focusTagEnabled: false,
+                        values: socialVal ?? [],
+                        onPressed: (p0) {
+                          print(p0);
 
                           setState(() {
-                            StatutoryBenefitsData result = socialData
-                                .firstWhere((value) => value.benefits == x.searchKey);
-
-                            // Print the result
-                            print(result.id);
-
-                            socialVal = result.benefits;
-
-
-                            // specializationOption = "";
-                            // specializationonVal = [];
-                            // SetSpecializrion();
+                            socialVal = p0;
                           });
-                        }),
-                        focus: focus6,
-                        validator: null,
-
-                        searchText: (SearchValue) {
-                          socialVal = SearchValue;
                         },
-                        hintT: 'Social Benefits',
                       ),
 
                       //Other Benefits
                       Title_Style(Title: 'Other Benefits', isStatus: false),
-                      statutoryField(
-                        context,
+                      tagStatutorySearchField(
+                        hintText: "Other Benefits",
+                        focus: focus7,
                         listValue: otherData,
-                        onChanged: ((x) {
-                          focus7.unfocus();
+                        focusTagEnabled: false,
+                        values: otherVal ?? [],
+                        onPressed: (p0) {
+                          print(p0);
 
                           setState(() {
-                            StatutoryBenefitsData result = otherData
-                                .firstWhere((value) => value.benefits == x.searchKey);
-
-                            // Print the result
-                            print(result.id);
-
-                            otherVal = result.benefits;
-
-
-                            // specializationOption = "";
-                            // specializationonVal = [];
-                            // SetSpecializrion();
+                            otherVal = p0;
                           });
-                        }),
-                        focus: focus7,
-                        validator: null,
-
-                        searchText: (SearchValue) {
-                          otherVal = SearchValue;
                         },
-                        hintT: 'Other Benefits',
                       ),
+                      //Statutory Benefits
+                      // Title_Style(Title: 'Statutory Benefits', isStatus: false),
+                      // statutoryField(
+                      //   context,
+                      //   listValue: statutoryData,
+                      //   onChanged: ((x) {
+                      //     focus5.unfocus();
+
+                      //     setState(() {
+                      //       StatutoryBenefitsData result = statutoryData
+                      //           .firstWhere((value) => value.benefits == x.searchKey);
+
+                      //       // Print the result
+                      //       print(result.id);
+
+                      //       statutoryVal = result.benefits;
+
+                      //       // specializationOption = "";
+                      //       // specializationonVal = [];
+                      //       // SetSpecializrion();
+                      //     });
+                      //   }),
+                      //   focus: focus5,
+                      //   validator: null,
+
+                      //   searchText: (SearchValue) {
+                      //     statutoryVal = SearchValue;
+                      //   },
+                      //   hintT: 'Statutory Benefits',
+                      // ),
+
+                      // //Social Benefits
+                      // Title_Style(Title: 'Social Benefits', isStatus: false),
+                      // statutoryField(
+                      //   context,
+                      //   listValue: socialData,
+                      //   onChanged: ((x) {
+                      //     focus6.unfocus();
+
+                      //     setState(() {
+                      //       StatutoryBenefitsData result = socialData
+                      //           .firstWhere((value) => value.benefits == x.searchKey);
+
+                      //       // Print the result
+                      //       print(result.id);
+
+                      //       socialVal = result.benefits;
+
+                      //       // specializationOption = "";
+                      //       // specializationonVal = [];
+                      //       // SetSpecializrion();
+                      //     });
+                      //   }),
+                      //   focus: focus6,
+                      //   validator: null,
+
+                      //   searchText: (SearchValue) {
+                      //     socialVal = SearchValue;
+                      //   },
+                      //   hintT: 'Social Benefits',
+                      // ),
+
+                      // //Other Benefits
+                      // Title_Style(Title: 'Other Benefits', isStatus: false),
+                      // statutoryField(
+                      //   context,
+                      //   listValue: otherData,
+                      //   onChanged: ((x) {
+                      //     focus7.unfocus();
+
+                      //     setState(() {
+                      //       StatutoryBenefitsData result = otherData
+                      //           .firstWhere((value) => value.benefits == x.searchKey);
+
+                      //       // Print the result
+                      //       print(result.id);
+
+                      //       otherVal = result.benefits;
+
+                      //       // specializationOption = "";
+                      //       // specializationonVal = [];
+                      //       // SetSpecializrion();
+                      //     });
+                      //   }),
+                      //   focus: focus7,
+                      //   validator: null,
+
+                      //   searchText: (SearchValue) {
+                      //     otherVal = SearchValue;
+                      //   },
+                      //   hintT: 'Other Benefits',
+                      // ),
                       Title_Style(Title: 'Deadline:', isStatus: false),
                       Text(
                           "The job will expire in 30 days from the date of job post"),
@@ -521,9 +578,12 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
                           child: Container(
                             height: 45,
                             width: 200,
-                            child: CommonElevatedButton(context,
-                                widget.isEditBulk == true ?"Update Job": "Create Job",
-                                    () => widget.isEditBulk == true
+                            child: CommonElevatedButton(
+                                context,
+                                widget.isEditBulk == true
+                                    ? "Update Job"
+                                    : "Create Job",
+                                () => widget.isEditBulk == true
                                     ? EditBulkJobApiResponse()
                                     : BulkJobApiResponse()),
                           ),
@@ -679,50 +739,58 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
       print('Error: $e');
     }
   }
+
   //STATUTORY BENEFITS
-  StatutoryBenifitsResponse() async{
+  StatutoryBenifitsResponse() async {
     final statutoryApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "type":"Statutory Benefits",
+      "type": "Statutory Benefits",
     });
-    final statutoryResponse = await statutoryApiService.post<StatutoryBenefitsModel>(context, ConstantApi.benefitsUrl, formData);
-    if(statutoryResponse?.status == true){
+    final statutoryResponse =
+        await statutoryApiService.post<StatutoryBenefitsModel>(
+            context, ConstantApi.benefitsUrl, formData);
+    if (statutoryResponse?.status == true) {
       print("STATUTORY BENEFITS SUCCESS");
       setState(() {
         statutoryData = statutoryResponse?.data ?? [];
       });
-    }else{
+    } else {
       print("STATUTORY BENEFITS ERROR");
     }
   }
 
-  SocialBenifitsResponse() async{
+  SocialBenifitsResponse() async {
     final statutoryApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "type":"Social Benefits",
+      "type": "Social Benefits",
     });
-    final statutoryResponse = await statutoryApiService.post<StatutoryBenefitsModel>(context, ConstantApi.benefitsUrl, formData);
-    if(statutoryResponse?.status == true){
+    final statutoryResponse =
+        await statutoryApiService.post<StatutoryBenefitsModel>(
+            context, ConstantApi.benefitsUrl, formData);
+    if (statutoryResponse?.status == true) {
       print("SOCIAL BENEFITS SUCCESS");
       setState(() {
         socialData = statutoryResponse?.data ?? [];
       });
-    }else{
+    } else {
       print("SOCIAL BENEFITS ERROR");
     }
   }
-  OtherBenifitsResponse() async{
+
+  OtherBenifitsResponse() async {
     final statutoryApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "type":"Other Benefits",
+      "type": "Other Benefits",
     });
-    final statutoryResponse = await statutoryApiService.post<StatutoryBenefitsModel>(context, ConstantApi.benefitsUrl, formData);
-    if(statutoryResponse?.status == true){
+    final statutoryResponse =
+        await statutoryApiService.post<StatutoryBenefitsModel>(
+            context, ConstantApi.benefitsUrl, formData);
+    if (statutoryResponse?.status == true) {
       print("Other BENEFITS SUCCESS");
       setState(() {
         otherData = statutoryResponse?.data ?? [];
       });
-    }else{
+    } else {
       print("Other BENEFITS ERROR");
     }
   }

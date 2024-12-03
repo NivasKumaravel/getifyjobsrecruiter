@@ -25,7 +25,8 @@ Widget textFormField(
     void Function(String)? onChanged,
     required String hintText,
     List<TextInputFormatter>? inputFormatters,
-    required TextInputType keyboardtype,FocusNode? focusNode}) {
+    required TextInputType keyboardtype,
+    FocusNode? focusNode}) {
   return Container(
     // height: 50,
     child: TextFormField(
@@ -65,7 +66,7 @@ Widget TextFieldDatePicker(
     String? Function(String?)? validating,
     void Function(String)? onChanged,
     required String hintText,
-      required bool isDownArrow,
+    required bool isDownArrow,
     void Function()? onTap}) {
   return TextFormField(
     controller: Controller,
@@ -207,12 +208,13 @@ Widget textFieldPassword2(
 }
 
 //DESCRIPTION
-Widget textfieldDescription(
-    {TextEditingController? Controller,
-    String? Function(String?)? validating,
-    required String hintT,int? maxLength,
-      FocusNode? focusNode,
-    }) {
+Widget textfieldDescription({
+  TextEditingController? Controller,
+  String? Function(String?)? validating,
+  required String hintT,
+  int? maxLength,
+  FocusNode? focusNode,
+}) {
   return Container(
     // height: 50,
     child: TextFormField(
@@ -254,7 +256,7 @@ Widget textfieldDescription1(
     child: TextFormField(
       controller: Controller,
       textCapitalization: TextCapitalization.none,
-      maxLines  : 5,
+      maxLines: 5,
       minLines: 3,
       keyboardType: TextInputType.multiline,
       validator: validating,
@@ -283,7 +285,7 @@ Widget textFormFieldSearchBar(
     {TextEditingController? Controller,
     String? Function(String?)? validating,
     bool? isEnabled,
-      void Function()? MultifilteronTap,
+    void Function()? MultifilteronTap,
     void Function(String)? onChanged,
     required String hintText,
     List<TextInputFormatter>? inputFormatters,
@@ -297,33 +299,33 @@ Widget textFormFieldSearchBar(
       inputFormatters: inputFormatters,
       validator: validating,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-        hintText: hintText,
-        hintStyle: phoneHT,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: blue1),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: blue1),
-        ),
-        fillColor: white1,
-        filled: true,
-        prefixIcon: Icon(
-          Icons.search,
-          size: 24,
-          color: grey4,
-        ),
-        suffixIcon:InkWell(
-          onTap: MultifilteronTap,
-          child: Icon(
-            Icons.filter_list,
-            size: 24,
-            color: Colors.black,
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+          hintText: hintText,
+          hintStyle: phoneHT,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: blue1),
           ),
-        )
-      ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: blue1),
+          ),
+          fillColor: white1,
+          filled: true,
+          prefixIcon: Icon(
+            Icons.search,
+            size: 24,
+            color: grey4,
+          ),
+          suffixIcon: InkWell(
+            onTap: MultifilteronTap,
+            child: Icon(
+              Icons.filter_list,
+              size: 24,
+              color: Colors.black,
+            ),
+          )),
       onChanged: onChanged,
       textInputAction: TextInputAction.next,
       style: Textfield_Style,
@@ -454,14 +456,14 @@ Widget buildListView(List<String> yourList) {
 
 //DropDownExperience
 Widget dropDownField(
-    BuildContext context, {
-      required String? value,
-      required List<String> listValue,
-      required void Function(String?)? onChanged,
-      String? Function(String?)? validator,
-      String? hintText,
-      String? errorMessage,
-    }) {
+  BuildContext context, {
+  required String? value,
+  required List<String> listValue,
+  required void Function(String?)? onChanged,
+  String? Function(String?)? validator,
+  String? hintText,
+  String? errorMessage,
+}) {
   // Check if there is an error message
   final isError = (errorMessage != null && errorMessage.isNotEmpty);
 
@@ -483,7 +485,8 @@ Widget dropDownField(
             border: InputBorder.none,
             hintText: hintText,
             hintStyle: phoneHT,
-            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10), // Adjusted padding
+            contentPadding: EdgeInsets.symmetric(
+                vertical: 10, horizontal: 10), // Adjusted padding
           ),
           icon: Icon(
             Icons.keyboard_arrow_down_sharp,
@@ -505,7 +508,8 @@ Widget dropDownField(
       // Error message displayed outside the dropdown container, if available
       if (isError)
         Padding(
-          padding: const EdgeInsets.only(top: 8.0), // Add space between dropdown and error message
+          padding: const EdgeInsets.only(
+              top: 8.0), // Add space between dropdown and error message
           child: Text(
             errorMessage!,
             style: TextStyle(
@@ -518,7 +522,6 @@ Widget dropDownField(
     ],
   );
 }
-
 
 //DROPDOWN WHITE1
 Widget dropDownField2(context,
@@ -573,7 +576,6 @@ Widget NotificationStack() {
       Padding(
         padding: EdgeInsets.only(right: 20, top: 10),
         child: ImgPathSvg("bell.svg"),
-
       ),
       // Positioned(
       //   top: 10,
@@ -638,8 +640,7 @@ Widget textfieldDescription2(
     required String hint}) {
   return Container(
     // height: 50,
-    child:
-    TextFormField(
+    child: TextFormField(
       inputFormatters: [LengthLimitingTextInputFormatter(200)],
       controller: Controller,
       textCapitalization: TextCapitalization.none,
@@ -960,48 +961,169 @@ Widget dropDownSearchField(context,
 }
 
 //STATUTORY FIELD
-Widget statutoryField(context,
-    {required FocusNode? focus,
-      required List<StatutoryBenefitsData> listValue,
-      required String? Function(String?)? validator,
-      required void Function(String?)? searchText,
-      required void Function(SearchFieldListItem<StatutoryBenefitsData> x)? onChanged,
-      required String hintT}) {
-  return
-    SearchField(
-      focusNode: focus,
-      suggestionDirection: SuggestionDirection.down,
-      suggestions: listValue
-          .map((e) => SearchFieldListItem<StatutoryBenefitsData>(e.benefits ?? ""))
-          .toList(),
-      suggestionState: Suggestion.expand,
-      suggestionsDecoration: SuggestionDecoration(padding: EdgeInsets.all(10)),
-      textInputAction: TextInputAction.next,
-      suggestionStyle: Textfield_Style,
-      validator: validator,
-      searchInputDecoration: SearchInputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-        hintText: hintT,
-        hintStyle: phoneHT,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: white2),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: white2),
-        ),
-        fillColor: white2,
-        filled: true,
+// Widget statutoryField(context,
+//     {required FocusNode? focus,
+//     required List<StatutoryBenefitsData> listValue,
+//     required String? Function(String?)? validator,
+//     required void Function(String?)? searchText,
+//     required void Function(SearchFieldListItem<StatutoryBenefitsData> x)?
+//         onChanged,
+//     required String hintT}) {
+//   return SearchField(
+//     focusNode: focus,
+//     suggestionDirection: SuggestionDirection.down,
+//     suggestions: listValue
+//         .map(
+//             (e) => SearchFieldListItem<StatutoryBenefitsData>(e.benefits ?? ""))
+//         .toList(),
+//     suggestionState: Suggestion.expand,
+//     suggestionsDecoration: SuggestionDecoration(padding: EdgeInsets.all(10)),
+//     textInputAction: TextInputAction.next,
+//     suggestionStyle: Textfield_Style,
+//     validator: validator,
+//     searchInputDecoration: SearchInputDecoration(
+//       contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+//       hintText: hintT,
+//       hintStyle: phoneHT,
+//       border: OutlineInputBorder(
+//         borderRadius: BorderRadius.circular(10),
+//         borderSide: BorderSide(color: white2),
+//       ),
+//       enabledBorder: OutlineInputBorder(
+//         borderRadius: BorderRadius.circular(10),
+//         borderSide: BorderSide(color: white2),
+//       ),
+//       fillColor: white2,
+//       filled: true,
+//     ),
+//     maxSuggestionsInViewPort: 5,
+//     itemHeight: 40,
+//     onSuggestionTap: onChanged,
+//     onSubmit: searchText,
+//   );
+// }
+
+Widget tagStatutorySearchField(
+    {required String hintText,
+    required bool focusTagEnabled,
+    required List<String> values,
+    // required TextEditingController textEditingController,
+    required List<StatutoryBenefitsData> listValue,
+    required FocusNode? focus,
+    required Function(List<String>) onPressed}) {
+  _onDelete(index) {
+    values.removeAt(index);
+    onPressed(values);
+  }
+
+  return TagEditor<String>(
+    padding: EdgeInsets.only(left: 8, right: 8),
+    backgroundColor: white2,
+    borderRadius: 15,
+    length: values.length,
+    // controller: textEditingController,
+    focusNode: focus,
+    delimiters: [',', ' '],
+    hasAddButton: false,
+    resetTextOnSubmitted: true,
+    // This is set to grey just to illustrate the `textStyle` prop
+    textStyle: const TextStyle(color: Colors.grey),
+    onSubmitted: (outstandingValue) {
+      if (outstandingValue.isNotEmpty) {
+        values.add(outstandingValue);
+        onPressed(values);
+      } else {
+        focus!.unfocus();
+      }
+    },
+    inputDecoration: InputDecoration(
+        border: InputBorder.none, hintText: hintText, hintStyle: phoneHT),
+    onTagChanged: (newValue) {
+      values.add(newValue);
+      onPressed(values);
+    },
+    tagBuilder: (context, index) => Container(
+      color: focusTagEnabled && index == values.length - 1
+          ? Colors.redAccent
+          : Colors.transparent,
+      child: _Chip(
+        index: index,
+        label: values[index],
+        onDeleted: _onDelete,
       ),
-      maxSuggestionsInViewPort: 5,
-      itemHeight: 40,
-      onSuggestionTap: onChanged,
-      onSubmit: searchText,
-    );
+    ),
+    // InputFormatters example, this disallow \ and /
+    inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'[/\\]'))],
+    useDefaultHighlight: false,
+    suggestionBuilder:
+        (context, state, data, index, length, highlight, suggestionValid) {
+      var borderRadius = const BorderRadius.all(Radius.circular(20));
+      if (index == 0) {
+        borderRadius = const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        );
+      } else if (index == length - 1) {
+        borderRadius = const BorderRadius.only(
+          bottomRight: Radius.circular(20),
+          bottomLeft: Radius.circular(20),
+        );
+      }
+      return InkWell(
+        onTap: () {
+          values.add(data);
+          print("object");
+          onPressed(values);
+
+          state.resetTextField();
+          state.closeSuggestionBox();
+        },
+        child: Container(
+            decoration: highlight
+                ? BoxDecoration(
+                    color: Theme.of(context).focusColor,
+                    borderRadius: borderRadius)
+                : null,
+            padding: const EdgeInsets.all(16),
+            child: RichTextWidget(
+              wordSearched: suggestionValid ?? '',
+              textOrigin: data,
+            )),
+      );
+    },
+    onFocusTagAction: (focused) {
+      focusTagEnabled = focused;
+    },
+    onDeleteTagAction: () {
+      if (values.isNotEmpty) {
+        values.removeLast();
+      }
+    },
+    onSelectOptionAction: (item) {
+      values.add(item);
+      onPressed(values);
+    },
+    suggestionsBoxElevation: 10,
+    suggestionsBoxMaxHeight: 150,
+    findSuggestions: (String query) {
+      if (query.isNotEmpty) {
+        var lowercaseQuery = query.toLowerCase();
+
+        final mockResults = listValue.map((e) => e.benefits ?? "").toList();
+
+        return mockResults.where((profile) {
+          return profile.toLowerCase().contains(query.toLowerCase()) ||
+              profile.toLowerCase().contains(query.toLowerCase());
+        }).toList(growable: false)
+          ..sort((a, b) => a
+              .toLowerCase()
+              .indexOf(lowercaseQuery)
+              .compareTo(b.toLowerCase().indexOf(lowercaseQuery)));
+      }
+      return [];
+    },
+  );
 }
-
-
 
 Widget tagSearchField(
     {required String hintText,
@@ -1037,10 +1159,7 @@ Widget tagSearchField(
       }
     },
     inputDecoration: InputDecoration(
-      border: InputBorder.none,
-      hintText: hintText,
-      hintStyle: phoneHT
-    ),
+        border: InputBorder.none, hintText: hintText, hintStyle: phoneHT),
     onTagChanged: (newValue) {
       values.add(newValue);
       onPressed(values);
@@ -1129,16 +1248,138 @@ Widget tagSearchField(
   );
 }
 
+Widget tagSearchFieldSpecialization(
+    {required String hintText,
+    required bool focusTagEnabled,
+    required List<String> values,
+    // required TextEditingController textEditingController,
+    required List<QualificationData> listValue,
+    required FocusNode? focus,
+    required Function(List<String>) onPressed}) {
+  _onDelete(index) {
+    values.removeAt(index);
+    onPressed(values);
+  }
+
+  return TagEditor<String>(
+    padding: EdgeInsets.only(left: 8, right: 8),
+    backgroundColor: white2,
+    borderRadius: 15,
+    length: values.length,
+    // controller: textEditingController,
+    focusNode: focus,
+    delimiters: [',', ' '],
+    hasAddButton: false,
+    resetTextOnSubmitted: true,
+    // This is set to grey just to illustrate the `textStyle` prop
+    textStyle: const TextStyle(color: Colors.grey),
+    onSubmitted: (outstandingValue) {
+      if (outstandingValue.isNotEmpty) {
+        values.add(outstandingValue);
+        onPressed(values);
+      } else {
+        focus!.unfocus();
+      }
+    },
+    inputDecoration: InputDecoration(
+        border: InputBorder.none, hintText: hintText, hintStyle: phoneHT),
+    onTagChanged: (newValue) {
+      values.add(newValue);
+      onPressed(values);
+    },
+    tagBuilder: (context, index) => Container(
+      color: focusTagEnabled && index == values.length - 1
+          ? Colors.redAccent
+          : Colors.transparent,
+      child: _Chip(
+        index: index,
+        label: values[index],
+        onDeleted: _onDelete,
+      ),
+    ),
+    // InputFormatters example, this disallow \ and /
+    inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'[/\\]'))],
+    useDefaultHighlight: false,
+    suggestionBuilder:
+        (context, state, data, index, length, highlight, suggestionValid) {
+      var borderRadius = const BorderRadius.all(Radius.circular(20));
+      if (index == 0) {
+        borderRadius = const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        );
+      } else if (index == length - 1) {
+        borderRadius = const BorderRadius.only(
+          bottomRight: Radius.circular(20),
+          bottomLeft: Radius.circular(20),
+        );
+      }
+      return InkWell(
+        onTap: () {
+          values.add(data);
+          print("object");
+          onPressed(values);
+
+          state.resetTextField();
+          state.closeSuggestionBox();
+        },
+        child: Container(
+            decoration: highlight
+                ? BoxDecoration(
+                    color: Theme.of(context).focusColor,
+                    borderRadius: borderRadius)
+                : null,
+            padding: const EdgeInsets.all(16),
+            child: RichTextWidget(
+              wordSearched: suggestionValid ?? '',
+              textOrigin: data,
+            )),
+      );
+    },
+    onFocusTagAction: (focused) {
+      focusTagEnabled = focused;
+    },
+    onDeleteTagAction: () {
+      if (values.isNotEmpty) {
+        values.removeLast();
+      }
+    },
+    onSelectOptionAction: (item) {
+      values.add(item);
+      onPressed(values);
+    },
+    suggestionsBoxElevation: 10,
+    suggestionsBoxMaxHeight: 150,
+    findSuggestions: (String query) {
+      if (query.isNotEmpty) {
+        var lowercaseQuery = query.toLowerCase();
+
+        final mockResults =
+            listValue.map((e) => e.specialization ?? "").toList();
+
+        return mockResults.where((profile) {
+          return profile.toLowerCase().contains(query.toLowerCase()) ||
+              profile.toLowerCase().contains(query.toLowerCase());
+        }).toList(growable: false)
+          ..sort((a, b) => a
+              .toLowerCase()
+              .indexOf(lowercaseQuery)
+              .compareTo(b.toLowerCase().indexOf(lowercaseQuery)));
+      }
+      return [];
+    },
+  );
+}
 
 //INDUSTRY TYPE
 Widget IndustryTypeField(
     {required String hintText,
-      required bool focusTagEnabled,
-      required List<String> values,
-      // required TextEditingController textEditingController,
-      required List<IndustryData> listValue,
-      required FocusNode? focus,
-      required Function(List<String>) onPressed}) {
+    required bool focusTagEnabled,
+    required List<String> values,
+    // required TextEditingController textEditingController,
+    required List<IndustryData> listValue,
+    required FocusNode? focus,
+    required Function(List<String>) onPressed}) {
   _onDelete(index) {
     values.removeAt(index);
     onPressed(values);
@@ -1165,10 +1406,7 @@ Widget IndustryTypeField(
       }
     },
     inputDecoration: InputDecoration(
-      border: InputBorder.none,
-      hintText: hintText,
-      hintStyle: phoneHT
-    ),
+        border: InputBorder.none, hintText: hintText, hintStyle: phoneHT),
     onTagChanged: (newValue) {
       values.add(newValue);
       onPressed(values);
@@ -1212,8 +1450,8 @@ Widget IndustryTypeField(
         child: Container(
             decoration: highlight
                 ? BoxDecoration(
-                color: Theme.of(context).focusColor,
-                borderRadius: borderRadius)
+                    color: Theme.of(context).focusColor,
+                    borderRadius: borderRadius)
                 : null,
             padding: const EdgeInsets.all(16),
             child: RichTextWidget(
@@ -1240,8 +1478,7 @@ Widget IndustryTypeField(
       if (query.isNotEmpty) {
         var lowercaseQuery = query.toLowerCase();
 
-        final mockResults =
-        listValue.map((e) => e.industry ?? "").toList();
+        final mockResults = listValue.map((e) => e.industry ?? "").toList();
 
         return mockResults.where((profile) {
           return profile.toLowerCase().contains(query.toLowerCase()) ||
@@ -1256,7 +1493,6 @@ Widget IndustryTypeField(
     },
   );
 }
-
 
 Widget tagSearchField2(
     {required String hintText,

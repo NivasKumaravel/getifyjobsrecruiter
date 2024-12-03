@@ -48,9 +48,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
   String? shiftDetailVal;
   String? workTypeOption;
   String? experienceVal;
-  String? statutoryVal;
-  String? socialVal;
-  String? otherVal;
+  List<String>? statutoryVal;
+  List<String>? socialVal;
+  List<String>? otherVal;
   final _formKey = GlobalKey<FormState>();
   String? noOfRoundsOption;
   final focus2 = FocusNode();
@@ -172,9 +172,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
     _location.text = widget.DirectJobDetailResponseData?.location ?? "";
     _salaryFrom.text = widget.DirectJobDetailResponseData?.salaryFrom ?? "";
     _salaryTo.text = widget.DirectJobDetailResponseData?.salaryTo ?? "";
-    statutoryVal = widget.DirectJobDetailResponseData?.statutoryBenefits ?? "";
-    socialVal = widget.DirectJobDetailResponseData?.socialBenefits ?? "";
-    otherVal = widget.DirectJobDetailResponseData?.otherBenefits ?? "";
+    // statutoryVal = widget.DirectJobDetailResponseData?.statutoryBenefits ?? "";
+    // socialVal = widget.DirectJobDetailResponseData?.socialBenefits ?? "";
+    // otherVal = widget.DirectJobDetailResponseData?.otherBenefits ?? "";
     shiftDetailVal = widget.DirectJobDetailResponseData?.shiftDetails ?? "";
     _value = widget.DirectJobDetailResponseData?.workType == "Full Time"
         ? 0
@@ -309,7 +309,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       //Specilatiztion
                       Title_Style(Title: 'Specialization', isStatus: true),
 
-                      tagSearchField(
+                      tagSearchFieldSpecialization(
                         hintText: "Specialization",
                         focus: focus3,
                         listValue: specilizationVal,
@@ -571,95 +571,138 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
                       //Statutory Benefits
                       Title_Style(Title: 'Statutory Benefits', isStatus: false),
-                      statutoryField(
-                        context,
+
+                      tagStatutorySearchField(
+                        hintText: "Statutory Benefits",
+                        focus: focus5,
                         listValue: statutoryData,
-                        onChanged: ((x) {
-                          focus5.unfocus();
+                        focusTagEnabled: false,
+                        values: statutoryVal ?? [],
+                        onPressed: (p0) {
+                          print(p0);
 
                           setState(() {
-                            StatutoryBenefitsData result =
-                                statutoryData.firstWhere(
-                                    (value) => value.benefits == x.searchKey);
-
-                            // Print the result
-                            print(result.id);
-
-                            statutoryVal = result.benefits;
-
-                            // specializationOption = "";
-                            // specializationonVal = [];
-                            // SetSpecializrion();
+                            statutoryVal = p0;
                           });
-                        }),
-                        focus: focus5,
-                        validator: null,
-                        searchText: (SearchValue) {
-                          statutoryVal = SearchValue;
                         },
-                        hintT: 'Statutory Benefits',
                       ),
+                      // statutoryField(
+                      //   context,
+                      //   listValue: statutoryData,
+                      //   onChanged: ((x) {
+                      //     focus5.unfocus();
+
+                      //     setState(() {
+                      //       StatutoryBenefitsData result =
+                      //           statutoryData.firstWhere(
+                      //               (value) => value.benefits == x.searchKey);
+
+                      //       // Print the result
+                      //       print(result.id);
+
+                      //       statutoryVal = result.benefits;
+
+                      //       // specializationOption = "";
+                      //       // specializationonVal = [];
+                      //       // SetSpecializrion();
+                      //     });
+                      //   }),
+                      //   focus: focus5,
+                      //   validator: null,
+                      //   searchText: (SearchValue) {
+                      //     statutoryVal = SearchValue;
+                      //   },
+                      //   hintT: 'Statutory Benefits',
+                      // ),
 
                       //Social Benefits
                       Title_Style(Title: 'Social Benefits', isStatus: false),
-                      statutoryField(
-                        context,
+                      tagStatutorySearchField(
+                        hintText: "Social Benefits",
+                        focus: focus6,
                         listValue: socialData,
-                        onChanged: ((x) {
-                          focus6.unfocus();
+                        focusTagEnabled: false,
+                        values: socialVal ?? [],
+                        onPressed: (p0) {
+                          print(p0);
 
                           setState(() {
-                            StatutoryBenefitsData result =
-                                socialData.firstWhere(
-                                    (value) => value.benefits == x.searchKey);
-
-                            // Print the result
-                            print(result.id);
-
-                            socialVal = result.benefits;
-
-                            // specializationOption = "";
-                            // specializationonVal = [];
-                            // SetSpecializrion();
+                            socialVal = p0;
                           });
-                        }),
-                        focus: focus6,
-                        validator: null,
-                        searchText: (SearchValue) {
-                          socialVal = SearchValue;
                         },
-                        hintT: 'Social Benefits',
                       ),
+                      // statutoryField(
+                      //   context,
+                      //   listValue: socialData,
+                      //   onChanged: ((x) {
+                      //     focus6.unfocus();
+
+                      //     setState(() {
+                      //       StatutoryBenefitsData result =
+                      //           socialData.firstWhere(
+                      //               (value) => value.benefits == x.searchKey);
+
+                      //       // Print the result
+                      //       print(result.id);
+
+                      //       socialVal = result.benefits;
+
+                      //       // specializationOption = "";
+                      //       // specializationonVal = [];
+                      //       // SetSpecializrion();
+                      //     });
+                      //   }),
+                      //   focus: focus6,
+                      //   validator: null,
+                      //   searchText: (SearchValue) {
+                      //     socialVal = SearchValue;
+                      //   },
+                      //   hintT: 'Social Benefits',
+                      // ),
 
                       //Other Benefits
                       Title_Style(Title: 'Other Benefits', isStatus: false),
-                      statutoryField(
-                        context,
+                      tagStatutorySearchField(
+                        hintText: "Other Benefits",
+                        focus: focus7,
                         listValue: otherData,
-                        onChanged: ((x) {
-                          focus7.unfocus();
+                        focusTagEnabled: false,
+                        values: otherVal ?? [],
+                        onPressed: (p0) {
+                          print(p0);
 
                           setState(() {
-                            StatutoryBenefitsData result = otherData.firstWhere(
-                                (value) => value.benefits == x.searchKey);
-
-                            // Print the result
-                            print(result.id);
-
-                            otherVal = result.benefits;
-
-                            // specializationOption = "";
-                            // specializationonVal = [];
-                            // SetSpecializrion();
+                            otherVal = p0;
                           });
-                        }),
-                        focus: focus7,
-                        validator: null,
-                        searchText: (SearchValue) {
-                          otherVal = SearchValue;
                         },
-                        hintT: 'Other Benefits',
                       ),
+                      // statutoryField(
+                      //   context,
+                      //   listValue: otherData,
+                      //   onChanged: ((x) {
+                      //     focus7.unfocus();
+
+                      //     setState(() {
+                      //       StatutoryBenefitsData result = otherData.firstWhere(
+                      //           (value) => value.benefits == x.searchKey);
+
+                      //       // Print the result
+                      //       print(result.id);
+
+                      //       otherVal = result.benefits;
+
+                      //       // specializationOption = "";
+                      //       // specializationonVal = [];
+                      //       // SetSpecializrion();
+                      //     });
+                      //   }),
+                      //   focus: focus7,
+                      //   validator: null,
+                      //   searchText: (SearchValue) {
+                      //     otherVal = SearchValue;
+                      //   },
+                      //   hintT: 'Other Benefits',
+                      // ),
                       Title_Style(Title: 'Deadline:', isStatus: false),
                       Text(
                           "The job will expire in 30 days from the date of job post"),
