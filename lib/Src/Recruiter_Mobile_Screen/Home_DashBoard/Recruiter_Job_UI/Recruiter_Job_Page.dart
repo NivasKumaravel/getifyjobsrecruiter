@@ -107,11 +107,10 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
 
   RegExp onlyText = RegExp(r'^[a-zA-Z ]+$');
   TextEditingController _From = TextEditingController();
-  TextEditingController _name = TextEditingController();
+  TextEditingController _salary = TextEditingController();
   TextEditingController _location = TextEditingController();
   TextEditingController _jobTitle = TextEditingController();
-
-
+  TextEditingController _To = TextEditingController();
   TextEditingController _Collegegname = TextEditingController();
 
   @override
@@ -473,8 +472,13 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            switchIndex == 1 ?
             Text(
               "Multiple selection of ${"College Name, Location, Date etc"}",
+              style: Wbalck1,
+              textAlign: TextAlign.center,
+            ) : Text(
+              "Multiple selection of ${"Job Title, Location, Date, Expected Salary etc"}",
               style: Wbalck1,
               textAlign: TextAlign.center,
             ),
@@ -502,18 +506,114 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
               ),
             ) : Container(),
 
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: textFormField(
+                hintText: 'Location',
+                keyboardtype: TextInputType.text,
+                inputFormatters: null,
+                Controller: _location,
+                focusNode: null,
+                validating: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please Enter Location";
+                  } else if (!onlyText.hasMatch(value)) {
+                    return "(Special Characters are Not Allowed)";
+                  }
+                  return null;
+                },
+                onChanged: null,
+              ),
+            ),
+
+            switchIndex == 0 ?
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.sizeOf(context).width / 3.2,
+                    child: TextFieldDatePicker(
+                        Controller: _From,
+                        onChanged: (value) {},
+                        validating: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please select  Date';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onTap: () async {
+                          FocusScope.of(context).unfocus();
+                          DateTime? pickdate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1980),
+                              lastDate: DateTime(2050));
+                          if (pickdate != null) {
+                            String formatdate =
+                            DateFormat("yyyy-MM-dd").format(pickdate!);
+                            if (mounted) {
+                              setState(() {
+                                _From.text = formatdate;
+                                print(_From.text);
+                              });
+                            }
+                          }
+                        },
+                        hintText: 'Form',
+                        isDownArrow: false),
+                  ),
+                  const Spacer(),
+                  Container(
+                    width: MediaQuery.sizeOf(context).width / 3.2,
+                    child: TextFieldDatePicker(
+                        Controller: _To,
+                        onChanged: (value) {},
+                        validating: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please select  Date';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onTap: () async {
+                          FocusScope.of(context).unfocus();
+                          DateTime? pickdate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1980),
+                              lastDate: DateTime(2050));
+                          if (pickdate != null) {
+                            String formatdate =
+                            DateFormat("yyyy-MM-dd").format(pickdate!);
+                            if (mounted) {
+                              setState(() {
+                                _To.text = formatdate;
+                                print(_To.text);
+                              });
+                            }
+                          }
+                        },
+                        hintText: 'To',
+                        isDownArrow: false),
+                  ),
+                ],
+              ),
+            ) : Container(),
+
             switchIndex == 0 ?
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: textFormField(
-                hintText: 'Name',
+                hintText: 'Expected Salary',
                 keyboardtype: TextInputType.text,
                 inputFormatters: null,
-                Controller: _name,
+                Controller: _salary,
                 focusNode: null,
                 validating: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please Enter Name";
+                    return "Please Enter Expected Salary";
                   } else if (!onlyText.hasMatch(value)) {
                     return "(Special Characters are Not Allowed)";
                   }
@@ -544,63 +644,64 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
               ),
             ): Container(),
 
-
-            switchIndex == 1 ?
+            switchIndex == 0 ?
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: textFormField(
-                hintText: 'Location',
-                keyboardtype: TextInputType.text,
-                inputFormatters: null,
-                Controller: _location,
-                focusNode: null,
-                validating: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please Enter Location";
-                  } else if (!onlyText.hasMatch(value)) {
-                    return "(Special Characters are Not Allowed)";
-                  }
-                  return null;
-                },
-                onChanged: null,
-              ),
+              child: dropDownField(context,
+                  hintText: "Select your Preference",
+                  value: experienceVal,
+                  listValue: experienceOtion,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      experienceVal = newValue;
+                    });
+                  }, validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Add Experience Type";
+                    }
+                    if (value == null) {
+                      return "Please Add Experience Type";
+                    }
+                    return null;
+                  }),
             ) : Container(),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Container(
-                width: MediaQuery.sizeOf(context).width,
-                child: TextFieldDatePicker(
-                    Controller: _From,
-                    onChanged: (value) {},
-                    validating: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please select  Date';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onTap: () async {
-                      FocusScope.of(context).unfocus();
-                      DateTime? pickdate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1980),
-                          lastDate: DateTime(2050));
-                      if (pickdate != null) {
-                        String formatdate =
-                        DateFormat("yyyy-MM-dd").format(pickdate!);
-                        if (mounted) {
-                          setState(() {
-                            _From.text = formatdate;
-                            print(_From.text);
-                          });
-                        }
-                      }
-                    },
-                    hintText: 'Form',
-                    isDownArrow: false),
-              ),
-            ),
+
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 10),
+            //   child: Container(
+            //     width: MediaQuery.sizeOf(context).width,
+            //     child: TextFieldDatePicker(
+            //         Controller: _From,
+            //         onChanged: (value) {},
+            //         validating: (value) {
+            //           if (value!.isEmpty) {
+            //             return 'Please select  Date';
+            //           } else {
+            //             return null;
+            //           }
+            //         },
+            //         onTap: () async {
+            //           FocusScope.of(context).unfocus();
+            //           DateTime? pickdate = await showDatePicker(
+            //               context: context,
+            //               initialDate: DateTime.now(),
+            //               firstDate: DateTime(1980),
+            //               lastDate: DateTime(2050));
+            //           if (pickdate != null) {
+            //             String formatdate =
+            //             DateFormat("yyyy-MM-dd").format(pickdate!);
+            //             if (mounted) {
+            //               setState(() {
+            //                 _From.text = formatdate;
+            //                 print(_From.text);
+            //               });
+            //             }
+            //           }
+            //         },
+            //         hintText: 'Form',
+            //         isDownArrow: false),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(top: 15),
               child: Row(
