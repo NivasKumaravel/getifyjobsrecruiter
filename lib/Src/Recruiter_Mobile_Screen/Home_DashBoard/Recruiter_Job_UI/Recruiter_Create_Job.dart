@@ -2,12 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:getifyjobs/Models/CollegeProfileModel.dart';
 import 'package:getifyjobs/Models/DirectDetailsModel.dart';
 import 'package:getifyjobs/Models/JobModel.dart';
 import 'package:getifyjobs/Models/QualificationModel.dart';
-import 'package:getifyjobs/Models/SkillSetModel.dart';
-import 'package:getifyjobs/Models/SpecializationModel.dart';
 import 'package:getifyjobs/Models/StatutoryBenefitsModel.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Bottom_Navigation_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Button.dart';
@@ -19,8 +16,6 @@ import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
 import 'package:getifyjobs/Src/utilits/Generic.dart';
 import 'package:getifyjobs/Src/utilits/Text_Style.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:searchfield/searchfield.dart';
 
 class CreateJob extends ConsumerStatefulWidget {
   bool? isEdit;
@@ -41,8 +36,6 @@ class CreateJob extends ConsumerStatefulWidget {
 class _CreateJobState extends ConsumerState<CreateJob> {
   int selectedFromExperience = 0;
   int selectedToExperience = 1;
-
-
 
   List<int> experienceList = List.generate(21, (index) => index);
   int? _value;
@@ -137,7 +130,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
     }
   }
 
-
   void _JobDescriptionFormat() {
     final text = _jobDescriptionController.text;
     final formattedText = _toTitleCase(text);
@@ -148,8 +140,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       );
     }
   }
-
-
 
   EditSingleJob() async {
     _jobTitleController.text =
@@ -164,19 +154,27 @@ class _CreateJobState extends ConsumerState<CreateJob> {
         widget.DirectJobDetailResponseData?.historyOfArrears ?? "";
     _requriedPercentage.text =
         widget.DirectJobDetailResponseData?.requiredPercentage ?? "";
-    qualificationOption = (widget.DirectJobDetailResponseData?.qualification ?? "").split(',').map((item) => item.trim()).toList();
-    specilizationOption = (widget.DirectJobDetailResponseData?.specialization ?? "").split(",").map((e) => e.trim()).toList();
-    skillSetOption = (widget.DirectJobDetailResponseData?.skills ?? "").split(",").map((e) => e.trim()).toList();
+    qualificationOption =
+        (widget.DirectJobDetailResponseData?.qualification ?? "")
+            .split(',')
+            .map((item) => item.trim())
+            .toList();
+    specilizationOption =
+        (widget.DirectJobDetailResponseData?.specialization ?? "")
+            .split(",")
+            .map((e) => e.trim())
+            .toList();
+    skillSetOption = (widget.DirectJobDetailResponseData?.skills ?? "")
+        .split(",")
+        .map((e) => e.trim())
+        .toList();
 
     _location.text = widget.DirectJobDetailResponseData?.location ?? "";
     _salaryFrom.text = widget.DirectJobDetailResponseData?.salaryFrom ?? "";
     _salaryTo.text = widget.DirectJobDetailResponseData?.salaryTo ?? "";
-    statutoryVal =
-        widget.DirectJobDetailResponseData?.statutoryBenefits ?? "";
-    socialVal=
-        widget.DirectJobDetailResponseData?.socialBenefits ?? "";
-    otherVal =
-        widget.DirectJobDetailResponseData?.otherBenefits ?? "";
+    statutoryVal = widget.DirectJobDetailResponseData?.statutoryBenefits ?? "";
+    socialVal = widget.DirectJobDetailResponseData?.socialBenefits ?? "";
+    otherVal = widget.DirectJobDetailResponseData?.otherBenefits ?? "";
     shiftDetailVal = widget.DirectJobDetailResponseData?.shiftDetails ?? "";
     _value = widget.DirectJobDetailResponseData?.workType == "Full Time"
         ? 0
@@ -194,7 +192,11 @@ class _CreateJobState extends ConsumerState<CreateJob> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       loadApicalls();
     });
-    widget.isEdit == true ? EditSingleJob() : widget.isClone == true ?EditSingleJob() :null;
+    widget.isEdit == true
+        ? EditSingleJob()
+        : widget.isClone == true
+            ? EditSingleJob()
+            : null;
     _jobTitleController.addListener(_JobTitleFormat);
     _jobDescriptionController.addListener(_JobDescriptionFormat);
   }
@@ -219,7 +221,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
           isTitleUsed: true,
         ),
         body: GestureDetector(
-          onTap: (){
+          onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Form(
@@ -230,7 +232,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       //JOB TITLE
                       Title_Style(Title: 'Job Title', isStatus: true),
                       textFormField(
@@ -238,7 +239,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         keyboardtype: TextInputType.text,
                         inputFormatters: null,
                         Controller: _jobTitleController,
-
                         validating: (value) {
                           if (value == null || value.isEmpty) {
                             return "Please Enter Valid ${'Title'}";
@@ -288,7 +288,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         },
                       ),
 
-
                       // QUALIFICATION
                       Title_Style(Title: 'Qualification', isStatus: true),
 
@@ -306,7 +305,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           });
                         },
                       ),
-
 
                       //Specilatiztion
                       Title_Style(Title: 'Specialization', isStatus: true),
@@ -328,81 +326,85 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
                       //Experience
                       Title_Style(Title: 'Experience Type', isStatus: true),
-                      dropDownField(
-                          context,
+                      dropDownField(context,
                           hintText: "Select your Preference",
                           value: experienceVal,
                           listValue: experienceOtion,
                           onChanged: (String? newValue) {
-                            setState(() {
-                              experienceVal = newValue;
-                            });
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please Add Experience Type";
-                            }
-                            if (value == null) {
-                              return "Please Add Experience Type";
-                            }
-                            return null;
-                          }
-                      ),
-
+                        setState(() {
+                          experienceVal = newValue;
+                        });
+                      }, validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please Add Experience Type";
+                        }
+                        if (value == null) {
+                          return "Please Add Experience Type";
+                        }
+                        return null;
+                      }),
 
                       //Current Arrears
-                      experienceVal == 'Experienced' ? Container() :
-                      Title_Style(Title: 'Current Arrears', isStatus: false),
-                      experienceVal == 'Experienced' ? Container() :
-                      textFormField(
-                        hintText: 'Current Arrears',
-                        keyboardtype: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        Controller: _currentArrear,
-                        // validating: (value) {
-                        //   if (value == null || value.isEmpty) {
-                        //     return "Please Enter Current Arrears";
-                        //   }
-                        //   if (value == null) {
-                        //     return "Please Enter Current Arrears";
-                        //   }
-                        //   return null;
-                        // },
-                        // onChanged: null,
-                      ),
+                      experienceVal == 'Experienced'
+                          ? Container()
+                          : Title_Style(
+                              Title: 'Current Arrears', isStatus: false),
+                      experienceVal == 'Experienced'
+                          ? Container()
+                          : textFormField(
+                              hintText: 'Current Arrears',
+                              keyboardtype: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              Controller: _currentArrear,
+                              // validating: (value) {
+                              //   if (value == null || value.isEmpty) {
+                              //     return "Please Enter Current Arrears";
+                              //   }
+                              //   if (value == null) {
+                              //     return "Please Enter Current Arrears";
+                              //   }
+                              //   return null;
+                              // },
+                              // onChanged: null,
+                            ),
 
                       //History of Arrears
-                      experienceVal == 'Experienced' ? Container() :
-                      Title_Style(Title: 'History of Arrears', isStatus: false),
-                      experienceVal == 'Experienced' ? Container() :
-                      textFormField(
-                        hintText: 'History of Arrears',
-                        keyboardtype: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        Controller: _historyOfArrear,
-                        // validating: (value) {
-                        //   if (value == null || value.isEmpty) {
-                        //     return "Please Enter History of Arrears";
-                        //   }
-                        //   if (value == null) {
-                        //     return "Please Enter History of Arrears";
-                        //   }
-                        //   return null;
-                        // },
-                        // onChanged: null,
-                      ),
+                      experienceVal == 'Experienced'
+                          ? Container()
+                          : Title_Style(
+                              Title: 'History of Arrears', isStatus: false),
+                      experienceVal == 'Experienced'
+                          ? Container()
+                          : textFormField(
+                              hintText: 'History of Arrears',
+                              keyboardtype: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              Controller: _historyOfArrear,
+                              // validating: (value) {
+                              //   if (value == null || value.isEmpty) {
+                              //     return "Please Enter History of Arrears";
+                              //   }
+                              //   if (value == null) {
+                              //     return "Please Enter History of Arrears";
+                              //   }
+                              //   return null;
+                              // },
+                              // onChanged: null,
+                            ),
                       //Required Percentage
                       Title_Style(
                           Title: 'Required Percentage/CGPA', isStatus: false),
                       textFormField(
                         hintText: 'Required Percentage',
-                        keyboardtype: TextInputType.numberWithOptions(decimal: true),
+                        keyboardtype:
+                            TextInputType.numberWithOptions(decimal: true),
                         inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'^\d{0,3}(\.\d{0,2})?$')),
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d{0,3}(\.\d{0,2})?$')),
                         ],
                         Controller: _requriedPercentage,
                         validating: null,
@@ -417,9 +419,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           focus9.unfocus();
 
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SearchLocation()))
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SearchLocation()))
                               .then((value) {
                             if (value != null) {
                               setState(() {
@@ -444,10 +446,13 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       ),
 
                       //Years of Experience
-                      experienceVal == 'Fresher' ? Container() :
-                      Title_Style(Title: 'Years of Experience', isStatus: true),
-                      experienceVal == 'Fresher' ? Container() :
-                      _ExperienceSection(),
+                      experienceVal == 'Fresher'
+                          ? Container()
+                          : Title_Style(
+                              Title: 'Years of Experience', isStatus: true),
+                      experienceVal == 'Fresher'
+                          ? Container()
+                          : _ExperienceSection(),
 
                       //Work type
                       Title_Style(Title: 'Work Type', isStatus: true),
@@ -508,7 +513,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                                   keyboardtype: TextInputType.number,
                                   inputFormatters: null,
                                   Controller: _salaryFrom,
-                                  validating:  (value) {
+                                  validating: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter From Salary';
                                     }
@@ -516,7 +521,8 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                                       return 'Please Enter a valid number';
                                     }
                                     if (_salaryTo.text.isNotEmpty &&
-                                        double.parse(value) >= double.parse(_salaryTo.text)) {
+                                        double.parse(value) >=
+                                            double.parse(_salaryTo.text)) {
                                       return 'From Salary must be lower than To Salary';
                                     }
                                     return null;
@@ -549,7 +555,8 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                                       return 'Please Enter a valid number';
                                     }
                                     if (_salaryFrom.text.isNotEmpty &&
-                                        double.parse(value) <= double.parse(_salaryFrom.text)) {
+                                        double.parse(value) <=
+                                            double.parse(_salaryFrom.text)) {
                                       return 'To Salary must be greater than From Salary';
                                     }
                                     return null;
@@ -571,14 +578,14 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           focus5.unfocus();
 
                           setState(() {
-                            StatutoryBenefitsData result = statutoryData
-                                .firstWhere((value) => value.benefits == x.searchKey);
+                            StatutoryBenefitsData result =
+                                statutoryData.firstWhere(
+                                    (value) => value.benefits == x.searchKey);
 
                             // Print the result
                             print(result.id);
 
                             statutoryVal = result.benefits;
-
 
                             // specializationOption = "";
                             // specializationonVal = [];
@@ -587,7 +594,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         }),
                         focus: focus5,
                         validator: null,
-
                         searchText: (SearchValue) {
                           statutoryVal = SearchValue;
                         },
@@ -603,14 +609,14 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           focus6.unfocus();
 
                           setState(() {
-                            StatutoryBenefitsData result = socialData
-                                .firstWhere((value) => value.benefits == x.searchKey);
+                            StatutoryBenefitsData result =
+                                socialData.firstWhere(
+                                    (value) => value.benefits == x.searchKey);
 
                             // Print the result
                             print(result.id);
 
                             socialVal = result.benefits;
-
 
                             // specializationOption = "";
                             // specializationonVal = [];
@@ -619,7 +625,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         }),
                         focus: focus6,
                         validator: null,
-
                         searchText: (SearchValue) {
                           socialVal = SearchValue;
                         },
@@ -635,14 +640,13 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           focus7.unfocus();
 
                           setState(() {
-                            StatutoryBenefitsData result = otherData
-                                .firstWhere((value) => value.benefits == x.searchKey);
+                            StatutoryBenefitsData result = otherData.firstWhere(
+                                (value) => value.benefits == x.searchKey);
 
                             // Print the result
                             print(result.id);
 
                             otherVal = result.benefits;
-
 
                             // specializationOption = "";
                             // specializationonVal = [];
@@ -651,7 +655,6 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                         }),
                         focus: focus7,
                         validator: null,
-
                         searchText: (SearchValue) {
                           otherVal = SearchValue;
                         },
@@ -667,13 +670,19 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           child: Container(
                             height: 45,
                             width: 200,
-                            child: CommonElevatedButton(context,widget.isEdit ==true?"Update Job": widget.isClone == true?"Clone Job":"Create Job",
-                                () async {
+                            child: CommonElevatedButton(
+                                context,
+                                widget.isEdit == true
+                                    ? "Update Job"
+                                    : widget.isClone == true
+                                        ? "Clone Job"
+                                        : "Create Job", () async {
                               if (_formKey.currentState!.validate()) {
                                 widget.isEdit == true
-                                    ? editSingleJob() :
-                                widget.isClone == true?
-                                AddJobResposne():AddJobResposne();
+                                    ? editSingleJob()
+                                    : widget.isClone == true
+                                        ? AddJobResposne()
+                                        : AddJobResposne();
                               }
                             }),
                           ),
@@ -727,7 +736,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "current_arrears": _currentArrear.text,
       "history_of_arrears": _historyOfArrear.text,
       "required_percentage": _requriedPercentage.text,
-      "location": preferredlocationOption,
+      "location": preferredlocationOption.join(', '),
       "experience": experienceVal,
       "work_mode": workTypeOption,
       "work_type": _value == 0
@@ -741,7 +750,8 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "statutory_benefits": statutoryVal,
       "social_benefits": socialVal,
       "other_benefits": otherVal,
-      "years_of_experience": "${selectedFromExperience} - ${selectedToExperience}"
+      "years_of_experience":
+          "${selectedFromExperience} - ${selectedToExperience}"
     });
     final singleJobResponse = await singleJobApiService.post<JobModel>(
         context, ConstantApi.singleJobUrl, formData);
@@ -754,7 +764,11 @@ class _CreateJobState extends ConsumerState<CreateJob> {
     print("JOB ID : ${singleJobResponse.data?.jobId ?? ""}");
     if (singleJobResponse.status == true) {
       setState(() {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Recruiter_Bottom_Navigation(select: 1)), (route) => false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Recruiter_Bottom_Navigation(select: 1)),
+            (route) => false);
       });
       print("SUCESS");
     } else {
@@ -922,154 +936,167 @@ class _CreateJobState extends ConsumerState<CreateJob> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              margin: EdgeInsets.only(bottom: 5),
-              child: Text(
-                'From',
-                style: TextField_Title,
-              )),
-          Container(
-            height: 50,
-            width: 150,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: white2,
-            ),
-            child: DropdownButtonFormField<int>(
-              isExpanded: true,
-              decoration: InputDecoration(border: InputBorder.none,hintStyle: phoneHT,hintText: 'From'),
-              validator: (value) {
-                if (value == null ) {
-                  return "Please Add Experience Year";
-                }
-                if (value == null) {
-                  return "Please Add Experience Year";
-                }
-                return null;
-              },
-              icon: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Icon(
-                  Icons.keyboard_arrow_down_sharp,
-                  color: Colors.black,
-                  size: 20,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  margin: EdgeInsets.only(bottom: 5),
+                  child: Text(
+                    'From',
+                    style: TextField_Title,
+                  )),
+              Container(
+                height: 50,
+                width: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: white2,
+                ),
+                child: DropdownButtonFormField<int>(
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: phoneHT,
+                      hintText: 'From'),
+                  validator: (value) {
+                    if (value == null) {
+                      return "Please Add Experience Year";
+                    }
+                    if (value == null) {
+                      return "Please Add Experience Year";
+                    }
+                    return null;
+                  },
+                  icon: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Icon(
+                      Icons.keyboard_arrow_down_sharp,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                  ),
+                  value: selectedFromExperience,
+                  onChanged: (int? newValue) {
+                    setState(() {
+                      selectedFromExperience = newValue!;
+                      // Ensure "to" is greater than "from"
+                      if (selectedToExperience <= selectedFromExperience) {
+                        selectedToExperience = selectedFromExperience + 1;
+                      }
+                    });
+                  },
+                  items: experienceList.map((int value) {
+                    return DropdownMenuItem<int>(
+                      value: value,
+                      child: Text('  $value years'),
+                    );
+                  }).toList(),
                 ),
               ),
-              value: selectedFromExperience,
-              onChanged: (int? newValue) {
-                setState(() {
-                  selectedFromExperience = newValue!;
-                  // Ensure "to" is greater than "from"
-                  if (selectedToExperience <= selectedFromExperience) {
-                    selectedToExperience = selectedFromExperience + 1;
-                  }
-                });
-              },
-              items: experienceList.map((int value) {
-                return DropdownMenuItem<int>(
-                  value: value,
-                  child: Text('  $value years'),
-                );
-              }).toList(),
-            ),
+            ],
           ),
-        ],
-      ),
-      Spacer(),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-              margin: EdgeInsets.only(bottom: 5),
-              child: Text(
-                'To',
-                style: TextField_Title,
-              )),
-          Container(
-            height: 50,
-            width: 150,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: white2),
-            child: DropdownButtonFormField<int>(
-              isExpanded: true,
-              decoration: InputDecoration(border: InputBorder.none,hintText: 'To',hintStyle: phoneHT),
-              icon: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Icon(
-                  Icons.keyboard_arrow_down_sharp,
-                  color: Colors.black,
-                  size: 20,
+          Spacer(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  margin: EdgeInsets.only(bottom: 5),
+                  child: Text(
+                    'To',
+                    style: TextField_Title,
+                  )),
+              Container(
+                height: 50,
+                width: 150,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10), color: white2),
+                child: DropdownButtonFormField<int>(
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'To',
+                      hintStyle: phoneHT),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Icon(
+                      Icons.keyboard_arrow_down_sharp,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                  ),
+                  value: selectedToExperience,
+                  onChanged: (int? newValue) {
+                    setState(() {
+                      selectedToExperience = newValue!;
+                    });
+                  },
+                  items: experienceList
+                      .where((value) => value > selectedFromExperience)
+                      .map((int value) {
+                    return DropdownMenuItem<int>(
+                      value: value,
+                      child: Text('  $value years'),
+                    );
+                  }).toList(),
                 ),
               ),
-              value: selectedToExperience,
-              onChanged: (int? newValue) {
-                setState(() {
-                  selectedToExperience = newValue!;
-                });
-              },
-              items: experienceList
-                  .where((value) => value > selectedFromExperience)
-                  .map((int value) {
-                return DropdownMenuItem<int>(
-                  value: value,
-                  child: Text('  $value years'),
-                );
-              }).toList(),
-            ),
+            ],
           ),
-        ],
-      ),
-    ]);
+        ]);
   }
 
   //STATUTORY BENEFITS
- StatutoryBenifitsResponse() async{
+  StatutoryBenifitsResponse() async {
     final statutoryApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "type":"Statutory Benefits",
+      "type": "Statutory Benefits",
     });
-    final statutoryResponse = await statutoryApiService.post<StatutoryBenefitsModel>(context, ConstantApi.benefitsUrl, formData);
-    if(statutoryResponse?.status == true){
+    final statutoryResponse =
+        await statutoryApiService.post<StatutoryBenefitsModel>(
+            context, ConstantApi.benefitsUrl, formData);
+    if (statutoryResponse?.status == true) {
       print("STATUTORY BENEFITS SUCCESS");
-     setState(() {
-       statutoryData = statutoryResponse?.data ?? [];
-     });
-    }else{
+      setState(() {
+        statutoryData = statutoryResponse?.data ?? [];
+      });
+    } else {
       print("STATUTORY BENEFITS ERROR");
     }
- }
+  }
 
- SocialBenifitsResponse() async{
+  SocialBenifitsResponse() async {
     final statutoryApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "type":"Social Benefits",
+      "type": "Social Benefits",
     });
-    final statutoryResponse = await statutoryApiService.post<StatutoryBenefitsModel>(context, ConstantApi.benefitsUrl, formData);
-    if(statutoryResponse?.status == true){
+    final statutoryResponse =
+        await statutoryApiService.post<StatutoryBenefitsModel>(
+            context, ConstantApi.benefitsUrl, formData);
+    if (statutoryResponse?.status == true) {
       print("SOCIAL BENEFITS SUCCESS");
-     setState(() {
-       socialData = statutoryResponse?.data ?? [];
-     });
-    }else{
+      setState(() {
+        socialData = statutoryResponse?.data ?? [];
+      });
+    } else {
       print("SOCIAL BENEFITS ERROR");
     }
- }
- OtherBenifitsResponse() async{
+  }
+
+  OtherBenifitsResponse() async {
     final statutoryApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "type":"Other Benefits",
+      "type": "Other Benefits",
     });
-    final statutoryResponse = await statutoryApiService.post<StatutoryBenefitsModel>(context, ConstantApi.benefitsUrl, formData);
-    if(statutoryResponse?.status == true){
+    final statutoryResponse =
+        await statutoryApiService.post<StatutoryBenefitsModel>(
+            context, ConstantApi.benefitsUrl, formData);
+    if (statutoryResponse?.status == true) {
       print("Other BENEFITS SUCCESS");
-     setState(() {
-       otherData = statutoryResponse?.data ?? [];
-     });
-    }else{
+      setState(() {
+        otherData = statutoryResponse?.data ?? [];
+      });
+    } else {
       print("Other BENEFITS ERROR");
     }
- }
+  }
 }
