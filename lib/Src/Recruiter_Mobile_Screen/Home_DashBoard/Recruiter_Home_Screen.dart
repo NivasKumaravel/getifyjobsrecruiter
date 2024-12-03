@@ -46,16 +46,27 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
   List<CampusListItems>? tempCampusResponseData = [];
   List<CampusListItems>? campusResponseData = [];
 
+  var formData = FormData();
   @override
   void initState() {
     super.initState();
+
     // _todayController.addListener(_todayScrollListener());
 
     // print("Recur :::: ${ await getRecruiterId()}");
     _tabController = TabController(length: 2, vsync: this);
-    RecentApplyListResponse();
     Shortlist = true;
     isRecentApplies = true;
+    getRecruiter_Id();
+  }
+
+  getRecruiter_Id() async {
+    formData = FormData.fromMap({
+      'recruiter_id': await getRecruiterId(),
+      "no_of_records": '10',
+      "page_no": 1,
+    });
+    RecentApplyListResponse();
   }
 
   @override
@@ -86,12 +97,12 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 10),
                 child: InkWell(
-                  onTap: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Wallet_Coin_Screen()));
-                  },
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Wallet_Coin_Screen()));
+                    },
                     child: ImgPathSvg("coin.svg")),
               ),
               IconButton(
@@ -99,7 +110,8 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Recruiter_Request_Call_Screen()));
+                            builder: (context) =>
+                                Recruiter_Request_Call_Screen()));
                   },
                   icon: Icon(
                     Icons.call_outlined,
@@ -151,7 +163,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                           isSearching = true;
                           directItemList = tempDirectItemList!
                               .where((job) =>
-                              job.jobTitle!.toLowerCase().contains(value))
+                                  job.jobTitle!.toLowerCase().contains(value))
                               .toList();
                         } else {
                           directItemList = tempDirectItemList;
@@ -162,7 +174,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                           isSearching = true;
                           campusResponseData = tempCampusResponseData!
                               .where((job) =>
-                              job.name!.toLowerCase().contains(value))
+                                  job.name!.toLowerCase().contains(value))
                               .toList();
                         } else {
                           campusResponseData = tempCampusResponseData;
@@ -178,7 +190,16 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
               child: TabBar(
                 controller: _tabController,
                 labelColor: white1,
-                onTap: (index) {
+                onTap: (index) async {
+                  _jobTitle.text = "";
+                  _location.text = "";
+                  _From.text = "";
+                  switchIndex = index;
+                  formData = FormData.fromMap({
+                    'recruiter_id': await getRecruiterId(),
+                    "no_of_records": '10',
+                    "page_no": 1,
+                  });
                   if (index == 0) {
                     RecentApplyListResponse();
                   } else if (index == 1) {
@@ -213,14 +234,16 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  isRecentApplies == true?  SingleChildScrollView(
-                      child: Padding(
-                    padding: const EdgeInsets.only(bottom: 50),
-                    child: appliesList(context, RecentAppliesResponseData,
-                        isWeb: false),
-                  )):Center(
-                      child:
-                      NoDataMobileWidget(content: "Unlock New Possibilities")),
+                  isRecentApplies == true
+                      ? SingleChildScrollView(
+                          child: Padding(
+                          padding: const EdgeInsets.only(bottom: 50),
+                          child: appliesList(context, RecentAppliesResponseData,
+                              isWeb: false),
+                        ))
+                      : Center(
+                          child: NoDataMobileWidget(
+                              content: "Unlock New Possibilities")),
                   Shortlist == true
                       ? SingleChildScrollView(
                           child: Padding(
@@ -228,8 +251,8 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                           child: shortListedTabContent(shortlistedResponseData),
                         ))
                       : Center(
-                          child:
-                              NoDataMobileWidget(content: "Unlock New Possibilities")),
+                          child: NoDataMobileWidget(
+                              content: "Unlock New Possibilities")),
                 ],
               ),
             ),
@@ -242,11 +265,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
   //DIRECT APPLIED LIST RESPONSE
   RecentApplyListResponse() async {
     final ApplyListApiService = ApiService(ref.read(dioProvider));
-    var formData = FormData.fromMap({
-      'recruiter_id': await getRecruiterId(),
-      "no_of_records": '10',
-      "page_no": 1,
-    });
+
     final ApplyListApiResponse =
         await ApplyListApiService.post<RecentAppliesModel>(
             context, ConstantApi.recentAppliedListUrl, formData);
@@ -268,11 +287,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
   //SHORTLISTED LIST RESPONSE
   ShortlistedResponse() async {
     final ShortlistedApiService = ApiService(ref.read(dioProvider));
-    var formData = FormData.fromMap({
-      'recruiter_id': await getRecruiterId(),
-      "no_of_records": '10',
-      "page_no": '1',
-    });
+
     final ShortlistedApiResponse =
         await ShortlistedApiService.post<ShortlistedModel>(
             context, ConstantApi.shortlistedUrl, formData);
@@ -301,7 +316,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
         children: [
           Padding(
             padding:
-            const EdgeInsets.only(top: 25, bottom: 15, left: 20, right: 20),
+                const EdgeInsets.only(top: 25, bottom: 15, left: 20, right: 20),
             child: Container(
               alignment: Alignment.topLeft,
               child: Text(
@@ -312,8 +327,8 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
           ),
           Container(
               width: MediaQuery.of(context).size.width,
-              height:
-              ((RecentAppliesResponseData?.today?.items?.length ?? 0) * 110),
+              height: ((RecentAppliesResponseData?.today?.items?.length ?? 0) *
+                  110),
               color: white1,
               child: todayApplies(
                 RecentAppliesResponseData,
@@ -327,9 +342,9 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                 style: profileTitle,
               )),
           Container(
-            // height: 500,
+              // height: 500,
               child:
-              AppliesListCandidate(RecentAppliesResponseData, isWeb: isWeb))
+                  AppliesListCandidate(RecentAppliesResponseData, isWeb: isWeb))
         ],
       ),
     );
@@ -351,34 +366,45 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                 context,
                 MaterialPageRoute(
                     builder: (context) => Direct_Candidate_Profile_Screen(
-                      TagContain: '',
-                      candidate_Id: RecentAppliesResponseData?.today?.items?[index].candidateId ?? "",
-                      job_Id: RecentAppliesResponseData
-                          ?.today?.items?[index].jobId ??
-                          "",
-                    )),
-              ).then((value) => ref.refresh(RecentApplyListResponse()));
-              },
+                          TagContain: '',
+                          candidate_Id: RecentAppliesResponseData
+                                  ?.today?.items?[index].candidateId ??
+                              "",
+                          job_Id: RecentAppliesResponseData
+                                  ?.today?.items?[index].jobId ??
+                              "",
+                        )),
+              ).then((value) async {
+                formData = FormData.fromMap({
+                  'recruiter_id': await getRecruiterId(),
+                  "no_of_records": '10',
+                  "page_no": 1,
+                });
+                ref.refresh(RecentApplyListResponse());
+              });
+            },
             child: AppliesList(context,
-                CandidateImg:
-                RecentAppliesResponseData?.today?.items?[index].profilePic ??
+                CandidateImg: RecentAppliesResponseData
+                        ?.today?.items?[index].profilePic ??
                     "",
                 CandidateName:
-                RecentAppliesResponseData?.today?.items?[index].name ?? "",
+                    RecentAppliesResponseData?.today?.items?[index].name ?? "",
                 Jobrole:
-                RecentAppliesResponseData?.today?.items?[index].jobTitle ??
-                    "",
+                    RecentAppliesResponseData?.today?.items?[index].jobTitle ??
+                        "",
                 color: white2,
-                isWeb: isWeb, isTagNeeded: false, isTagName: ''),
+                isWeb: isWeb,
+                isTagNeeded: false,
+                isTagName: ''),
           ),
         );
       },
     );
-
   }
+
   Widget InterviewSchedulePopup(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     return Container(
       child: AlertDialog(
         surfaceTintColor: white1,
@@ -388,7 +414,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Multiple selection of ${"Job title, Location, Salary etc"}",
+              "Multiple selection of ${"Job title, Name, Date etc"}",
               style: Wbalck1,
               textAlign: TextAlign.center,
             ),
@@ -455,7 +481,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                           lastDate: DateTime(2050));
                       if (pickdate != null) {
                         String formatdate =
-                        DateFormat("yyyy-MM-dd").format(pickdate!);
+                            DateFormat("yyyy-MM-dd").format(pickdate!);
                         if (mounted) {
                           setState(() {
                             _From.text = formatdate;
@@ -480,7 +506,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                       })),
                   Container(
                       width: MediaQuery.of(context).size.width / 3.5,
-                      child: PopButton(context, "Okay", () {
+                      child: PopButton(context, "Okay", () async {
                         //jobLists = [];
                         //tempjobLists = [];
                         //_visibleItemCount = 0;
@@ -494,6 +520,23 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                         //     CompanyT: _CompanyName.text,
                         //     isFilter: true,
                         //     SalaryT: _SalaryRange.text);
+
+                        formData = FormData.fromMap({
+                          'recruiter_id': await getRecruiterId(),
+                          "no_of_records": '10',
+                          "page_no": 1,
+                          "job_title": _jobTitle.text,
+                          "name": _location.text,
+                          "applied_date": _From.text
+                        });
+
+                        if (switchIndex == 0) {
+                          RecentApplyListResponse();
+                        } else if (switchIndex == 1) {
+                          ShortlistedResponse();
+                        }
+
+                        Navigator.pop(context);
                       })),
                 ],
               ),
@@ -503,9 +546,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
       ),
     );
   }
-
 }
-
 
 //APPLIES
 Widget AppliesListCandidate(RecentAppliesData? RecentAppliesResponseData,
@@ -545,7 +586,9 @@ Widget AppliesListCandidate(RecentAppliesData? RecentAppliesResponseData,
                   MaterialPageRoute(
                       builder: (context) => Direct_Candidate_Profile_Screen(
                             TagContain: '',
-                            candidate_Id: RecentAppliesResponseData?.all?.items?[index].candidateId ?? "",
+                            candidate_Id: RecentAppliesResponseData
+                                    ?.all?.items?[index].candidateId ??
+                                "",
                             job_Id: RecentAppliesResponseData
                                     ?.all?.items?[index].jobId ??
                                 "",
@@ -562,7 +605,9 @@ Widget AppliesListCandidate(RecentAppliesData? RecentAppliesResponseData,
                       RecentAppliesResponseData?.all?.items?[index].jobTitle ??
                           "",
                   color: white1,
-                  isWeb: isWeb, isTagNeeded: false, isTagName: ''),
+                  isWeb: isWeb,
+                  isTagNeeded: false,
+                  isTagName: ''),
             ),
           )
         ],
@@ -589,7 +634,6 @@ Widget shortListedTabContent(ShortlistedData? shortlistedResponseData) {
     ],
   );
 }
-
 
 Widget shortlistedCandidatesList(ShortlistedData? shortlistedResponseData,
     {required bool isWeb}) {
@@ -627,7 +671,9 @@ Widget shortlistedCandidatesList(ShortlistedData? shortlistedResponseData,
                     shortlistedResponseData?.items?[index].name ?? "",
                 Jobrole: shortlistedResponseData?.items?[index].jobTitle ?? "",
                 color: white2,
-                isWeb: isWeb, isTagNeeded: false, isTagName: ''),
+                isWeb: isWeb,
+                isTagNeeded: false,
+                isTagName: ''),
           ),
         );
       },
