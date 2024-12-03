@@ -624,7 +624,7 @@ TextStyle positionT = TextStyle(
     fontFamily: 'Inter',
     fontSize: 12,
     color: grey7,
-    fontWeight: FontWeight.w500);
+    fontWeight: FontWeight.w300);
 TextStyle positionT1 = TextStyle(
     fontFamily: 'Inter',
     fontSize: 18,
@@ -824,7 +824,7 @@ TextStyle Dgrey = TextStyle(
     fontWeight: FontWeight.w600);
 TextStyle Wbalck = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 16,
+    fontSize: 14,
     color: Color.fromRGBO(0, 0, 0, 1),
     fontWeight: FontWeight.w700);
 TextStyle deadlineT = TextStyle(
@@ -834,7 +834,7 @@ TextStyle deadlineT = TextStyle(
     fontWeight: FontWeight.w400);
 TextStyle Wbalck0 = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 20,
+    fontSize: 18,
     color: Color.fromRGBO(0, 0, 0, 1),
     fontWeight: FontWeight.w600);
 TextStyle Wbalck5 = TextStyle(

@@ -400,7 +400,8 @@ Widget AppliesList(
         children: [
           Candidate_Img(ImgPath: CandidateImg),
           isWeb == true
-              ? Row(
+              ?
+          Row(
                   children: [
                     Container(
                         margin: EdgeInsets.only(left: 15, right: 10),
@@ -494,7 +495,7 @@ Widget AppliesListWithTag(
                 Row(
                   children: [
                     Container(
-                        width: 130,
+                        width: 120,
                         child: Text(
                           Jobrole,
                           style: positionT,

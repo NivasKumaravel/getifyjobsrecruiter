@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:getifyjobs/Models/CallCompletedModel.dart';
 import 'package:getifyjobs/Models/RequestCallListModel.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_List.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
+import 'package:getifyjobs/Src/Common_Widgets/Image_Path.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Call_Histroy_Ui/Call_History_Screen.dart';
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
@@ -21,6 +23,8 @@ class _Recruiter_Request_Call_ScreenState extends ConsumerState<Recruiter_Reques
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   RequestCallListData? requestResponseData;
+  CallCompletedData? completedResponseData;
+
 
 
   @override
@@ -52,6 +56,13 @@ class _Recruiter_Request_Call_ScreenState extends ConsumerState<Recruiter_Reques
               color: white1,
               width: MediaQuery.of(context).size.width,
               child: TabBar(
+                onTap: (index){
+                  if(index == 0){
+                    RequestedCallResponse();
+                  }else{
+                    RequestedCallCompletedResponse();
+                  }
+                },
                 controller: _tabController,
                 labelColor: white1,
                 labelStyle: TabT,
@@ -83,11 +94,18 @@ class _Recruiter_Request_Call_ScreenState extends ConsumerState<Recruiter_Reques
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  Padding(
+                requestResponseData?.items?.length == 0?
+                Center(child: NoDataMobileWidget(content: "No calls get requested")):
+                Padding(
                     padding: const EdgeInsets.only(bottom: 30),
                     child: SingleChildScrollView(child: shortlistedCandidatesList(requestResponseData)),
                   ),
-                  SingleChildScrollView(child: RequestCallCompleted()),
+                  completedResponseData?.items?.length == 0?
+                  Center(child: NoDataMobileWidget(content: "No calls get completed")):
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: SingleChildScrollView(child: RequestCallCompleted(completedResponseData)),
+                  ),
                 ],
               ),
             ),
@@ -117,6 +135,26 @@ class _Recruiter_Request_Call_ScreenState extends ConsumerState<Recruiter_Reques
       ShowToastMessage(requestCallResponse?.message ?? "");
     }
   }
+  RequestedCallCompletedResponse() async{
+    final requestedCallApiService = ApiService(ref.read(dioProvider));
+    var formData = FormData.fromMap({
+      "recruiter_id": await getRecruiterId(),
+      "no_of_records":10,
+      "page_no":1,
+    });
+    final requestCallResponse = await requestedCallApiService.post<CallCompletedModel>
+      (context, ConstantApi.completedCallUrl, formData);
+    if(requestCallResponse?.status == true){
+      print("COMPLETED LIST SUCESS");
+      setState(() {
+        completedResponseData = requestCallResponse?.data;
+      });
+      ShowToastMessage(requestCallResponse?.message ?? "");
+    }else{
+      print("COMPLETED LIST ERROR");
+      ShowToastMessage(requestCallResponse?.message ?? "");
+    }
+  }
 }
 
 Widget shortlistedCandidatesList(RequestCallListData? requestResponseData) {
@@ -143,24 +181,25 @@ Widget shortlistedCandidatesList(RequestCallListData? requestResponseData) {
     },
   );
 }
-Widget RequestCallCompleted() {
+Widget RequestCallCompleted(CallCompletedData? completedResponseData) {
   return ListView.builder(
     shrinkWrap: true,
     scrollDirection: Axis.vertical,
     physics: const NeverScrollableScrollPhysics(),
-    itemCount: 5,
+    itemCount: completedResponseData?.items?.length ?? 0,
     itemBuilder: (BuildContext context, int index) {
       return Padding(
         padding:
         const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         child: InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Call_History_Screen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Call_History_Screen(
+              CallId: int.parse(completedResponseData?.items?[index].call_id ?? ""),)));
           },
           child: AppliesList(context,
-              CandidateImg:'',
-              CandidateName:"Arun",
-              Jobrole:"Flutter Developer",
+              CandidateImg:completedResponseData?.items?[index].profilePic ?? "",
+              CandidateName:completedResponseData?.items?[index].name ?? "",
+              Jobrole:completedResponseData?.items?[index].jobTitle ?? "",
               color: white1,
               isWeb: false, isTagNeeded: false, isTagName: ''),
         ),

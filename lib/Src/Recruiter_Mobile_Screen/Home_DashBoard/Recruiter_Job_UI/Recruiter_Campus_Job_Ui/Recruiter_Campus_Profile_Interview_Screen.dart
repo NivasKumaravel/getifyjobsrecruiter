@@ -174,7 +174,19 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
                 })),
             Container(
                 width: MediaQuery.of(context).size.width/2.3,
-                child: CommonElevatedButton(context, "Next Round", () {
+                child:
+                widget.TagContain == "Final Round"?
+                CommonElevatedButton(context, "Select", () {
+                  // Navigator.pop(context);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return BuildPopupDialog(context);
+                    },
+
+                  );
+                }):
+                CommonElevatedButton(context, "Next Round", () {
                   // Navigator.pop(context);
                   showDialog(
                     context: context,
@@ -269,7 +281,8 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
 
                     ),
                   );
-                })),
+                })
+            ),
           ],
         ),
       ),

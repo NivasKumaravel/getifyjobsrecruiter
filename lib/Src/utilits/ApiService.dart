@@ -11,6 +11,8 @@ import 'package:getifyjobs/Models/ApplyModel.dart';
 import 'package:getifyjobs/Models/BranchDetailModel.dart';
 import 'package:getifyjobs/Models/BranchListModel.dart';
 import 'package:getifyjobs/Models/BulkJobModel.dart';
+import 'package:getifyjobs/Models/CallCompletedLogHistoryModel.dart';
+import 'package:getifyjobs/Models/CallCompletedModel.dart';
 import 'package:getifyjobs/Models/CampusCandidateProfileModel.dart';
 import 'package:getifyjobs/Models/CampusDetailModel.dart';
 import 'package:getifyjobs/Models/CampusJobListModel.dart';
@@ -134,6 +136,10 @@ class ApiService {
         return NewPasswordModel.fromJson(json) as T;
       }else if (T == NotificationModel) {
         return NotificationModel.fromJson(json) as T;
+      }else if (T == CallCompletedModel) {
+        return CallCompletedModel.fromJson(json) as T;
+      }else if (T == CallCompletedLogHistoryModel){
+        return CallCompletedLogHistoryModel.fromJson(json) as T;
       }
     }
 
