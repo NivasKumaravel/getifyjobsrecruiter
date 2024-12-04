@@ -508,11 +508,17 @@ class _Recruiter_JobDetail_PageState
               style: desctxt,textAlign: TextAlign.justify,
             ),
             SizedBox(
-              height: 20,
+              height: 15,
             ),
-             textWithheader(
-                headertxt: "Skill Set",
-                subtxt: DirectJobDetailResponseData?.skills ?? ""),
+
+             Text("Skill Set",style: htxt,),
+             Padding(
+               padding: const EdgeInsets.only(bottom: 10),
+               child: Text(DirectJobDetailResponseData?.skills ?? "",style: stxt,),
+             ),
+             // textWithheader(
+             //    headertxt: "Skill Set",
+             //    subtxt: DirectJobDetailResponseData?.skills ?? ""),
             textWithheader(
                 headertxt: "Qualification",
                 subtxt: DirectJobDetailResponseData?.qualification ?? ""),

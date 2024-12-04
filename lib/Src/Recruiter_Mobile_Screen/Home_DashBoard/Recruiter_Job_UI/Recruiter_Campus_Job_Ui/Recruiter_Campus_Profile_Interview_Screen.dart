@@ -558,6 +558,7 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
             SizedBox(height: 15,),
             //_profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""),
             _profileInformation(title: 'Email Id', data: candiateProfileData?.email ?? ""),
+            _profileInformation(title: 'Career Status', data: candiateProfileData?.careerStatus ?? ""),
             _profileInformation(title: 'Phone Number', data: candiateProfileData?.phone ?? ""),
             _profileInformation(title: 'Address', data: candiateProfileData?.address ?? ""),
             _profileInformation(title: 'Gender', data: candiateProfileData?.gender ?? ""),
