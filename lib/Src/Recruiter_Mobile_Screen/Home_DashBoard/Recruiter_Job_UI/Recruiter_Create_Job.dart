@@ -156,34 +156,46 @@ class _CreateJobState extends ConsumerState<CreateJob> {
         widget.DirectJobDetailResponseData?.requiredPercentage ?? "";
     qualificationOption =
         (widget.DirectJobDetailResponseData?.qualification ?? "")
-            .split(',')
+            .split(', ')
             .map((item) => item.trim())
+            .where((item) => item.isNotEmpty)
             .toList();
     specilizationOption =
         (widget.DirectJobDetailResponseData?.specialization ?? "")
-            .split(",")
+            .split(", ")
             .map((e) => e.trim())
+            .where((item) => item.isNotEmpty)
             .toList();
     skillSetOption = (widget.DirectJobDetailResponseData?.skills ?? "")
-        .split(",")
+        .split(", ")
         .map((e) => e.trim())
+        .where((item) => item.isNotEmpty)
         .toList();
 
-    _location.text = widget.DirectJobDetailResponseData?.location ?? "";
+    preferredlocationOption =
+        (widget.DirectJobDetailResponseData?.location ?? "")
+            .split(", ")
+            .map((e) => e.trim())
+            .where((item) => item.isNotEmpty)
+            .toList();
+    experienceVal = widget.DirectJobDetailResponseData?.experience ?? "";
     _salaryFrom.text = widget.DirectJobDetailResponseData?.salaryFrom ?? "";
     _salaryTo.text = widget.DirectJobDetailResponseData?.salaryTo ?? "";
     statutoryVal = (widget.DirectJobDetailResponseData?.statutoryBenefits ?? "")
         .split(",")
         .map((e) => e.trim())
+        .where((item) => item.isNotEmpty)
         .toList();
 
     socialVal = (widget.DirectJobDetailResponseData?.socialBenefits ?? "")
         .split(",")
         .map((e) => e.trim())
+        .where((item) => item.isNotEmpty)
         .toList();
     otherVal = (widget.DirectJobDetailResponseData?.otherBenefits ?? "")
         .split(",")
         .map((e) => e.trim())
+        .where((item) => item.isNotEmpty)
         .toList();
     shiftDetailVal = widget.DirectJobDetailResponseData?.shiftDetails ?? "";
     _value = widget.DirectJobDetailResponseData?.workType == "Full Time"
@@ -882,6 +894,10 @@ class _CreateJobState extends ConsumerState<CreateJob> {
     var qualifiationArrayValue = [];
     var specializaArrayValue = [];
 
+    var statutoryArrayValue = [];
+    var socialArrayValue = [];
+    var otherArrayValue = [];
+
     for (var obj in skillSetOption!) {
       QualificationData? result = skillsetVal.firstWhere(
           (value) => value.qualification == obj,
@@ -904,6 +920,36 @@ class _CreateJobState extends ConsumerState<CreateJob> {
           orElse: () => QualificationData(
               id: obj, qualification: "", qualification_id: ""));
       specializaArrayValue.add(result.id);
+    }
+
+    for (var obj in statutoryVal!) {
+      StatutoryBenefitsData? result =
+          statutoryData.firstWhere((value) => value.benefits == obj,
+              orElse: () => StatutoryBenefitsData(
+                    id: obj,
+                    benefits: "",
+                  ));
+      statutoryArrayValue.add(result.id);
+    }
+
+    for (var obj in socialVal!) {
+      StatutoryBenefitsData? result =
+          socialData.firstWhere((value) => value.benefits == obj,
+              orElse: () => StatutoryBenefitsData(
+                    id: obj,
+                    benefits: "",
+                  ));
+      socialArrayValue.add(result.id);
+    }
+
+    for (var obj in otherVal!) {
+      StatutoryBenefitsData? result =
+          otherData.firstWhere((value) => value.benefits == obj,
+              orElse: () => StatutoryBenefitsData(
+                    id: obj,
+                    benefits: "",
+                  ));
+      otherArrayValue.add(result.id);
     }
 
     final singleJobApiService = ApiService(ref.read(dioProvider));
@@ -929,9 +975,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "shift_details": shiftDetailVal,
       "salary_from": _salaryFrom.text,
       "salary_to": _salaryTo.text,
-      "statutory_benefits": statutoryVal,
-      "social_benefits": socialVal,
-      "other_benefits": otherVal
+      "statutory_benefits": statutoryArrayValue,
+      "social_benefits": socialArrayValue,
+      "other_benefits": otherArrayValue
     });
     final singleJobResponse = await singleJobApiService.post<JobModel>(
         context, ConstantApi.editsingleJobUrl, formData);
