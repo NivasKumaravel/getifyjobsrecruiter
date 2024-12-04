@@ -213,13 +213,15 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
             itemBuilder: (BuildContext context) => [
               PopupMenuItem(
                 onTap: (){
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => InterviewRescheduleConfirmationPop(context, typeT: 'cancel',
-                      onPress: () {
-                        ScheduleCanceledResponse();
-                      },),
-                  );
+                  ScheduleCanceledResponse();
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (BuildContext context) => InterviewRescheduleConfirmationPop(context, typeT: 'cancel',
+                  //     onPress: () {
+                  //     print("CANCEL");
+                  //
+                  //     },),
+                  // );
                 },
                   child:
                   Text(
