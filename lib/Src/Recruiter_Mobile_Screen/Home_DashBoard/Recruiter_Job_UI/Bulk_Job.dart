@@ -103,16 +103,19 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         (widget.campusJobDetailResponseData?.qualification ?? "")
             .split(",")
             .map((e) => e.trim())
+            .where((item) => item.isNotEmpty)
             .toList();
     specilizationOption =
         (widget.campusJobDetailResponseData?.specialization ?? "")
             .split(",")
             .map((e) => e.trim())
+            .where((item) => item.isNotEmpty)
             .toList();
     preferredlocationOption =
         (widget.campusJobDetailResponseData?.location ?? "")
             .split(",")
             .map((e) => e.trim())
+            .where((item) => item.isNotEmpty)
             .toList();
 
     _currentArrear.text =
@@ -127,15 +130,18 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
     statutoryVal = (widget.campusJobDetailResponseData?.statutoryBenefits ?? "")
         .split(",")
         .map((e) => e.trim())
+        .where((item) => item.isNotEmpty)
         .toList();
 
     socialVal = (widget.campusJobDetailResponseData?.socialBenefits ?? "")
         .split(",")
         .map((e) => e.trim())
+        .where((item) => item.isNotEmpty)
         .toList();
     otherVal = (widget.campusJobDetailResponseData?.otherBenefits ?? "")
         .split(",")
         .map((e) => e.trim())
+        .where((item) => item.isNotEmpty)
         .toList();
     _vacancies.text = widget.campusJobDetailResponseData?.vacancies ?? "";
     noOfRoundsOption = widget.campusJobDetailResponseData?.rounds ?? "";
@@ -630,7 +636,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
 
       for (var obj in specilizationOption!) {
         QualificationData? result = specilizationVal.firstWhere(
-            (value) => value.qualification == obj,
+            (value) => value.specialization == obj,
             orElse: () => QualificationData(
                 id: obj, qualification: "", qualification_id: ""));
         specializaArrayValue.add(result.id);
@@ -671,17 +677,17 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         "job_title": _jobTitleController.text,
         "recruiter_id": await getRecruiterId(),
         "job_description": _jobDescriptionController.text,
-        "qualification": qualifiationArrayValue.join(","),
-        "specialization": specializaArrayValue.join(","),
+        "qualification": qualifiationArrayValue.join(", "),
+        "specialization": specializaArrayValue.join(", "),
         "current_arrears": _currentArrear.text,
         "history_of_arrears": _historyOfArrear.text,
         "required_percentage": _requriedPercentage.text,
-        "location": "Coimbatore", //_Location.text,
+        "location": preferredlocationOption.join(", "), //_Location.text,
         "salary_from": _salaryFrom.text,
         "salary_to": _salaryTo.text,
-        "statutory_benefits": statutoryArrayValue.join(','),
-        "social_benefits": socialArrayValue.join(','),
-        "other_benefits": otherArrayValue.join(','),
+        "statutory_benefits": statutoryArrayValue.join(', '),
+        "social_benefits": socialArrayValue.join(', '),
+        "other_benefits": otherArrayValue.join(', '),
         "vacancies": _vacancies.text,
         "rounds": noOfRoundsOption,
         "campus_id": widget.campus_Id,
@@ -705,6 +711,10 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
       var qualifiationArrayValue = [];
       var specializaArrayValue = [];
 
+      var statutoryArrayValue = [];
+      var socialArrayValue = [];
+      var otherArrayValue = [];
+
       for (var obj in qualificationOption!) {
         QualificationData? result = qualificationVal.firstWhere(
             (value) => value.qualification == obj,
@@ -715,10 +725,40 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
 
       for (var obj in specilizationOption!) {
         QualificationData? result = specilizationVal.firstWhere(
-            (value) => value.qualification == obj,
+            (value) => value.specialization == obj,
             orElse: () => QualificationData(
                 id: obj, qualification: "", qualification_id: ""));
         specializaArrayValue.add(result.id);
+      }
+
+      for (var obj in statutoryVal!) {
+        StatutoryBenefitsData? result =
+            statutoryData.firstWhere((value) => value.benefits == obj,
+                orElse: () => StatutoryBenefitsData(
+                      id: obj,
+                      benefits: "",
+                    ));
+        statutoryArrayValue.add(result.id);
+      }
+
+      for (var obj in socialVal!) {
+        StatutoryBenefitsData? result =
+            socialData.firstWhere((value) => value.benefits == obj,
+                orElse: () => StatutoryBenefitsData(
+                      id: obj,
+                      benefits: "",
+                    ));
+        socialArrayValue.add(result.id);
+      }
+
+      for (var obj in otherVal!) {
+        StatutoryBenefitsData? result =
+            otherData.firstWhere((value) => value.benefits == obj,
+                orElse: () => StatutoryBenefitsData(
+                      id: obj,
+                      benefits: "",
+                    ));
+        otherArrayValue.add(result.id);
       }
 
       final bulkJobApiService = ApiService(ref.read(dioProvider));
@@ -726,17 +766,17 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         "job_title": _jobTitleController.text,
         "recruiter_id": await getRecruiterId(),
         "job_description": _jobDescriptionController.text,
-        "qualification": qualifiationArrayValue.join(","),
-        "specialization": specializaArrayValue.join(","),
+        "qualification": qualifiationArrayValue.join(", "),
+        "specialization": specializaArrayValue.join(", "),
         "current_arrears": _currentArrear.text,
         "history_of_arrears": _historyOfArrear.text,
         "required_percentage": _requriedPercentage,
-        "location": preferredlocationOption,
+        "location": preferredlocationOption.join(', '),
         "salary_from": _salaryFrom.text,
         "salary_to": _salaryTo.text,
-        "statutory_benefits": statutoryVal,
-        "social_benefits": socialVal,
-        "other_benefits": otherVal,
+        "statutory_benefits": statutoryArrayValue.join(', '),
+        "social_benefits": socialArrayValue.join(', '),
+        "other_benefits": otherArrayValue.join(', '),
         "vacancies": _vacancies.text,
         "rounds": noOfRoundsOption,
         "campus_id": widget.campus_Id,
