@@ -788,7 +788,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
     for (var obj in specilizationOption!) {
       QualificationData? result = specilizationVal.firstWhere(
-          (value) => value.qualification == obj,
+          (value) => value.specialization == obj,
           orElse: () => QualificationData(
               id: obj, qualification: "", qualification_id: ""));
       specializaArrayValue.add(result.id);
@@ -829,9 +829,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "job_title": _jobTitleController.text,
       "recruiter_id": await getRecruiterId(),
       "job_description": _jobDescriptionController.text,
-      "skills": skillsArrayValue.join(","),
-      "qualification": qualifiationArrayValue.join(","),
-      "specialization": specializaArrayValue.join(','),
+      "skills": skillsArrayValue.join(", "),
+      "qualification": qualifiationArrayValue.join(", "),
+      "specialization": specializaArrayValue.join(', '),
       "current_arrears": _currentArrear.text,
       "history_of_arrears": _historyOfArrear.text,
       "required_percentage": _requriedPercentage.text,
@@ -846,9 +846,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "shift_details": shiftDetailVal,
       "salary_from": _salaryFrom.text,
       "salary_to": _salaryTo.text,
-      "statutory_benefits": statutoryArrayValue.join(','),
-      "social_benefits": socialArrayValue.join(','),
-      "other_benefits": otherArrayValue.join(','),
+      "statutory_benefits": statutoryArrayValue.join(', '),
+      "social_benefits": socialArrayValue.join(', '),
+      "other_benefits": otherArrayValue.join(', '),
       "years_of_experience":
           "${selectedFromExperience} - ${selectedToExperience}"
     });
@@ -900,7 +900,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
     for (var obj in specilizationOption!) {
       QualificationData? result = specilizationVal.firstWhere(
-          (value) => value.qualification == obj,
+          (value) => value.specialization == obj,
           orElse: () => QualificationData(
               id: obj, qualification: "", qualification_id: ""));
       specializaArrayValue.add(result.id);
