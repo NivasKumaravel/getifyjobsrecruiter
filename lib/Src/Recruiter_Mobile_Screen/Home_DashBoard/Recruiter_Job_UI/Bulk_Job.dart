@@ -274,7 +274,11 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
 
                       //Qualification
                       Title_Style(Title: 'Qualification', isStatus: true),
-                      tagSearchField2(
+
+                      tagSearchField(
+                        error: (qualificationOption?.length ?? 0) == 0
+                            ? "Please select at least one Qualification"
+                            : null,
                         hintText: "Qualification",
                         focus: focus2,
                         listValue: qualificationVal,
@@ -288,10 +292,13 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
                           });
                         },
                       ),
-
                       //Specilatiztion
                       Title_Style(Title: 'Specialization', isStatus: true),
-                      tagSearchField2(
+
+                      tagSearchFieldSpecialization(
+                        error: (specilizationOption?.length ?? 0) == 0
+                            ? "Please select at least one Specialization"
+                            : null,
                         hintText: "Specialization",
                         focus: focus3,
                         listValue: specilizationVal,

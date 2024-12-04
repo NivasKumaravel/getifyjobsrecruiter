@@ -13,6 +13,7 @@ import 'package:getifyjobs/Src/Common_Widgets/Common_Button.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_PopUp_Widgets.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Image_Path.dart';
+import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Wallet_Screens.dart';
 
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
@@ -690,7 +691,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
       "job_id":widget.job_Id,
       "candidate_id":widget.candidate_Id,
       "recruiter_id":await getRecruiterId(),
-      "status":4
+      "status":10
     });
     final shortlistedApiResponse = await shortListedApiService.post<UpdateCandidateJobSatusModel>(
         context, ConstantApi.updateDirectJobStatusUrl, formData);
@@ -729,6 +730,14 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
       setState(() {
         widget.TagContain = "Schedule Requested";
       });
+    }else if(scheduleApiResponse?.status == false){
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Wallet_Coin_Screen()));
+      ShowToastMessage(scheduleApiResponse.message ?? "");
+
+      print("Schedule ERROR");
     }else{
       print("Schedule ERROR");
     }

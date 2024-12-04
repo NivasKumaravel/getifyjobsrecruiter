@@ -179,8 +179,8 @@ Widget _campusList(context,CampusJobListData? campusJobListResponseData,
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => 
-              Recruiter_College_Detail_Screen(campusId: campusid, isEdit: true,)),
+          MaterialPageRoute(builder: (context) =>
+              Recruiter_College_Detail_Screen(campusId: campusid, isEdit: true, Status: '',)),
         );
 
       },

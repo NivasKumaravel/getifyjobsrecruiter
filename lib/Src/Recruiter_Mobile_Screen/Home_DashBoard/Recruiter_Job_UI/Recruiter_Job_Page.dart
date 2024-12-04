@@ -378,7 +378,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                                     campusId:
                                         campusResponseData?[index].campusId ??
                                             "",
-                                    isEdit: false,
+                                    isEdit: false, Status:campusResponseData?[index].status,
                                   ))).then((value) {
                           campusResponseData = [];
                           tempCampusResponseData = [];

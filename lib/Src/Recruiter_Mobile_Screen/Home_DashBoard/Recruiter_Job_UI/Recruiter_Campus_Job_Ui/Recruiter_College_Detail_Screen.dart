@@ -18,8 +18,9 @@ import 'package:getifyjobs/Src/utilits/Text_Style.dart';
 class Recruiter_College_Detail_Screen extends ConsumerStatefulWidget {
   String? campusId;
   bool? isEdit;
+  String? Status;
 
-  Recruiter_College_Detail_Screen({super.key, required this.campusId,required this.isEdit});
+  Recruiter_College_Detail_Screen({super.key, required this.campusId,required this.isEdit,required this.Status});
 
   @override
   ConsumerState<Recruiter_College_Detail_Screen> createState() =>
@@ -28,15 +29,20 @@ class Recruiter_College_Detail_Screen extends ConsumerStatefulWidget {
 
 class _Recruiter_College_Detail_ScreenState
     extends ConsumerState<Recruiter_College_Detail_Screen> {
+
+  bool? isApplied;
   void initState() {
     // TODO: implement initState
     super.initState();
     CampusDetailResponse();
     print("CAMPUS NAME ${campusResponseData?.name ?? ''}");
+    print("PRINT STATUS ${widget.Status}");
     campusDetail = true;
+    isApplied = false;
   }
   CampusData? campusResponseData;
   bool? campusDetail;
+
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +142,43 @@ class _Recruiter_College_Detail_ScreenState
                 child: Center(
                   child: Container(
                     width: 250,
-                    child: CommonElevatedButton(context, "Apply", () {
+                    child:
+                    isApplied == true?
+                   Container(
+                     decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(5),
+                       color: green4,
+                     ),
+                     child:Padding(
+                       padding: const EdgeInsets.all(10),
+                       child: Builder(
+                         builder: (context) {
+                           return Center(
+                             child: Text("Applied",
+                               style: ButtonT,),
+                           );
+                         }
+                       ),
+                     ),
+                   ):widget.Status=="Pending"?
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: green4,
+                      ),
+                      child:Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Builder(
+                            builder: (context) {
+                              return Center(
+                                child: Text("Applied",
+                                  style: ButtonT,),
+                              );
+                            }
+                        ),
+                      ),
+                    ):
+                    CommonElevatedButton(context, "Apply", () {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) =>
@@ -202,6 +244,9 @@ class _Recruiter_College_Detail_ScreenState
                         });
                         final ApplyCampusResponse = await applyCampusApiService.post<ApplyModel>(context,ConstantApi.applyCampusUrl, formData);
                         if(ApplyCampusResponse.status == true){
+                          setState(() {
+                            isApplied = true;
+                          });
                           Navigator.pop(context);
                           ShowToastMessage(ApplyCampusResponse?.message ?? "");
                         }else{

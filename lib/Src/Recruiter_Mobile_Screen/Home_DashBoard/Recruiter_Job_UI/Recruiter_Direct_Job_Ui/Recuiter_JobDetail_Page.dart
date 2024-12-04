@@ -444,7 +444,7 @@ class _Recruiter_JobDetail_PageState
       "job_id":widget.job_Id,
       "no_of_records":10,
       "page_no":1,
-      "status":4,
+      "status":10,
     });
     final allListApiResponse = await allListApiService.post<DirectCandidateListModel>(context,
         ConstantApi.directCandidateListUrl, formData);
@@ -511,7 +511,7 @@ class _Recruiter_JobDetail_PageState
               height: 15,
             ),
 
-             Text("Skill Set",style: htxt,),
+             Text("Skill Sets",style: htxt,),
              Padding(
                padding: const EdgeInsets.only(bottom: 10),
                child: Text(DirectJobDetailResponseData?.skills ?? "",style: stxt,),

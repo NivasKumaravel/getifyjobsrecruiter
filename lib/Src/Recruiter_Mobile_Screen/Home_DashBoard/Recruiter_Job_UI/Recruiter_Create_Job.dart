@@ -305,7 +305,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       Title_Style(Title: 'Qualification', isStatus: true),
 
                       tagSearchField(
-                        error: (skillSetOption?.length ?? 0) == 0
+                        error: (qualificationOption?.length ?? 0) == 0
                             ? "Please select at least one Qualification"
                             : null,
                         hintText: "Qualification",
