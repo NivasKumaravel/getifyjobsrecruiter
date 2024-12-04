@@ -124,12 +124,19 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
     _Location.text = widget.campusJobDetailResponseData?.location ?? "";
     _salaryFrom.text = widget.campusJobDetailResponseData?.salaryFrom ?? "";
     _salaryTo.text = widget.campusJobDetailResponseData?.salaryTo ?? "";
-    // statutoryVal =
-    //     widget.campusJobDetailResponseData?.statutoryBenefits ?? "";
-    // socialVal =
-    //     widget.campusJobDetailResponseData?.socialBenefits ?? "";
-    // otherVal =
-    //     widget.campusJobDetailResponseData?.otherBenefits ?? "";
+    statutoryVal = (widget.campusJobDetailResponseData?.statutoryBenefits ?? "")
+        .split(",")
+        .map((e) => e.trim())
+        .toList();
+
+    socialVal = (widget.campusJobDetailResponseData?.socialBenefits ?? "")
+        .split(",")
+        .map((e) => e.trim())
+        .toList();
+    otherVal = (widget.campusJobDetailResponseData?.otherBenefits ?? "")
+        .split(",")
+        .map((e) => e.trim())
+        .toList();
     _vacancies.text = widget.campusJobDetailResponseData?.vacancies ?? "";
     noOfRoundsOption = widget.campusJobDetailResponseData?.rounds ?? "";
   }
@@ -229,6 +236,9 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
                           });
                         },
                         child: tagSearchFieldPreferredLoc(
+                          error: (preferredlocationOption.length ?? 0) == 0
+                              ? "Please select at least one job location"
+                              : null,
                           hintText: "Preferred Job Location",
                           listValue: [],
                           focusTagEnabled: false,
@@ -599,6 +609,10 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
       var qualifiationArrayValue = [];
       var specializaArrayValue = [];
 
+      var statutoryArrayValue = [];
+      var socialArrayValue = [];
+      var otherArrayValue = [];
+
       for (var obj in qualificationOption!) {
         QualificationData? result = qualificationVal.firstWhere(
             (value) => value.qualification == obj,
@@ -615,6 +629,36 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         specializaArrayValue.add(result.id);
       }
 
+      for (var obj in statutoryVal!) {
+        StatutoryBenefitsData? result =
+            statutoryData.firstWhere((value) => value.benefits == obj,
+                orElse: () => StatutoryBenefitsData(
+                      id: obj,
+                      benefits: "",
+                    ));
+        statutoryArrayValue.add(result.id);
+      }
+
+      for (var obj in socialVal!) {
+        StatutoryBenefitsData? result =
+            socialData.firstWhere((value) => value.benefits == obj,
+                orElse: () => StatutoryBenefitsData(
+                      id: obj,
+                      benefits: "",
+                    ));
+        socialArrayValue.add(result.id);
+      }
+
+      for (var obj in otherVal!) {
+        StatutoryBenefitsData? result =
+            otherData.firstWhere((value) => value.benefits == obj,
+                orElse: () => StatutoryBenefitsData(
+                      id: obj,
+                      benefits: "",
+                    ));
+        otherArrayValue.add(result.id);
+      }
+
       final bulkJobApiService = ApiService(ref.read(dioProvider));
       var formData = FormData.fromMap({
         "job_title": _jobTitleController.text,
@@ -628,9 +672,9 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         "location": "Coimbatore", //_Location.text,
         "salary_from": _salaryFrom.text,
         "salary_to": _salaryTo.text,
-        "statutory_benefits": statutoryVal,
-        "social_benefits": socialVal,
-        "other_benefits": otherVal,
+        "statutory_benefits": statutoryArrayValue.join(','),
+        "social_benefits": socialArrayValue.join(','),
+        "other_benefits": otherArrayValue.join(','),
         "vacancies": _vacancies.text,
         "rounds": noOfRoundsOption,
         "campus_id": widget.campus_Id,

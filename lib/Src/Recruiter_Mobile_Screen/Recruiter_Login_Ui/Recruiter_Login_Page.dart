@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,12 +9,12 @@ import 'package:getifyjobs/Src/Common_Widgets/Image_Path.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Text_Form_Field.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Recruiter_Create_Account_Ui/Recruiter_Create_Account.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Recruiter_Forget_Password_Ui/Recruiter_Forget_Mobile_Screen.dart';
+import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Recruiter_Otp_Verification_Ui/Recruiter_Otp_Verification_Screen.dart';
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
 import 'package:getifyjobs/Src/utilits/Generic.dart';
 import 'package:getifyjobs/Src/utilits/Text_Style.dart';
-import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Recruiter_Login_Page extends ConsumerStatefulWidget {
@@ -28,8 +29,10 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
   TextEditingController _mobileController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  RegExp passwordSpecial = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$])(?=.*[0-9]).*$');
-  RegExp passwordLength = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$])(?=.*[0-9]).{8,15}$');
+  RegExp passwordSpecial =
+      RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$])(?=.*[0-9]).*$');
+  RegExp passwordLength =
+      RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$])(?=.*[0-9]).{8,15}$');
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _mobileNumber = '';
@@ -66,8 +69,7 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
               child: Logo(context),
             ),
             //LOGIN SCREEN IMAGE
-            Container(
-                child: LoginScreenImage(context)),
+            Container(child: LoginScreenImage(context)),
             const Spacer(),
             //LOGIN CONTAINER
             loginContainer(),
@@ -133,8 +135,6 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
             //Login button
 
             loginButton(),
-
-
           ],
         ),
       ),
@@ -183,17 +183,16 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
             _password = value;
           });
         },
-          validating:
-              (value) {
-            if (value!.isEmpty) {
-              return 'Please Enter a Password';
-            } else if (!passwordSpecial.hasMatch(value)) {
-              return 'Password should be with the combination of Aa@#1';
-            }else if(!passwordLength.hasMatch(value)){
-              return "Password should be with minimum 8 and maximum 15 characters";
-            }
-            return null;
-          },
+        validating: (value) {
+          if (value!.isEmpty) {
+            return 'Please Enter a Password';
+          } else if (!passwordSpecial.hasMatch(value)) {
+            return 'Password should be with the combination of Aa@#1';
+          } else if (!passwordLength.hasMatch(value)) {
+            return "Password should be with minimum 8 and maximum 15 characters";
+          }
+          return null;
+        },
       ),
     );
   }
@@ -206,7 +205,10 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Recruiter_Create_Account_Screen(isEdit: false, editResponse: null,)));
+                  builder: (context) => Recruiter_Create_Account_Screen(
+                        isEdit: false,
+                        editResponse: null,
+                      )));
         },
         child: RichText(
           text: TextSpan(
@@ -239,20 +241,23 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
       ),
     );
   }
+
   Future<void> LoginResponse() async {
     if (_formKey.currentState!.validate()) {
       final LoginApiService = ApiService(ref.read(dioProvider));
-      var formData = FormData.fromMap(
-          {"phone": _mobileController.text, "password": _passwordController.text});
+      var formData = FormData.fromMap({
+        "phone": _mobileController.text,
+        "password": _passwordController.text
+      });
       final LoginResponse = await LoginApiService.post<LoginModel>(
-         context, ConstantApi.loginUrl, formData);
-      print(
-          "LOGIN RESPONSE : ${LoginResponse.data?.recruiterId ?? ""}");
+          context, ConstantApi.loginUrl, formData);
+      print("LOGIN RESPONSE : ${LoginResponse.data?.recruiterId ?? ""}");
 
       //SHAREDPREFERENCE
       final SharedPreferences setLoginData =
-      await SharedPreferences.getInstance();
-      setLoginData.setString('recruiter_id', LoginResponse.data?.recruiterId ?? "");
+          await SharedPreferences.getInstance();
+      setLoginData.setString(
+          'recruiter_id', LoginResponse.data?.recruiterId ?? "");
 
       if (LoginResponse.status == true) {
         ShowToastMessage(LoginResponse.message ?? "");
@@ -262,11 +267,19 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    Recruiter_Bottom_Navigation(select: 0)));
+                builder: (context) => Recruiter_Bottom_Navigation(select: 0)));
       } else {
-        ShowToastMessage(LoginResponse.message ?? "");
-        print("ERROR");
+        LoginResponse.data?.otp_verify_status == false
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Recruiter_Otp_Verification_Screen(
+                          isForget: false,
+                          mobileNumber: _mobileController.text,
+                          recruiterId:
+                              LoginResponse.data?.recruiterId.toString(),
+                        )))
+            : ShowToastMessage(LoginResponse.message ?? "");
       }
 
       print('Mobile Number: $_mobileNumber');

@@ -29,14 +29,16 @@ class Data {
   String? email;
   String? phone;
   String? companyName;
+  String? otp_verify_status;
 
   Data(
       {this.recruiterId,
-        this.name,
-        this.logo,
-        this.email,
-        this.phone,
-        this.companyName});
+      this.name,
+      this.logo,
+      this.email,
+      this.phone,
+      this.companyName,
+      this.otp_verify_status});
 
   Data.fromJson(Map<String, dynamic> json) {
     recruiterId = json['recruiter_id'];
@@ -45,6 +47,7 @@ class Data {
     email = json['email'];
     phone = json['phone'];
     companyName = json['company_name'];
+    otp_verify_status = json['otp_verify_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +58,7 @@ class Data {
     data['email'] = this.email;
     data['phone'] = this.phone;
     data['company_name'] = this.companyName;
+    data['otp_verify_status'] = this.otp_verify_status;
     return data;
   }
 }

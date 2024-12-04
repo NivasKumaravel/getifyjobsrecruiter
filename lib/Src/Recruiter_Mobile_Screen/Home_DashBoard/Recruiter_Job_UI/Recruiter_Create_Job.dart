@@ -172,9 +172,19 @@ class _CreateJobState extends ConsumerState<CreateJob> {
     _location.text = widget.DirectJobDetailResponseData?.location ?? "";
     _salaryFrom.text = widget.DirectJobDetailResponseData?.salaryFrom ?? "";
     _salaryTo.text = widget.DirectJobDetailResponseData?.salaryTo ?? "";
-    // statutoryVal = widget.DirectJobDetailResponseData?.statutoryBenefits ?? "";
-    // socialVal = widget.DirectJobDetailResponseData?.socialBenefits ?? "";
-    // otherVal = widget.DirectJobDetailResponseData?.otherBenefits ?? "";
+    statutoryVal = (widget.DirectJobDetailResponseData?.statutoryBenefits ?? "")
+        .split(",")
+        .map((e) => e.trim())
+        .toList();
+
+    socialVal = (widget.DirectJobDetailResponseData?.socialBenefits ?? "")
+        .split(",")
+        .map((e) => e.trim())
+        .toList();
+    otherVal = (widget.DirectJobDetailResponseData?.otherBenefits ?? "")
+        .split(",")
+        .map((e) => e.trim())
+        .toList();
     shiftDetailVal = widget.DirectJobDetailResponseData?.shiftDetails ?? "";
     _value = widget.DirectJobDetailResponseData?.workType == "Full Time"
         ? 0
@@ -274,6 +284,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       //SKILL SETS
                       Title_Style(Title: 'Skill Sets', isStatus: true),
                       tagSearchField(
+                        error: (skillSetOption?.length ?? 0) == 0
+                            ? "Please select at least one Skill"
+                            : null,
                         hintText: " Skill Sets",
                         focus: focus4,
                         listValue: skillsetVal,
@@ -292,6 +305,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       Title_Style(Title: 'Qualification', isStatus: true),
 
                       tagSearchField(
+                        error: (skillSetOption?.length ?? 0) == 0
+                            ? "Please select at least one Qualification"
+                            : null,
                         hintText: "Qualification",
                         focus: focus2,
                         listValue: qualificationVal,
@@ -310,6 +326,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                       Title_Style(Title: 'Specialization', isStatus: true),
 
                       tagSearchFieldSpecialization(
+                        error: (specilizationOption?.length ?? 0) == 0
+                            ? "Please select at least one Specialization"
+                            : null,
                         hintText: "Specialization",
                         focus: focus3,
                         listValue: specilizationVal,
@@ -431,6 +450,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                           });
                         },
                         child: tagSearchFieldPreferredLoc(
+                          error: (preferredlocationOption.length ?? 0) == 0
+                              ? "Please select at least one job location"
+                              : null,
                           hintText: "Preferred Job Location",
                           listValue: [],
                           focusTagEnabled: false,
@@ -744,6 +766,10 @@ class _CreateJobState extends ConsumerState<CreateJob> {
     var qualifiationArrayValue = [];
     var specializaArrayValue = [];
 
+    var statutoryArrayValue = [];
+    var socialArrayValue = [];
+    var otherArrayValue = [];
+
     for (var obj in skillSetOption!) {
       QualificationData? result = skillsetVal.firstWhere(
           (value) => value.qualification == obj,
@@ -768,6 +794,36 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       specializaArrayValue.add(result.id);
     }
 
+    for (var obj in statutoryVal!) {
+      StatutoryBenefitsData? result =
+          statutoryData.firstWhere((value) => value.benefits == obj,
+              orElse: () => StatutoryBenefitsData(
+                    id: obj,
+                    benefits: "",
+                  ));
+      statutoryArrayValue.add(result.id);
+    }
+
+    for (var obj in socialVal!) {
+      StatutoryBenefitsData? result =
+          socialData.firstWhere((value) => value.benefits == obj,
+              orElse: () => StatutoryBenefitsData(
+                    id: obj,
+                    benefits: "",
+                  ));
+      socialArrayValue.add(result.id);
+    }
+
+    for (var obj in otherVal!) {
+      StatutoryBenefitsData? result =
+          otherData.firstWhere((value) => value.benefits == obj,
+              orElse: () => StatutoryBenefitsData(
+                    id: obj,
+                    benefits: "",
+                  ));
+      otherArrayValue.add(result.id);
+    }
+
     final singleJobApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
       "job_title": _jobTitleController.text,
@@ -790,9 +846,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "shift_details": shiftDetailVal,
       "salary_from": _salaryFrom.text,
       "salary_to": _salaryTo.text,
-      "statutory_benefits": statutoryVal,
-      "social_benefits": socialVal,
-      "other_benefits": otherVal,
+      "statutory_benefits": statutoryArrayValue.join(','),
+      "social_benefits": socialArrayValue.join(','),
+      "other_benefits": otherArrayValue.join(','),
       "years_of_experience":
           "${selectedFromExperience} - ${selectedToExperience}"
     });
