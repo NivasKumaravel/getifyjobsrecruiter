@@ -170,11 +170,13 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                             DirectJobDetailResponseData: null,
                             isClone: false,
                           ))).then((value) {
-                directItemList = [];
-                tempDirectItemList = [];
-                campusResponseData = [];
-                tempCampusResponseData = [];
-                ref.refresh(DirectResponse(true));
+                if (value == true) {
+                  directItemList = [];
+                  tempDirectItemList = [];
+                  campusResponseData = [];
+                  tempCampusResponseData = [];
+                  ref.refresh(DirectResponse(true));
+                }
               });
             }),
       body: Container(
@@ -286,9 +288,11 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                           padding: const EdgeInsets.only(top: 10),
                           child: _jobsList(
                               _scrollController, directItemList, totalCount,
-                              onValue: (value) =>
-                                  ref.refresh(DirectResponse(true))),
-                        )
+                              onValue: (value) {
+                            if (value == true) {
+                              ref.refresh(DirectResponse(true));
+                            }
+                          }))
                       : Center(
                           child: NoDataMobileWidget(
                               content: "Unlock New Possibilities")),
@@ -366,9 +370,11 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                                         campusResponseData?[index].campusId ??
                                             "",
                                   ))).then((value) {
-                          campusResponseData = [];
-                          tempCampusResponseData = [];
-                          ref.refresh(CampusResponse());
+                          if (value == true) {
+                            campusResponseData = [];
+                            tempCampusResponseData = [];
+                            ref.refresh(CampusResponse());
+                          }
                         })
                       : Navigator.push(
                           context,
@@ -378,11 +384,14 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                                     campusId:
                                         campusResponseData?[index].campusId ??
                                             "",
-                                    isEdit: false, Status:campusResponseData?[index].status,
+                                    isEdit: false,
+                                    Status: campusResponseData?[index].status,
                                   ))).then((value) {
-                          campusResponseData = [];
-                          tempCampusResponseData = [];
-                          ref.refresh(CampusResponse());
+                          if (value == true) {
+                            campusResponseData = [];
+                            tempCampusResponseData = [];
+                            ref.refresh(CampusResponse());
+                          }
                         });
                 },
                 child: CampusList(

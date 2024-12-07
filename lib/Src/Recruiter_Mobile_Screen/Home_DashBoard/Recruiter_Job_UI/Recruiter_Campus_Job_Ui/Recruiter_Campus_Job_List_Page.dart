@@ -58,50 +58,52 @@ class _Recuiter_Campus_Job_List_ScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: white2,
-        appBar: Custom_AppBar(
-          isUsed: false,
-          actions: [],
-          isLogoUsed: true,
-          title: '',
-          isTitleUsed: true,
-        ),
-        floatingActionButton: Floating_Button(context, onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => BulkJobs(
-                        job_Id: "",
-                        campus_Id:
-                            widget.campusId,
-                        campusJobDetailResponseData: null,
-                        isEditBulk: false,
-                      ))).then((value) => ref.refresh(CampusJobListResponse()));
-        }),
-        body:
-        //campusJobList == true ?
-        Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _campusList(context,CampusJobListResponseData, campusid: widget.campusId),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Text(
-                      "Campus Drive Date: 09:00 AM, ${CampusJobListResponseData?.items?.recruitmentDate ?? ""}",
-                      style: dateT,
-                    ),
-                  ),
-                  campusJobList == false ?
-                  Padding(
-                    padding: const EdgeInsets.only(top: 70),
-                    child: Center(child: NoDataWidget(content: "Post your first job")),
-                  ) : _jobsList(CampusJobListResponseData),
-                ],
-              ),
-            //: Center(child: NoDataWidget(content: "Post your first job"))
+      backgroundColor: white2,
+      appBar: Custom_AppBar(
+        isUsed: false,
+        actions: [],
+        isLogoUsed: true,
+        title: '',
+        isTitleUsed: true,
+      ),
+      floatingActionButton: Floating_Button(context, onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BulkJobs(
+                      job_Id: "",
+                      campus_Id: widget.campusId,
+                      campusJobDetailResponseData: null,
+                      isEditBulk: false,
+                    ))).then((value) => ref.refresh(CampusJobListResponse()));
+      }),
+      body:
+          //campusJobList == true ?
+          Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _campusList(context, CampusJobListResponseData,
+              campusid: widget.campusId),
+          SizedBox(
+            height: 15,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Text(
+              "Campus Drive Date: 09:00 AM, ${CampusJobListResponseData?.items?.recruitmentDate ?? ""}",
+              style: dateT,
+            ),
+          ),
+          campusJobList == false
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 70),
+                  child: Center(
+                      child: NoDataWidget(content: "Post your first job")),
+                )
+              : _jobsList(CampusJobListResponseData),
+        ],
+      ),
+      //: Center(child: NoDataWidget(content: "Post your first job"))
     );
   }
 
@@ -159,11 +161,15 @@ class _Recuiter_Campus_Job_List_ScreenState
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
-              child:  NoOfCandidatesSection(context,
-                  jobName: campusJobListResponseData?.items?.jobs?[index].jobTitle ?? "",
+              child: NoOfCandidatesSection(context,
+                  jobName:
+                      campusJobListResponseData?.items?.jobs?[index].jobTitle ??
+                          "",
                   noOfCandidates:
-                  "${campusJobListResponseData?.items?.jobs?[index].appliedCandidate ?? 0}",
-                  postedDate: campusJobListResponseData?.items?.jobs?[index].createdDate ?? "",
+                      "${campusJobListResponseData?.items?.jobs?[index].appliedCandidate ?? 0}",
+                  postedDate: campusJobListResponseData
+                          ?.items?.jobs?[index].createdDate ??
+                      "",
                   isWeb: false,
                   status: "Active"),
             ),
@@ -172,17 +178,20 @@ class _Recuiter_Campus_Job_List_ScreenState
   }
 }
 
-Widget _campusList(context,CampusJobListData? campusJobListResponseData,
+Widget _campusList(context, CampusJobListData? campusJobListResponseData,
     {required campusid}) {
   return Column(children: [
     InkWell(
-      onTap: (){
+      onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>
-              Recruiter_College_Detail_Screen(campusId: campusid, isEdit: true, Status: '',)),
+          MaterialPageRoute(
+              builder: (context) => Recruiter_College_Detail_Screen(
+                    campusId: campusid,
+                    isEdit: true,
+                    Status: '',
+                  )),
         );
-
       },
       child: Container(
         child: CampusList(

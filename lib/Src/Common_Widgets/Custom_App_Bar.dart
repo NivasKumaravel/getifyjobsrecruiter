@@ -51,7 +51,7 @@ class _CustomAppBarState extends State<Custom_AppBar> {
                       ),
                 onPressed: () {
                   widget.isLogoUsed == true
-                      ? Navigator.of(context).pop(true)
+                      ? Navigator.of(context).pop()
                       : null;
                 },
               ),

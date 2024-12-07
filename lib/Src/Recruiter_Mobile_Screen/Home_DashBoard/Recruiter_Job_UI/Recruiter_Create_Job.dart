@@ -203,7 +203,10 @@ class _CreateJobState extends ConsumerState<CreateJob> {
         : widget.DirectJobDetailResponseData?.workType == "Part Time"
             ? 1
             : 2;
-    workTypeOption = widget.DirectJobDetailResponseData?.workMode ?? "";
+    workTypeOption =
+        (widget.DirectJobDetailResponseData?.workMode ?? null) != ""
+            ? widget.DirectJobDetailResponseData?.workMode ?? ""
+            : null;
   }
 
   @override
@@ -989,7 +992,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
     print("JOB ID : ${singleJobResponse.data?.jobId ?? ""}");
     if (singleJobResponse.status == true) {
-      Navigator.pop(context);
+      Navigator.pop(context, true);
       print("SUCESS");
     } else {
       ShowToastMessage(singleJobResponse.message ?? "");

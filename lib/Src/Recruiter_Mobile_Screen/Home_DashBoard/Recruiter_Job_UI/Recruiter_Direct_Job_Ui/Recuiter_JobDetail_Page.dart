@@ -2,19 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getifyjobs/Models/AddBranchModel.dart';
-import 'package:getifyjobs/Models/DirectApplyListModel.dart';
 import 'package:getifyjobs/Models/DirectCandidateListModel.dart';
 import 'package:getifyjobs/Models/DirectDetailsModel.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Button.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Candidate_Profile.dart';
-import 'package:getifyjobs/Src/Common_Widgets/Common_JodDetails.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_List.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Image_Path.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Text_Form_Field.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Recruiter_Job_UI/Recruiter_Create_Job.dart';
 import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Recruiter_Job_UI/Recruiter_Direct_Job_Ui/List_Of_Candidates_Page.dart';
-import 'package:getifyjobs/Src/Recruiter_Mobile_Screen/Home_DashBoard/Recruiter_Job_UI/Recruiter_Direct_Job_Ui/Recruiter_Candidate_Profile_View.dart';
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
@@ -27,7 +24,11 @@ class Recruiter_JobDetail_Page extends ConsumerStatefulWidget {
   String? current_status;
   int? appliedCount;
 
-  Recruiter_JobDetail_Page({super.key, required this.job_Id, required this.current_status,required this.appliedCount});
+  Recruiter_JobDetail_Page(
+      {super.key,
+      required this.job_Id,
+      required this.current_status,
+      required this.appliedCount});
 
   @override
   ConsumerState<Recruiter_JobDetail_Page> createState() =>
@@ -61,7 +62,7 @@ class _Recruiter_JobDetail_PageState
     allListStatus = true;
     shortlisteStatus = true;
     scheduleStatus = true;
-    rejectStatus=true;
+    rejectStatus = true;
   }
 
   @override
@@ -78,7 +79,6 @@ class _Recruiter_JobDetail_PageState
         title: "",
         isUsed: true,
         actions: [
-
           PopupMenuButton(
               surfaceTintColor: white1,
               icon: Icon(Icons.more_vert_outlined),
@@ -107,7 +107,8 @@ class _Recruiter_JobDetail_PageState
                                         isEdit: true,
                                         Job_Id: DirectJobDetailResponseData
                                                 ?.jobId ??
-                                            "", isClone: false,
+                                            "",
+                                        isClone: false,
                                       ))).then((value) =>
                               ref.refresh(DirectJobDetailResponse()));
                         },
@@ -122,13 +123,14 @@ class _Recruiter_JobDetail_PageState
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => CreateJob(
-                                        DirectJobDetailResponseData:
-                                        DirectJobDetailResponseData,
-                                        isEdit: false,
-                                        Job_Id: DirectJobDetailResponseData
-                                            ?.jobId ??
-                                            "", isClone: true,
-                                      ))).then((value) =>
+                                            DirectJobDetailResponseData:
+                                                DirectJobDetailResponseData,
+                                            isEdit: false,
+                                            Job_Id: DirectJobDetailResponseData
+                                                    ?.jobId ??
+                                                "",
+                                            isClone: true,
+                                          ))).then((value) =>
                                   ref.refresh(DirectJobDetailResponse()));
                             },
                             child: Text(
@@ -136,30 +138,43 @@ class _Recruiter_JobDetail_PageState
                               style: refferalCountT,
                             ))),
                     PopupMenuItem(
-                      onTap:widget.current_status =="Stopped"?null: (){
-                        widget.current_status == 'Pause'?jobMoreOptionResponse(statusId: '2'):
-                        jobMoreOptionResponse(statusId: '1');
-                        ;
-                      },
+                        onTap: widget.current_status == "Stopped"
+                            ? null
+                            : () {
+                                widget.current_status == 'Pause'
+                                    ? jobMoreOptionResponse(statusId: '2')
+                                    : jobMoreOptionResponse(statusId: '1');
+                                ;
+                              },
                         child: Text(
-                          widget.current_status == 'Pause'?'Pause':"Resume",
-                          style: widget.current_status =="Stopped"?PopUp_Menu_T:refferalCountT,
+                          widget.current_status == 'Pause' ? 'Pause' : "Resume",
+                          style: widget.current_status == "Stopped"
+                              ? PopUp_Menu_T
+                              : refferalCountT,
                         )),
                     PopupMenuItem(
-                      onTap:widget.current_status =="Stopped"?null: (){
-                        jobMoreOptionResponse(statusId: '3');
-                      },
+                        onTap: widget.current_status == "Stopped"
+                            ? null
+                            : () {
+                                jobMoreOptionResponse(statusId: '3');
+                              },
                         child: Text(
                           'Stop',
-                          style: widget.current_status =="Stopped"?PopUp_Menu_T:refferalCountT,
+                          style: widget.current_status == "Stopped"
+                              ? PopUp_Menu_T
+                              : refferalCountT,
                         )),
                     PopupMenuItem(
-                      onTap:widget.appliedCount == 0? (){
-                        jobMoreOptionResponse(statusId: '4');
-                      }:null,
+                        onTap: widget.appliedCount == 0
+                            ? () {
+                                jobMoreOptionResponse(statusId: '4');
+                              }
+                            : null,
                         child: Text(
                           'Delete',
-                          style: widget.appliedCount == 0?refferalCountT:PopUp_Menu_T,
+                          style: widget.appliedCount == 0
+                              ? refferalCountT
+                              : PopUp_Menu_T,
                         )),
                     // PopupMenuItem(child: Text('Download',style: refferalCountT,)),
                   ]),
@@ -184,16 +199,15 @@ class _Recruiter_JobDetail_PageState
               color: white1,
               // width: MediaQuery.of(context).size.width,
               height: 50,
-              child:
-              TabBar(
-                onTap: (index){
-                  if(index == 0){
+              child: TabBar(
+                onTap: (index) {
+                  if (index == 0) {
                     AllListResponse();
-                  }else if(index == 1){
+                  } else if (index == 1) {
                     ShortListResponse();
-                  }else if(index == 2){
+                  } else if (index == 2) {
                     ScheduledListResponse();
-                  }else if(index == 3){
+                  } else if (index == 3) {
                     RejectedListResponse();
                   }
                 },
@@ -245,10 +259,18 @@ class _Recruiter_JobDetail_PageState
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  allListStatus == true? allList():NoDataMobileWidget(content: "Unlock New Possibilities"),
-                shortlisteStatus == true? shortListedList():NoDataMobileWidget(content: "Unlock New Possibilities"),
-                  scheduleStatus == true?scheduledList():NoDataMobileWidget(content: "Unlock New Possibilities"),
-                 rejectStatus == true? rejectedList():NoDataMobileWidget(content: "Unlock New Possibilities"),
+                  allListStatus == true
+                      ? allList()
+                      : NoDataMobileWidget(content: "Unlock New Possibilities"),
+                  shortlisteStatus == true
+                      ? shortListedList()
+                      : NoDataMobileWidget(content: "Unlock New Possibilities"),
+                  scheduleStatus == true
+                      ? scheduledList()
+                      : NoDataMobileWidget(content: "Unlock New Possibilities"),
+                  rejectStatus == true
+                      ? rejectedList()
+                      : NoDataMobileWidget(content: "Unlock New Possibilities"),
                 ],
               ),
             ),
@@ -262,11 +284,16 @@ class _Recruiter_JobDetail_PageState
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    List_Of_Candidates_Page(
+                                builder: (context) => List_Of_Candidates_Page(
                                       job_Id: widget.job_Id,
-                                      job_Name: DirectJobDetailResponseData?.jobTitle ?? "",
-                                      posted_Date: DirectJobDetailResponseData?.createdDate ?? "",))).then((value) => ref.refresh(AllListResponse()));
+                                      job_Name: DirectJobDetailResponseData
+                                              ?.jobTitle ??
+                                          "",
+                                      posted_Date: DirectJobDetailResponseData
+                                              ?.createdDate ??
+                                          "",
+                                    ))).then(
+                            (value) => ref.refresh(AllListResponse()));
                       },
                       child: Text(
                         "View all",
@@ -298,7 +325,11 @@ class _Recruiter_JobDetail_PageState
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: buildCompanyInfoRow(
-                    DirectJobDetailResponseData?.logo ?? "", DirectJobDetailResponseData?.companyName ?? "", TBlack, 50, 50,
+                    DirectJobDetailResponseData?.logo ?? "",
+                    DirectJobDetailResponseData?.companyName ?? "",
+                    TBlack,
+                    50,
+                    50,
                     isMapLogo: false),
               ),
               //POSTED DATE
@@ -312,7 +343,8 @@ class _Recruiter_JobDetail_PageState
               ),
               //POSTED DATE
               Text(
-                "Deadline   : " +"${DirectJobDetailResponseData?.expiryDate ?? ""}",
+                "Deadline   : " +
+                    "${DirectJobDetailResponseData?.expiryDate ?? ""}",
                 style: deadtxt,
               ),
               SizedBox(
@@ -334,8 +366,8 @@ class _Recruiter_JobDetail_PageState
   DirectJobDetailResponse() async {
     final directJobDetailApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      'job_id':widget.job_Id,
-      "user_type":"recruiter",
+      'job_id': widget.job_Id,
+      "user_type": "recruiter",
     });
     final directJobDetailApiResponse =
         await directJobDetailApiService.post<DirectDetailsModel>(
@@ -347,33 +379,33 @@ class _Recruiter_JobDetail_PageState
         DirectJobDetailResponseData = directJobDetailApiResponse.data;
       });
       print("RESPONSE : ${DirectJobDetailResponseData?.jobId ?? ""}");
-    }else{
+    } else {
       print('DIRECT DETAIL ERROR');
 
       ShowToastMessage(directJobDetailApiResponse.message ?? "");
-
     }
   }
 
   //ALL LIST RESPONSE
-  AllListResponse()async{
+  AllListResponse() async {
     final allListApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "recruiter_id":await getRecruiterId(),
-      "job_id":widget.job_Id,
-      "no_of_records":10,
-      "page_no":1,
-      "status":1,
+      "recruiter_id": await getRecruiterId(),
+      "job_id": widget.job_Id,
+      "no_of_records": 10,
+      "page_no": 1,
+      "status": 1,
     });
-    final allListApiResponse = await allListApiService.post<DirectCandidateListModel>(context,
-        ConstantApi.directCandidateListUrl, formData);
-    if(allListApiResponse?.status == true){
+    final allListApiResponse =
+        await allListApiService.post<DirectCandidateListModel>(
+            context, ConstantApi.directCandidateListUrl, formData);
+    if (allListApiResponse?.status == true) {
       print("ALL CANDIDATE LISTED SUCESS");
       setState(() {
         allListStatus = true;
         allListResponseData = allListApiResponse.data;
       });
-    }else{
+    } else {
       print("ALL CANDIDATE LISTED ERROR");
       setState(() {
         allListStatus = false;
@@ -383,24 +415,25 @@ class _Recruiter_JobDetail_PageState
   }
 
   //SHORTLISTEED LIST RESPONSE
-  ShortListResponse()async{
+  ShortListResponse() async {
     final allListApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "recruiter_id":await getRecruiterId(),
-      "job_id":widget.job_Id,
-      "no_of_records":10,
-      "page_no":1,
-      "status":2,
+      "recruiter_id": await getRecruiterId(),
+      "job_id": widget.job_Id,
+      "no_of_records": 10,
+      "page_no": 1,
+      "status": 2,
     });
-    final allListApiResponse = await allListApiService.post<DirectCandidateListModel>(context,
-        ConstantApi.directCandidateListUrl, formData);
-    if(allListApiResponse?.status == true){
+    final allListApiResponse =
+        await allListApiService.post<DirectCandidateListModel>(
+            context, ConstantApi.directCandidateListUrl, formData);
+    if (allListApiResponse?.status == true) {
       print("SHORTLISTED CANDIDATE LISTED SUCESS");
       setState(() {
         shortlisteStatus = true;
         shortlistedListResponseData = allListApiResponse.data;
       });
-    }else{
+    } else {
       print("SHORTLISTED CANDIDATE LISTED ERROR");
       setState(() {
         shortlisteStatus = false;
@@ -410,24 +443,25 @@ class _Recruiter_JobDetail_PageState
   }
 
   //SCHEDULED LIST RESPONSE
-  ScheduledListResponse()async{
+  ScheduledListResponse() async {
     final allListApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "recruiter_id":await getRecruiterId(),
-      "job_id":widget.job_Id,
-      "no_of_records":10,
-      "page_no":1,
-      "status":3,
+      "recruiter_id": await getRecruiterId(),
+      "job_id": widget.job_Id,
+      "no_of_records": 10,
+      "page_no": 1,
+      "status": 3,
     });
-    final allListApiResponse = await allListApiService.post<DirectCandidateListModel>(context,
-        ConstantApi.directCandidateListUrl, formData);
-    if(allListApiResponse?.status == true){
+    final allListApiResponse =
+        await allListApiService.post<DirectCandidateListModel>(
+            context, ConstantApi.directCandidateListUrl, formData);
+    if (allListApiResponse?.status == true) {
       print("SCHEDULED CANDIDATE LISTED SUCESS");
       setState(() {
         scheduleStatus = true;
         scheduledListResponseData = allListApiResponse.data;
       });
-    }else{
+    } else {
       print("SCHEDULED CANDIDATE LISTED ERROR");
       setState(() {
         scheduleStatus = false;
@@ -437,24 +471,25 @@ class _Recruiter_JobDetail_PageState
   }
 
   //REJECTED LIST RESPONSE
-  RejectedListResponse()async{
+  RejectedListResponse() async {
     final allListApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "recruiter_id":await getRecruiterId(),
-      "job_id":widget.job_Id,
-      "no_of_records":10,
-      "page_no":1,
-      "status":10,
+      "recruiter_id": await getRecruiterId(),
+      "job_id": widget.job_Id,
+      "no_of_records": 10,
+      "page_no": 1,
+      "status": 10,
     });
-    final allListApiResponse = await allListApiService.post<DirectCandidateListModel>(context,
-        ConstantApi.directCandidateListUrl, formData);
-    if(allListApiResponse?.status == true){
+    final allListApiResponse =
+        await allListApiService.post<DirectCandidateListModel>(
+            context, ConstantApi.directCandidateListUrl, formData);
+    if (allListApiResponse?.status == true) {
       print("REJECTED CANDIDATE LISTED SUCESS");
       setState(() {
         rejectStatus = true;
         rejectedListResponseData = allListApiResponse.data;
       });
-    }else{
+    } else {
       print("REJECTED CANDIDATE LISTED ERROR");
       setState(() {
         rejectStatus = false;
@@ -464,25 +499,25 @@ class _Recruiter_JobDetail_PageState
   }
 
   //REJECTED LIST RESPONSE
-  jobMoreOptionResponse({required String statusId})async{
+  jobMoreOptionResponse({required String statusId}) async {
     final jobUpdatedApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
-      "recruiter_id":await getRecruiterId(),
-      "job_id":widget.job_Id,
-      "status":statusId,
+      "recruiter_id": await getRecruiterId(),
+      "job_id": widget.job_Id,
+      "status": statusId,
     });
-    final jobUpdateResponse = await jobUpdatedApiService.post<AddBranchModel>(context,
-        ConstantApi.updateJobStatus, formData);
-    if(jobUpdateResponse?.status == true){
+    final jobUpdateResponse = await jobUpdatedApiService.post<AddBranchModel>(
+        context, ConstantApi.updateJobStatus, formData);
+    if (jobUpdateResponse?.status == true) {
       ShowToastMessage(jobUpdateResponse.message ?? "");
-      Navigator.pop(context);
+      Navigator.pop(context, true);
       print("JOB UPDATE SUCCESS");
       SingleTon singleton = SingleTon();
       setState(() {
-        isResume = statusId == "0"?true:false;
+        isResume = statusId == "0" ? true : false;
         singleton.isResume = isResume ?? false;
       });
-    }else{
+    } else {
       print("JOB UPDATE ERROR");
       ShowToastMessage(jobUpdateResponse.message ?? "");
     }
@@ -505,29 +540,36 @@ class _Recruiter_JobDetail_PageState
             ),
             Text(
               DirectJobDetailResponseData?.jobDescription ?? "",
-              style: desctxt,textAlign: TextAlign.justify,
+              style: desctxt,
+              textAlign: TextAlign.justify,
             ),
             SizedBox(
               height: 15,
             ),
 
-             Text("Skill Sets",style: htxt,),
-             Padding(
-               padding: const EdgeInsets.only(bottom: 10),
-               child: Text(DirectJobDetailResponseData?.skills ?? "",style: stxt,),
-             ),
-             // textWithheader(
-             //    headertxt: "Skill Set",
-             //    subtxt: DirectJobDetailResponseData?.skills ?? ""),
+            Text(
+              "Skill Sets",
+              style: htxt,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Text(
+                DirectJobDetailResponseData?.skills ?? "",
+                style: stxt,
+              ),
+            ),
+            // textWithheader(
+            //    headertxt: "Skill Set",
+            //    subtxt: DirectJobDetailResponseData?.skills ?? ""),
             textWithheader(
                 headertxt: "Qualification",
                 subtxt: DirectJobDetailResponseData?.qualification ?? ""),
 
-            DirectJobDetailResponseData?.specialization == null ? Container() :
-            textWithheader(
-                headertxt: "Specialization",
-                subtxt: DirectJobDetailResponseData?.specialization ?? ""),
-
+            DirectJobDetailResponseData?.specialization == null
+                ? Container()
+                : textWithheader(
+                    headertxt: "Specialization",
+                    subtxt: DirectJobDetailResponseData?.specialization ?? ""),
 
             DirectJobDetailResponseData?.currentArrears == ''
                 ? Container()
@@ -545,31 +587,33 @@ class _Recruiter_JobDetail_PageState
                 ? Container()
                 : textWithheader(
                     headertxt: "Required Percentage/CGPA",
-                    subtxt: DirectJobDetailResponseData?.requiredPercentage ?? ""),
+                    subtxt:
+                        DirectJobDetailResponseData?.requiredPercentage ?? ""),
             textWithheader(
                 headertxt: "Work Type",
                 subtxt: DirectJobDetailResponseData?.workType ?? ""),
-            DirectJobDetailResponseData?.workMode == "Please Select" || DirectJobDetailResponseData?.workMode == ""
+            DirectJobDetailResponseData?.workMode == "Please Select" ||
+                    DirectJobDetailResponseData?.workMode == ""
                 ? Container()
                 : textWithheader(
                     headertxt: "Work Mode",
                     subtxt: DirectJobDetailResponseData?.workMode ?? ""),
 
-
             textWithheader(
                 headertxt: "Shift Details",
                 subtxt: DirectJobDetailResponseData?.shiftDetails ?? ""),
 
-            DirectJobDetailResponseData?.yearsofexperience == null ? Container() :
-            textWithheader(
-                headertxt: "Years of Experience",
-                subtxt: DirectJobDetailResponseData?.yearsofexperience ?? ""),
+            DirectJobDetailResponseData?.yearsofexperience == null
+                ? Container()
+                : textWithheader(
+                    headertxt: "Years of Experience",
+                    subtxt:
+                        DirectJobDetailResponseData?.yearsofexperience ?? ""),
 
             // DirectJobDetailResponseData?.salaryFrom == '' && DirectJobDetailResponseData?.salaryTo == '' ? Container() :
             // textWithheader(
             //     headertxt: "Salary Range",
             //     subtxt: '₹${DirectJobDetailResponseData?.salaryFrom ?? ""} - ₹${DirectJobDetailResponseData?.salaryTo ?? ""}'),
-
 
             DirectJobDetailResponseData?.statutoryBenefits == ''
                 ? Container()
@@ -587,8 +631,6 @@ class _Recruiter_JobDetail_PageState
                 : textWithheader(
                     headertxt: "Other Benefits",
                     subtxt: DirectJobDetailResponseData?.otherBenefits ?? ""),
-
-
           ],
         ),
       ),
@@ -632,6 +674,7 @@ class _Recruiter_JobDetail_PageState
       ),
     );
   }
+
   Widget SahreWithText({required String iconimg, required String icontext}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
@@ -644,10 +687,10 @@ class _Recruiter_JobDetail_PageState
           Expanded(child: Text(icontext, style: posttxt)),
           const Spacer(),
           InkWell(
-            onTap: () async{
-              await
-              Share.share("https://play.google.com/store/apps/details?id=com.getifyjobs.recuriter");
-            },
+              onTap: () async {
+                await Share.share(
+                    "https://play.google.com/store/apps/details?id=com.getifyjobs.recuriter");
+              },
               child: ImgPathSvg('share.svg')),
         ],
       ),
@@ -666,21 +709,29 @@ class _Recruiter_JobDetail_PageState
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                     Direct_Candidate_Profile_Screen(
-                       TagContain:allListResponseData?.items?[index].jobStatus ?? "",
-                       candidate_Id: allListResponseData?.items?[index].candidateId ?? "",
-                       job_Id: widget.job_Id,)),
+                    builder: (context) => Direct_Candidate_Profile_Screen(
+                          TagContain:
+                              allListResponseData?.items?[index].jobStatus ??
+                                  "",
+                          candidate_Id:
+                              allListResponseData?.items?[index].candidateId ??
+                                  "",
+                          job_Id: widget.job_Id,
+                        )),
               ).then((value) => ref.refresh(AllListResponse()));
             },
             child: Padding(
               padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
               child: AppliesList(context,
-                  CandidateImg: allListResponseData?.items?[index].profilePic ?? "",
+                  CandidateImg:
+                      allListResponseData?.items?[index].profilePic ?? "",
                   CandidateName: allListResponseData?.items?[index].name ?? "",
                   Jobrole: allListResponseData?.items?[index].jobTitle ?? "",
                   color: white1,
-                  isWeb: false, isTagNeeded: true, isTagName: allListResponseData?.items?[index].jobStatus ?? ""),
+                  isWeb: false,
+                  isTagNeeded: true,
+                  isTagName:
+                      allListResponseData?.items?[index].jobStatus ?? ""),
             ));
       },
     );
@@ -698,22 +749,29 @@ class _Recruiter_JobDetail_PageState
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        Direct_Candidate_Profile_Screen(
+                    builder: (context) => Direct_Candidate_Profile_Screen(
                           TagContain: 'Shortlisted',
-                          candidate_Id: allListResponseData?.items?[index].candidateId ?? "",
-                          job_Id: widget.job_Id,)),
+                          candidate_Id:
+                              allListResponseData?.items?[index].candidateId ??
+                                  "",
+                          job_Id: widget.job_Id,
+                        )),
               ).then((value) => ref.refresh(ShortListResponse()));
-
             },
             child: Padding(
               padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
               child: AppliesList(context,
-                  CandidateImg: shortlistedListResponseData?.items?[index].profilePic ?? "",
-                  CandidateName: shortlistedListResponseData?.items?[index].name ?? "",
-                  Jobrole: shortlistedListResponseData?.items?[index].jobTitle ?? "",
+                  CandidateImg:
+                      shortlistedListResponseData?.items?[index].profilePic ??
+                          "",
+                  CandidateName:
+                      shortlistedListResponseData?.items?[index].name ?? "",
+                  Jobrole:
+                      shortlistedListResponseData?.items?[index].jobTitle ?? "",
                   color: white1,
-                  isWeb: false, isTagNeeded: false, isTagName: ''),
+                  isWeb: false,
+                  isTagNeeded: false,
+                  isTagName: ''),
             ));
       },
     );
@@ -731,22 +789,30 @@ class _Recruiter_JobDetail_PageState
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        Direct_Candidate_Profile_Screen(
-                        TagContain: scheduledListResponseData?.items?[index].jobStatus ?? "",
-                          candidate_Id: scheduledListResponseData?.items?[index].candidateId ?? "",
-                          job_Id: widget.job_Id,)),
+                    builder: (context) => Direct_Candidate_Profile_Screen(
+                          TagContain: scheduledListResponseData
+                                  ?.items?[index].jobStatus ??
+                              "",
+                          candidate_Id: scheduledListResponseData
+                                  ?.items?[index].candidateId ??
+                              "",
+                          job_Id: widget.job_Id,
+                        )),
               ).then((value) => ref.refresh(ScheduledListResponse()));
-
             },
             child: Padding(
               padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
               child: AppliesList(context,
-                  CandidateImg:scheduledListResponseData?.items?[index].profilePic ?? "",
-                  CandidateName: scheduledListResponseData?.items?[index].name ?? "",
-                  Jobrole: scheduledListResponseData?.items?[index].jobTitle ?? "",
+                  CandidateImg:
+                      scheduledListResponseData?.items?[index].profilePic ?? "",
+                  CandidateName:
+                      scheduledListResponseData?.items?[index].name ?? "",
+                  Jobrole:
+                      scheduledListResponseData?.items?[index].jobTitle ?? "",
                   color: white1,
-                  isWeb: false, isTagNeeded: false, isTagName: ''),
+                  isWeb: false,
+                  isTagNeeded: false,
+                  isTagName: ''),
             ));
       },
     );
@@ -764,28 +830,33 @@ class _Recruiter_JobDetail_PageState
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        Direct_Candidate_Profile_Screen(
+                    builder: (context) => Direct_Candidate_Profile_Screen(
                           TagContain: 'Rejected',
-                          candidate_Id: rejectedListResponseData?.items?[index].candidateId ?? "",
-                          job_Id: widget.job_Id,)),
+                          candidate_Id: rejectedListResponseData
+                                  ?.items?[index].candidateId ??
+                              "",
+                          job_Id: widget.job_Id,
+                        )),
               ).then((value) => ref.refresh(RejectedListResponse()));
             },
             child: Padding(
               padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
               child: AppliesList(context,
-                  CandidateImg: rejectedListResponseData?.items?[index].profilePic ?? "",
-                  CandidateName: rejectedListResponseData?.items?[index].name ?? "",
-                  Jobrole: rejectedListResponseData?.items?[index].jobTitle ?? "",
+                  CandidateImg:
+                      rejectedListResponseData?.items?[index].profilePic ?? "",
+                  CandidateName:
+                      rejectedListResponseData?.items?[index].name ?? "",
+                  Jobrole:
+                      rejectedListResponseData?.items?[index].jobTitle ?? "",
                   color: white1,
-                  isWeb: false, isTagNeeded: false, isTagName: ''),
+                  isWeb: false,
+                  isTagNeeded: false,
+                  isTagName: ''),
             ));
       },
     );
   }
 }
-
-
 
 //DOWNLOAD POPUP
 Widget _DownloadPopUp(BuildContext context) {
@@ -798,7 +869,7 @@ Widget _DownloadPopUp(BuildContext context) {
         alignment: Alignment.topRight,
         child: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context, true);
             },
             icon: ImgPathSvg("xcancel.svg"))),
     contentPadding: EdgeInsets.only(right: 20, left: 20, bottom: 0),

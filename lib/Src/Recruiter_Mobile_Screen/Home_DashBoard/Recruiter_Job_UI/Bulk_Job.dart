@@ -770,7 +770,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         "specialization": specializaArrayValue.join(", "),
         "current_arrears": _currentArrear.text,
         "history_of_arrears": _historyOfArrear.text,
-        "required_percentage": _requriedPercentage,
+        "required_percentage": _requriedPercentage.text,
         "location": preferredlocationOption.join(', '),
         "salary_from": _salaryFrom.text,
         "salary_to": _salaryTo.text,
