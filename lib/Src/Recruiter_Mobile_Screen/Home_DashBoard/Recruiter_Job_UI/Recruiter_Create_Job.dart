@@ -806,7 +806,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       specializaArrayValue.add(result.id);
     }
 
-    for (var obj in statutoryVal!) {
+    for (var obj in statutoryVal ?? []) {
       StatutoryBenefitsData? result =
           statutoryData.firstWhere((value) => value.benefits == obj,
               orElse: () => StatutoryBenefitsData(
@@ -816,7 +816,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       statutoryArrayValue.add(result.id);
     }
 
-    for (var obj in socialVal!) {
+    for (var obj in socialVal ?? []) {
       StatutoryBenefitsData? result =
           socialData.firstWhere((value) => value.benefits == obj,
               orElse: () => StatutoryBenefitsData(
@@ -826,7 +826,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       socialArrayValue.add(result.id);
     }
 
-    for (var obj in otherVal!) {
+    for (var obj in otherVal ?? []) {
       StatutoryBenefitsData? result =
           otherData.firstWhere((value) => value.benefits == obj,
               orElse: () => StatutoryBenefitsData(

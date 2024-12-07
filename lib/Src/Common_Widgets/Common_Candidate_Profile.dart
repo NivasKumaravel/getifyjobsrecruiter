@@ -425,6 +425,12 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                   children: [
                     profileImg(ProfileImg:candiateProfileData?.profilePic ?? "" ),
                     Center(child: Text(candiateProfileData?.name ?? "",style: TitleT,)),
+
+                    widget.TagContain == "Wait List"? Container(
+                      height: 100,
+                      child: _pdfContain(candiateProfileData?.name ?? '',
+                          candiateProfileData?.resume ?? ''),
+                    ):Container() ,
                     // widget.TagContain!="Scheduled Direct Interview"?Container(
                     //   height: 75,
                     //     child: pdfViewer(optionalTXT: '',)):Container(),
@@ -498,15 +504,15 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
           candiateProfileData?.careerStatus == 'Fresher' ? Container() :
           candiateProfileData?.careerStatus == 'Student' ? Container() :
           candiateProfileData?.careerStatus == 'Experienced' ?
-          _profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""):
+          candiateProfileData?.designation == null?Container(): _profileInformation(title: 'Designation', data: candiateProfileData?.designation ?? ""):
           candiateProfileData?.experience == null?Container(): _profileInformation(title: 'Experience', data: candiateProfileData?.experience ?? ""),
-          _profileInformation(title: 'Career Status', data: candiateProfileData?.careerStatus ?? ""),
-          _profileInformation(title: 'Skill Set', data: candiateProfileData?.skill ?? ""),
+          candiateProfileData?.careerStatus == null?Container(): _profileInformation(title: 'Career Status', data: candiateProfileData?.careerStatus ?? ""),
+           _profileInformation(title: 'Skill Set', data: candiateProfileData?.skill ?? ""),
           _profileInformation(title: 'Qualification', data: candiateProfileData?.qualification ?? ""),
           _profileInformation(title: 'Specialization', data: candiateProfileData?.specialization ?? ""),
           _profileInformation(title: 'Preferred Location', data: candiateProfileData?.preferredLocation ?? ""),
           candiateProfileData?.currentSalary == null?Container():_profileInformation(title: 'Current Salary', data: candiateProfileData?.currentSalary ?? ""),
-          _profileInformation(title: 'Expected Salary', data: candiateProfileData?.expectedSalary ?? ""),
+          candiateProfileData?.expectedSalary == ''?Container(): _profileInformation(title: 'Expected Salary', data: candiateProfileData?.expectedSalary ?? ""),
         ],
       ),
     );
@@ -864,6 +870,14 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
       });
       ShowToastMessage(rescheduleApiResponse.message ?? "");
     }
+  }
+
+  Widget _pdfContain(String username, String pdfURL) {
+    return
+      CandidateProfileResume(
+        optionalTXT: "${username}.pdf",
+        pdfUrl: pdfURL, isProfile: true, isCancelNeed: false,
+      );
   }
   //EMPLOYEEMENT LIST
   Widget _employeement_List(){
