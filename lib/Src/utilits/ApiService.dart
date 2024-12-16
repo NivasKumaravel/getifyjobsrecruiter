@@ -23,12 +23,14 @@ import 'package:getifyjobs/Models/DirectCandidateListModel.dart';
 import 'package:getifyjobs/Models/DirectDetailsModel.dart';
 import 'package:getifyjobs/Models/DirectListModel.dart';
 import 'package:getifyjobs/Models/ForgotMobileModel.dart';
+import 'package:getifyjobs/Models/GetPaymentIdModel.dart';
 import 'package:getifyjobs/Models/IndustryModel.dart';
 import 'package:getifyjobs/Models/InterviewModel.dart';
 import 'package:getifyjobs/Models/JobModel.dart';
 import 'package:getifyjobs/Models/LoginModel.dart';
 import 'package:getifyjobs/Models/NewPasswordModel.dart';
 import 'package:getifyjobs/Models/NotififcationModel.dart';
+import 'package:getifyjobs/Models/PaymentModel.dart';
 import 'package:getifyjobs/Models/ProfileModel.dart';
 import 'package:getifyjobs/Models/QualificationModel.dart';
 import 'package:getifyjobs/Models/RecentAppliesModel.dart';
@@ -140,6 +142,10 @@ class ApiService {
         return CallCompletedModel.fromJson(json) as T;
       }else if (T == CallCompletedLogHistoryModel){
         return CallCompletedLogHistoryModel.fromJson(json) as T;
+      }else if (T == GetPaymentIdModel) {
+        return GetPaymentIdModel.fromJson(json) as T;
+      }else if (T == PaymentModel) {
+        return PaymentModel.fromJson(json) as T;
       }
     }
 

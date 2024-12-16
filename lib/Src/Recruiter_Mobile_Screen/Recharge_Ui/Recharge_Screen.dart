@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getifyjobs/Models/AddCoinsModel.dart';
 import 'package:getifyjobs/Models/AddWalletModel.dart';
+import 'package:getifyjobs/Models/GetPaymentIdModel.dart';
+import 'package:getifyjobs/Models/PaymentModel.dart';
+import 'package:getifyjobs/Models/ProfileModel.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Text_Form_Field.dart';
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
@@ -10,9 +13,10 @@ import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
 import 'package:getifyjobs/Src/utilits/Generic.dart';
 import 'package:getifyjobs/Src/utilits/Text_Style.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class Recharge_Screen extends ConsumerStatefulWidget {
-  const Recharge_Screen({super.key});
+  const  Recharge_Screen({super.key});
 
   @override
   ConsumerState<Recharge_Screen> createState() => _Recharge_ScreenState();
@@ -25,6 +29,8 @@ class _Recharge_ScreenState extends ConsumerState<Recharge_Screen> {
   String? selectedAmount;
   String? selectedCoin;
   List<AddWalletData>? addWalletResponseData;
+  GetPaymentData? getPaymentResponseData;
+  ProfileData? profileDataResponse;
 
 
   TextEditingController _Amount = TextEditingController();
@@ -32,8 +38,13 @@ class _Recharge_ScreenState extends ConsumerState<Recharge_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    AddWalletResponse();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AddWalletResponse();
+      GetPaymentResponse();
+      ProfileResponse();
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +142,34 @@ class _Recharge_ScreenState extends ConsumerState<Recharge_Screen> {
               child: InkWell(
                 onTap: (){
                   if(_formKey.currentState!.validate()){
-                    AddCoinsResponse();
+                    int amountInRupees = int.tryParse(_Amount.text) ?? 0;
+                    int amountInPaisa = amountInRupees * 100;
+                    Razorpay razorpay = Razorpay();
+                    var options = {
+                      'key':"${getPaymentResponseData?.keySecret ?? ''}",
+                      'amount': amountInPaisa,
+                      'name': "Getify Jobs",
+                      'description': 'To schedule for interview and request for call need to add coins',
+                      'retry': {'enabled': true, 'max_count': 1},
+                      'send_sms_hash': true,
+                      'prefill': {
+                        'contact': "+91 ${profileDataResponse?.phone}",
+                        'email': "${profileDataResponse?.email ?? ""}"
+                      },
+                      'external': {
+                        'wallets': ['paytm']
+                      }
+                    };
+
+                    print('PAYMENT REQUEST ${options}');
+                    razorpay.on(
+                        Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+                    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                        handlePaymentSuccessResponse);
+                    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                        handleExternalWalletSelected);
+                    razorpay.open(options);
+
                   }
                 },
                 child: Container(
@@ -214,12 +252,117 @@ AddWalletResponse() async{
     if(addCoinsApiResponse?.status == true){
       print("ADD COINS SUCCESS");
       ShowToastMessage(addCoinsApiResponse?.message ?? "");
+      Navigator.pop(context,true);
     }else{
       print("ADD COINS ERROR");
       ShowToastMessage(addCoinsApiResponse?.message ?? "");
     }
 
  }
+
+  GetPaymentResponse() async {
+    final paymentApiService = ApiService(ref.read(dioProvider));
+    var formData = FormData.fromMap({
+      "key": '7O2ho2MrvgFODp3j18BMSBt1BJWETW1t',
+    });
+    final paymentApiResponse =
+    await paymentApiService.post<GetPaymentIdModel>(
+        context, ConstantApi.getPaymentUrl, formData);
+    if (paymentApiResponse.status == true) {
+
+      setState(() {
+        getPaymentResponseData = paymentApiResponse?.data;
+      });
+      print('GET PAYMENT SUCCESS');
+    } else {
+      ShowToastMessage(paymentApiResponse.message ?? "");
+      print('GET PAYMENT ERROR');
+    }
+  }
+
+  ProfileResponse() async {
+    final profileApiService = ApiService(ref.read(dioProvider));
+
+    var formData = FormData.fromMap({
+      "recruiter_id": await getRecruiterId(),
+    });
+    final profileResponse = await profileApiService.post<ProfileModel>(
+        context, ConstantApi.profileUrl, formData);
+    if (profileResponse.status == true) {
+      setState(() {
+        profileDataResponse = profileResponse.data;
+      });
+    } else {
+      print("ERROR");
+      ShowToastMessage(profileResponse?.message ?? "");
+    }
+  }
+
+  PaymentSucessResponse({required String transactionId,required String Data}) async{
+    final paymentResponse = ApiService(ref.read(dioProvider));
+    var formData = FormData.fromMap({
+      "recruiter_id": await getRecruiterId(),
+      'amount':_Amount.text,
+      "transaction_id":transactionId,
+      "payment_data":Data,
+    });
+    final paymentApiResponse = await paymentResponse.post<PaymentModel>(context, ConstantApi.recruiterPaymentUrl, formData);
+    if(paymentApiResponse?.status == true){
+      print("PAYMENT DONE");
+      AddCoinsResponse();
+      ShowToastMessage(paymentApiResponse.message ?? "");
+    }else{
+      print("PAYMENT NOT DONE");
+      ShowToastMessage(paymentApiResponse.message ?? "");
+    }
+  }
+
+  void handlePaymentErrorResponse(PaymentFailureResponse response) {
+    /*
+    * PaymentFailureResponse contains three values:
+    * 1. Error Code
+    * 2. Error Description
+    * 3. Metadata
+    * */
+    showAlertDialog(context, "Payment Failed",
+        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+  }
+
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+    /*
+    * Payment Success Response contains three values:
+    * 1. Order ID
+    * 2. Payment ID
+    * 3. Signature
+    * */
+    print("PAYMENT RESPONSE ::: ${response.data.toString()}");
+
+    PaymentSucessResponse(transactionId: response?.paymentId ?? "", Data: response.data.toString(),);
+    // showAlertDialog(
+    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
+  }
+
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    showAlertDialog(
+        context, "External Wallet Selected", "${response.walletName}");
+  }
+
+  void showAlertDialog(BuildContext context, String title, String message) {
+    // set up the buttons
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
 
 

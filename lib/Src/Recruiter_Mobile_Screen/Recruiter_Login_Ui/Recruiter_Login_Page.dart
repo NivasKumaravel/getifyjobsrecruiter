@@ -269,17 +269,19 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
             MaterialPageRoute(
                 builder: (context) => Recruiter_Bottom_Navigation(select: 0)));
       } else {
-        LoginResponse.data?.otp_verify_status == false
-            ? Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Recruiter_Otp_Verification_Screen(
-                          isForget: false,
-                          mobileNumber: _mobileController.text,
-                          recruiterId:
-                              LoginResponse.data?.recruiterId.toString(),
-                        )))
-            : ShowToastMessage(LoginResponse.message ?? "");
+        print('Profile not verified');
+        LoginResponse.otp_verify_status == false? Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Recruiter_Otp_Verification_Screen(
+                  isForget: false,
+                  mobileNumber: _mobileController.text,
+                  recruiterId:
+                  LoginResponse.data?.recruiterId.toString(),
+                ))):ShowToastMessage(LoginResponse.message ?? "");
+        // LoginResponse?.otp_verify_status == false
+        //     ?
+        //     :
       }
 
       print('Mobile Number: $_mobileNumber');

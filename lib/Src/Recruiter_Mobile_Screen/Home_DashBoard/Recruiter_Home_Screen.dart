@@ -101,7 +101,14 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Wallet_Coin_Screen()));
+                              builder: (context) => Wallet_Coin_Screen())).then((value) async{
+                        formData = FormData.fromMap({
+                          'recruiter_id': await getRecruiterId(),
+                          "no_of_records": '10',
+                          "page_no": 1,
+                        });
+                        ref.refresh(RecentApplyListResponse());
+                      });;
                     },
                     child: ImgPathSvg("coin.svg")),
               ),

@@ -140,6 +140,73 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
       ),
     );
   }
+  // ADDING COIN
+  Widget addCoin(context, {required String CoinBalnce}) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 75,
+            width: MediaQuery.of(context).size.width / 1.7,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5), color: white1),
+            child: Center(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10, left: 15),
+                    child: ImgPathSvg("coin.svg"),
+                  ),
+                  Text(
+                    '${CoinBalnce} Coins',
+                    style: walletT,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Spacer(),
+          InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Recharge_Screen())).
+              then((value){
+                print("VALUE ${value}");
+                if(value == true){
+                  WalletHistoryResponse();
+                }
+              });
+            },
+            child: Container(
+                margin: EdgeInsets.only(left: 20),
+                height: 75,
+                width: 75,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5), color: white1),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.add,
+                      size: 24,
+                      color: blue1,
+                    ),
+                    Text(
+                      'Add',
+                      style: walletT,
+                    ),
+                  ],
+                )),
+          ),
+        ],
+      ),
+    );
+  }
 
   //WALLET SCREEN RESPONSE
   WalletHistoryResponse() async {
@@ -167,67 +234,7 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
   }
 }
 
-// ADDING COIN
-Widget addCoin(context, {required String CoinBalnce}) {
-  return Padding(
-    padding: const EdgeInsets.only(
-      left: 20,
-      right: 20,
-    ),
-    child: Row(
-      children: [
-        Container(
-          height: 75,
-          width: MediaQuery.of(context).size.width / 1.7,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5), color: white1),
-          child: Center(
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 10, left: 15),
-                  child: ImgPathSvg("coin.svg"),
-                ),
-                Text(
-                  '${CoinBalnce} Coins',
-                  style: walletT,
-                ),
-              ],
-            ),
-          ),
-        ),
-        Spacer(),
-        InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Recharge_Screen()));
-          },
-          child: Container(
-              margin: EdgeInsets.only(left: 20),
-              height: 75,
-              width: 75,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5), color: white1),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.add,
-                    size: 24,
-                    color: blue1,
-                  ),
-                  Text(
-                    'Add',
-                    style: walletT,
-                  ),
-                ],
-              )),
-        ),
-      ],
-    ),
-  );
-}
+
 
 //APPLY CONTAIN
 Widget applyContain() {

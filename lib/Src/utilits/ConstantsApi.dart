@@ -61,6 +61,8 @@ class ConstantApi {
   static String notificationUrl = SERVER_ONE + "recruiter/notification";
   static String completedCallUrl = SERVER_ONE + "recruiter/complete_call_list";
   static String completedCallLogHistoryUrl = SERVER_ONE + "recruiter/complete_call_history";
+  static String getPaymentUrl = SERVER_ONE + "settings/payments_keys";
+  static String recruiterPaymentUrl = SERVER_ONE + "recruiter/payment";
 
 
   static String SOMETHING_WRONG = "Some thing wrong";
@@ -96,17 +98,17 @@ class _Config {
   static const BUILD_VARIANTS = "getifyJobs-dev";
 
   static Map<String, dynamic> debugConstants = {
-    SERVER_ONE: "https://qa.getifyjobs.com/api/",
+    SERVER_ONE: "https://getifyjobs.com/api/",
     BUILD_VARIANTS: "getifyJobs-dev",
   };
 
   static Map<String, dynamic> stagingConstants = {
-    SERVER_ONE: "https://qa.getifyjobs.com/api/",
+    SERVER_ONE: "https://getifyjobs.com/api/",
     BUILD_VARIANTS: "getifyJobs-dev",
   };
 
   static Map<String, dynamic> prodConstants = {
-    SERVER_ONE: "https://qa.getifyjobs.com/api/",
+    SERVER_ONE: "https://getifyjobs.com/api/",
     BUILD_VARIANTS: "getifyJobs-dev",
   };
 }
