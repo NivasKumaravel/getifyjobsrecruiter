@@ -55,7 +55,7 @@ class History {
   String? transactionType;
   String? message;
   String? amount;
-  String? created_at;
+  String? createdAt;
 
   History(
       {this.openingBalance,
@@ -64,7 +64,7 @@ class History {
         this.transactionType,
         this.message,
         this.amount,
-      this.created_at});
+        this.createdAt});
 
   History.fromJson(Map<String, dynamic> json) {
     openingBalance = json['opening_balance'];
@@ -73,7 +73,7 @@ class History {
     transactionType = json['transaction_type'];
     message = json['message'];
     amount = json['amount'];
-    created_at = json['created_at'];
+    createdAt = json['created_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -84,7 +84,7 @@ class History {
     data['transaction_type'] = this.transactionType;
     data['message'] = this.message;
     data['amount'] = this.amount;
-    data['created_at'] = this.created_at;
+    data['created_at'] = this.createdAt;
     return data;
   }
 }

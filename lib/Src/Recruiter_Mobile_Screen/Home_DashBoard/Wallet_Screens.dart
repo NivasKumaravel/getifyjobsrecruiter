@@ -352,34 +352,40 @@ Widget HistoryList(WalletHistoryData? walletResponseData) {
       return Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
         child: Container(
-          height: 45,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5), color: white1),
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Row(
+              padding: const EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width/2,
-                    child: Text(
-                      walletResponseData?.history?[index].message ?? "",
-                      style: walletContent,
-                      maxLines: 2,
-                    ),
-                  ),
-                  const Spacer(),
-                  walletResponseData?.history?[index].transactionType ==
-                          "credit"
-                      ? Text(
-                          "+${walletResponseData?.history?[index].coins ?? ""}",
-                          style: debitedT,
-                        )
-                      : Text(
-                          "-${walletResponseData?.history?[index].coins ?? ""}",
-                          style: debitedRT,
+                  Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.sizeOf(context).width/1.5,
+                        child: Text(
+                          walletResponseData?.history?[index].message ?? "",
+                          style: walletContent,
+                          maxLines: 3,
                         ),
+                      ),
+                      const Spacer(),
+                      walletResponseData?.history?[index].transactionType ==
+                              "credit"
+                          ? Text(
+                              "+${walletResponseData?.history?[index].coins ?? ""}",
+                              style: debitedT,
+                            )
+                          : Text(
+                              "-${walletResponseData?.history?[index].coins ?? ""}",
+                              style: debitedRT,
+                            ),
+                    ],
+                  ),
+                  const SizedBox(height: 5,),
+                  Text(walletResponseData?.history?[index].createdAt ?? "",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                 ],
               ),
             ),
@@ -405,31 +411,36 @@ Widget InvoiceList(WalletHistoryData? walletResponseData) {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5), color: white1),
           child: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
+            padding: const EdgeInsets.only(left: 15, right: 15,top: 10,bottom: 10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Row(
-                    children: [
-                      Text(
-                        walletResponseData?.history?[index].created_at ?? "",
+                Row(
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width/1.5,
+                      child: Text(
+                        walletResponseData?.history?[index].message ?? "",
                         style: walletContent,
+                        maxLines: 3,
                       ),
-                      const Spacer(),
-                      walletResponseData?.history?[index].transactionType ==
-                              "credit"
-                          ? Text(
-                              "+ ₹${walletResponseData?.history?[index].amount ?? ""}",
-                              style: debitedT,
-                            )
-                          : Text(
-                              "- ₹${walletResponseData?.history?[index].amount ?? ""}",
-                              style: debitedRT,
-                            ),
-                    ],
-                  ),
+                    ),
+                    const Spacer(),
+                    walletResponseData?.history?[index].transactionType ==
+                        "credit"
+                        ? Text(
+                      "+${walletResponseData?.history?[index].coins ?? ""}",
+                      style: debitedT,
+                    )
+                        : Text(
+                      "-${walletResponseData?.history?[index].coins ?? ""}",
+                      style: debitedRT,
+                    ),
+                  ],
                 ),
+                const SizedBox(height: 5,),
+                Text(walletResponseData?.history?[index].createdAt ?? "",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                const SizedBox(height: 5,),
                 CommonElevatedButton_No_Elevation(context, "Get Invoice", () {
                   showDialog(
                     context: context,
@@ -438,9 +449,7 @@ Widget InvoiceList(WalletHistoryData? walletResponseData) {
                     },
                   );
                 }, blue1, ButtonT1),
-                const SizedBox(
-                  height: 10,
-                ),
+
               ],
             ),
           ),

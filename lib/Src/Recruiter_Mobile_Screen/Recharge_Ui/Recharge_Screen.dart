@@ -325,7 +325,7 @@ AddWalletResponse() async{
     * 3. Metadata
     * */
     showAlertDialog(context, "Payment Failed",
-        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+        "Transaction failed. Pay now and start your seamless hiring process!");
   }
 
   void handlePaymentSuccessResponse(PaymentSuccessResponse response) {

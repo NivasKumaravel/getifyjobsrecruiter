@@ -118,7 +118,10 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
     return Scaffold(
       backgroundColor: white2,
       bottomNavigationBar:
-      //widget.TagContain == "Applied"?null:
+      widget.TagContain == "Selected"?
+          null:
+      widget.TagContain == "Rejected the Candidate"?
+          null:
       Container  (
         height: 90,
         color: white1,

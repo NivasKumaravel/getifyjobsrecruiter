@@ -790,6 +790,7 @@ class _Recruiter_Create_Account_ScreenState
     print('RECRUITER ID : ${recruiterResponse?.data?.recruiterId ?? ""}');
 
     if (recruiterResponse?.status == true) {
+
       Navigator.push(
           context,
           MaterialPageRoute(

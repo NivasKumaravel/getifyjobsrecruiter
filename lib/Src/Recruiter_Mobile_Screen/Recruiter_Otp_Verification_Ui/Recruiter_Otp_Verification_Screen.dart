@@ -331,7 +331,7 @@ class _Otp_Verification_PageState extends ConsumerState<Recruiter_Otp_Verificati
       print("SUCESS");
       setLoginData.setString('recruiter_id', postResponse.data?.recruiterId ?? "");
       RecruiterId(postResponse?.data?.recruiterId ?? "");
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>Recruiter_Bottom_Navigation(select: 0,)));
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Recruiter_Bottom_Navigation(select: 0)), (route) => false);
     }else{
       ShowToastMessage(postResponse.message ?? "");
       print('Error');

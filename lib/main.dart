@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
         "/login": (context) => Recruiter_Login_Page(),
         "/home": (context) => Recruiter_Bottom_Navigation(select: 0),
       },
-      title: 'Flutter Demo',
+      title: 'Getify Jobs Recruiter',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

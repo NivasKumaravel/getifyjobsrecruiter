@@ -264,10 +264,7 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
         String Boolvalue = "true";
         Routes(Boolvalue);
         RecruiterId(LoginResponse?.data?.recruiterId ?? "");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Recruiter_Bottom_Navigation(select: 0)));
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Recruiter_Bottom_Navigation(select: 0)), (route) => false);
       } else {
         print('Profile not verified');
         LoginResponse.otp_verify_status == false? Navigator.push(

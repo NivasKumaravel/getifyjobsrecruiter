@@ -729,12 +729,12 @@ TextStyle appBarSelect = TextStyle(
     decorationColor: blue1);
 TextStyle debitedT = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 14,
+    fontSize: 15,
     color: green4,
     fontWeight: FontWeight.w400);
 TextStyle debitedRT = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 14,
+    fontSize: 15,
     color: Color.fromRGBO(255, 0, 13, 1),
     fontWeight: FontWeight.w400);
 TextStyle creditedT = TextStyle(

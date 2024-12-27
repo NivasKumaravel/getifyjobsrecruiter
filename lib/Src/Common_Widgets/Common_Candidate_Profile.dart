@@ -20,6 +20,7 @@ import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
 import 'package:getifyjobs/Src/utilits/Generic.dart';
 import 'package:getifyjobs/Src/utilits/Text_Style.dart';
+import 'Bottom_Navigation_Bar.dart';
 import 'Pdf_Picker.dart';
 import 'Text_Form_Field.dart';
 
@@ -206,6 +207,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
         widget.TagContain == "Selected"? Container():
         widget.TagContain == "Request a Call"? Container():
         widget.TagContain == "Wait List"? Container():
+        widget.TagContain == ""? Container():
         PopupMenuButton(
             surfaceTintColor: white1,
             icon:
@@ -449,9 +451,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                             builder: (BuildContext context) => RequestCallPopup(
                               onTapConfirm: () {
                                 RequestCallResponse();
-                                setState(() {
-                                  widget.TagContain = "Request a Call";
-                                });
+
                                 },),
                           );
                         }
@@ -466,7 +466,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                         StringDifferentlyAbled: candiateProfileData?.differentlyAbled ?? "",
                         Doyouhavepassport: candiateProfileData?.passport ?? "",
                         CareerBreak: candiateProfileData?.careerBreak ?? ""),
-                    candiateProfileData?.employment == []? Container(): Padding(
+                    candiateProfileData?.employment?.length == 0? Container(): Padding(
                       padding: const EdgeInsets.only(top: 24 ),
                       child: Text("Employment History",style: TitleT,),
                     ),
@@ -593,11 +593,15 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
     });
     final requestCallResponse = await requestCallApiService.post<RequestCallModel>(context, ConstantApi.requestCallUrl, formData);
     if(requestCallResponse?.status == true){
-      print("REQUESTED CALL SUCESS");
+      print("REQUESTED CALL SUCCESS");
+      setState(() {
+        widget.TagContain = "Request a Call";
+      });
       Navigator.pop(context);
       ShowToastMessage(requestCallResponse.message ?? "");
     }else{
       print("REQUESTED CALL ERROR");
+
       ShowToastMessage(requestCallResponse.message ?? "");
     }
   }
@@ -685,7 +689,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
         context, ConstantApi.updateDirectJobStatusUrl, formData);
     if(shortlistedApiResponse?.status == true){
       print("SCHEDULE CANCELED SUCCESS");
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Recruiter_Bottom_Navigation(select: 0)), (route) => false);
       ShowToastMessage(shortlistedApiResponse.message ?? "");
     }else{
       print("SCHEDULE CANCELED ERROR");
@@ -859,7 +863,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
       Navigator.pop(context);
       setState(() {
         isRecReschedule = true;
-        widget.TagContain = 'Interview Reschedule';
+        widget.TagContain = 'Interview Rescheduled';
       });
       ShowToastMessage(rescheduleApiResponse.message ?? "");
 
@@ -1117,7 +1121,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
     return AlertDialog(
       surfaceTintColor: white1,
       content:Container(
-        color: white1,
+
         width: 350,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -1157,7 +1161,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
                       })),
                   Container(
                       width:MediaQuery.of(context).size.width/3.5,
-                      child: CommonElevatedButton(context, "Okay", () {
+                      child: CommonElevatedButton(context, "Select", () {
                         _validateTime();
                         AddOfferResponse();
                         // Navigator.pop(context);
