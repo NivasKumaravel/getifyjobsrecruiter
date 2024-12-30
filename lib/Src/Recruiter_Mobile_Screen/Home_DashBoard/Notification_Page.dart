@@ -38,17 +38,19 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
         isTitleUsed: true,
       ),
       backgroundColor: white2,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20,left: 20,top: 5),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child:_Notification_List(),
-              // Text("data")
-            ),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20,left: 20,top: 5,bottom: 50),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child:_Notification_List(),
+                // Text("data")
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -15,6 +15,7 @@ import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/Common_Colors.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
 import 'package:getifyjobs/Src/utilits/Generic.dart';
+import 'package:getifyjobs/Src/utilits/Loading_Overlay.dart';
 import 'package:getifyjobs/Src/utilits/Text_Style.dart';
 
 class CreateJob extends ConsumerStatefulWidget {
@@ -839,7 +840,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       otherArrayValue.add(result.id);
     }
 
+    LoadingOverlay.show(context);
     final singleJobApiService = ApiService(ref.read(dioProvider));
+
     var formData = FormData.fromMap({
       "job_title": _jobTitleController.text,
       "recruiter_id": await getRecruiterId(),
@@ -877,6 +880,8 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
     print("JOB ID : ${singleJobResponse.data?.jobId ?? ""}");
     if (singleJobResponse.status == true) {
+      LoadingOverlay.hide();
+      ShowToastMessage(singleJobResponse.message ?? "");
       setState(() {
         Navigator.pushAndRemoveUntil(
             context,
@@ -886,6 +891,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       });
       print("SUCESS");
     } else {
+      LoadingOverlay.hide();
       ShowToastMessage(singleJobResponse.message ?? "");
       print("ERROR");
     }
@@ -954,7 +960,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
                   ));
       otherArrayValue.add(result.id);
     }
-
+    LoadingOverlay.show(context);
     final singleJobApiService = ApiService(ref.read(dioProvider));
     var formData = FormData.fromMap({
       "job_id": widget.Job_Id,
@@ -992,9 +998,12 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
     print("JOB ID : ${singleJobResponse.data?.jobId ?? ""}");
     if (singleJobResponse.status == true) {
+      ShowToastMessage(singleJobResponse.message ?? "");
+      LoadingOverlay.hide();
       Navigator.pop(context, true);
       print("SUCESS");
     } else {
+      LoadingOverlay.hide();
       ShowToastMessage(singleJobResponse.message ?? "");
       print("ERROR");
     }

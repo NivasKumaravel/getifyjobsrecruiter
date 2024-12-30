@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:getifyjobs/Models/InvoiceModel.dart';
+import 'package:getifyjobs/Models/InvoiceRequestModel.dart';
 import 'package:getifyjobs/Models/WalletHistoryModel.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Button.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Custom_App_Bar.dart';
@@ -22,7 +24,9 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   WalletHistoryData? walletResponseData;
+  InvoiceData? invoiceResponsedata;
   bool? isHistory;
+  bool? isInvoice;
 
   @override
   void initState() {
@@ -30,6 +34,7 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
     _tabController = TabController(length: 2, vsync: this);
     WalletHistoryResponse();
     isHistory = true;
+    isInvoice = true;
   }
 
   @override
@@ -83,6 +88,13 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
                 unselectedLabelColor: Colors.black,
                 indicatorPadding: EdgeInsets.zero,
                 indicatorSize: TabBarIndicatorSize.tab,
+                onTap: (index)async{
+                  if(index == 0){
+                    WalletHistoryResponse();
+                  }else{
+                    InvoiceResponse();
+                  }
+                },
                 tabs: [
                   Container(
                     width: MediaQuery.of(context).size.width /
@@ -103,6 +115,7 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
             ),
             Expanded(
               child: TabBarView(
+
                 controller: _tabController,
                 children: [
                   //HISTORY
@@ -113,25 +126,17 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
                           child: HistoryList(walletResponseData),
                         ))
                       : Center(
-                          child: Padding(
-                          padding: const EdgeInsets.only(top: 250),
-                          child:
-                              NoDataMobileWidget(content: 'Unlock New Possibilities'),
-                        )),
+                          child: NoDataMobileWidget(content: 'Unlock New Possibilities')),
 
                   //INVOICE
-                  isHistory == true
+                  isInvoice == true
                       ? SingleChildScrollView(
                           child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 50),
-                          child: InvoiceList(walletResponseData),
+                          child: InvoiceList(invoiceResponsedata),
                         ))
                       : Center(
-                          child: Padding(
-                          padding: const EdgeInsets.only(top: 250),
-                          child:
-                              NoDataMobileWidget(content: 'Unlock New Possibilities'),
-                        )),
+                          child: NoDataMobileWidget(content: 'Unlock New Possibilities')),
                 ],
               ),
             ),
@@ -231,6 +236,107 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
       });
       ShowToastMessage(walletResponse?.message ?? "");
     }
+  }
+
+  //INVOICE SCREEN RESPONSE
+  InvoiceResponse() async {
+    final invoiceHistoryApiServie = ApiService(ref.read(dioProvider));
+    var formData = FormData.fromMap({
+      "recruiter_id": await getRecruiterId(),
+    });
+    final invoiceResponse =
+    await invoiceHistoryApiServie.post<InvoiceModel>(
+        context, ConstantApi.invoiceUrl, formData);
+    if (invoiceResponse?.status == true) {
+      print("INVOICE  SUCCESS");
+      ShowToastMessage(invoiceResponse?.message ?? "");
+      setState(() {
+        invoiceResponsedata = invoiceResponse?.data;
+        isInvoice = true;
+      });
+    } else {
+      print("INVOICE ERROR");
+      setState(() {
+        isInvoice = false;
+      });
+      ShowToastMessage(invoiceResponse?.message ?? "");
+    }
+  }
+
+  InvoiceRequestResponse({required String invoiceId}) async {
+    final invoicRequestApiServie = ApiService(ref.read(dioProvider));
+    var formData = FormData.fromMap({
+      "invoice_id": invoiceId,
+    });
+    final invoiceResponse =
+    await invoicRequestApiServie.post<InvoiceRequestModel>(
+        context, ConstantApi.invoiceUrl, formData);
+    if (invoiceResponse?.status == true) {
+      print("INVOICE REQUEST SUCCESS");
+      ShowToastMessage(invoiceResponse?.message ?? "");
+    } else {
+      print("INVOICE REQUEST ERROR");
+      ShowToastMessage(invoiceResponse?.message ?? "");
+    }
+  }
+  //INVOICE LIST
+  Widget InvoiceList(InvoiceData? invoiceResponsedata) {
+
+    return ListView.builder(
+      itemCount: invoiceResponsedata?.invoice?.length ?? 0,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5), color: white1),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15,top: 10,bottom: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.sizeOf(context).width/1.5,
+                        child: Text(
+                          'The amount has been debited from your account.',
+                          style: walletContent,
+                          maxLines: 3,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        "+${invoiceResponsedata?.invoice?[index].amount ?? ""}",
+                        style: debitedT,
+                      )
+
+                    ],
+                  ),
+                  const SizedBox(height: 5,),
+                  Text(invoiceResponsedata?.invoice?[index].createdAt ?? "",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  const SizedBox(height: 5,),
+                  CommonElevatedButton_No_Elevation(context, "Get Invoice", () {
+                    InvoiceRequestResponse(invoiceId: invoiceResponsedata?.invoice?[index].id ?? "");
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return alertDialogBoxGetInvoice(context);
+                      },
+                    );
+                  }, blue1, ButtonT1),
+
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -396,65 +502,4 @@ Widget HistoryList(WalletHistoryData? walletResponseData) {
   );
 }
 
-//INVOICE LIST
-Widget InvoiceList(WalletHistoryData? walletResponseData) {
-  return ListView.builder(
-    itemCount: walletResponseData?.history?.length ?? 0,
-    physics: const NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    scrollDirection: Axis.vertical,
-    itemBuilder: (BuildContext context, int index) {
-      return Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5), color: white1),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15,top: 10,bottom: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: MediaQuery.sizeOf(context).width/1.5,
-                      child: Text(
-                        walletResponseData?.history?[index].message ?? "",
-                        style: walletContent,
-                        maxLines: 3,
-                      ),
-                    ),
-                    const Spacer(),
-                    walletResponseData?.history?[index].transactionType ==
-                        "credit"
-                        ? Text(
-                      "+${walletResponseData?.history?[index].coins ?? ""}",
-                      style: debitedT,
-                    )
-                        : Text(
-                      "-${walletResponseData?.history?[index].coins ?? ""}",
-                      style: debitedRT,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 5,),
-                Text(walletResponseData?.history?[index].createdAt ?? "",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                const SizedBox(height: 5,),
-                CommonElevatedButton_No_Elevation(context, "Get Invoice", () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return alertDialogBoxGetInvoice(context);
-                    },
-                  );
-                }, blue1, ButtonT1),
 
-              ],
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}

@@ -12,6 +12,7 @@ import 'package:getifyjobs/Src/Common_Widgets/Text_Form_Field.dart';
 import 'package:getifyjobs/Src/utilits/ApiService.dart';
 import 'package:getifyjobs/Src/utilits/ConstantsApi.dart';
 import 'package:getifyjobs/Src/utilits/Generic.dart';
+import 'package:getifyjobs/Src/utilits/Loading_Overlay.dart';
 import 'package:getifyjobs/Src/utilits/Text_Style.dart';
 
 class BulkJobs extends ConsumerStatefulWidget {
@@ -626,7 +627,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
       var socialArrayValue = [];
       var otherArrayValue = [];
 
-      for (var obj in qualificationOption!) {
+      for (var obj in qualificationOption ?? []) {
         QualificationData? result = qualificationVal.firstWhere(
             (value) => value.qualification == obj,
             orElse: () => QualificationData(
@@ -634,7 +635,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         qualifiationArrayValue.add(result.id);
       }
 
-      for (var obj in specilizationOption!) {
+      for (var obj in specilizationOption ?? []) {
         QualificationData? result = specilizationVal.firstWhere(
             (value) => value.specialization == obj,
             orElse: () => QualificationData(
@@ -642,7 +643,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         specializaArrayValue.add(result.id);
       }
 
-      for (var obj in statutoryVal!) {
+      for (var obj in statutoryVal ?? []) {
         StatutoryBenefitsData? result =
             statutoryData.firstWhere((value) => value.benefits == obj,
                 orElse: () => StatutoryBenefitsData(
@@ -652,7 +653,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         statutoryArrayValue.add(result.id);
       }
 
-      for (var obj in socialVal!) {
+      for (var obj in socialVal ?? []) {
         StatutoryBenefitsData? result =
             socialData.firstWhere((value) => value.benefits == obj,
                 orElse: () => StatutoryBenefitsData(
@@ -662,7 +663,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         socialArrayValue.add(result.id);
       }
 
-      for (var obj in otherVal!) {
+      for (var obj in otherVal ?? []) {
         StatutoryBenefitsData? result =
             otherData.firstWhere((value) => value.benefits == obj,
                 orElse: () => StatutoryBenefitsData(
@@ -671,7 +672,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
                     ));
         otherArrayValue.add(result.id);
       }
-
+      LoadingOverlay.show(context);
       final bulkJobApiService = ApiService(ref.read(dioProvider));
       var formData = FormData.fromMap({
         "job_title": _jobTitleController.text,
@@ -696,10 +697,12 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
           context, ConstantApi.bulkJobUrl, formData);
 
       if (bulkJobApiResponse.status == true) {
+        LoadingOverlay.hide();
         Navigator.pop(context);
         print("BULK POSTED SUCCESS");
         ShowToastMessage(bulkJobApiResponse?.message ?? "");
       } else {
+        LoadingOverlay.hide();
         print("BULK POSTED ERROR");
         ShowToastMessage(bulkJobApiResponse?.message ?? "");
       }
@@ -715,7 +718,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
       var socialArrayValue = [];
       var otherArrayValue = [];
 
-      for (var obj in qualificationOption!) {
+      for (var obj in qualificationOption ?? []) {
         QualificationData? result = qualificationVal.firstWhere(
             (value) => value.qualification == obj,
             orElse: () => QualificationData(
@@ -723,7 +726,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         qualifiationArrayValue.add(result.id);
       }
 
-      for (var obj in specilizationOption!) {
+      for (var obj in specilizationOption ?? []) {
         QualificationData? result = specilizationVal.firstWhere(
             (value) => value.specialization == obj,
             orElse: () => QualificationData(
@@ -731,7 +734,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         specializaArrayValue.add(result.id);
       }
 
-      for (var obj in statutoryVal!) {
+      for (var obj in statutoryVal ?? []) {
         StatutoryBenefitsData? result =
             statutoryData.firstWhere((value) => value.benefits == obj,
                 orElse: () => StatutoryBenefitsData(
@@ -741,7 +744,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         statutoryArrayValue.add(result.id);
       }
 
-      for (var obj in socialVal!) {
+      for (var obj in socialVal ?? []) {
         StatutoryBenefitsData? result =
             socialData.firstWhere((value) => value.benefits == obj,
                 orElse: () => StatutoryBenefitsData(
@@ -751,7 +754,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
         socialArrayValue.add(result.id);
       }
 
-      for (var obj in otherVal!) {
+      for (var obj in otherVal ?? []) {
         StatutoryBenefitsData? result =
             otherData.firstWhere((value) => value.benefits == obj,
                 orElse: () => StatutoryBenefitsData(
@@ -760,7 +763,7 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
                     ));
         otherArrayValue.add(result.id);
       }
-
+      LoadingOverlay.show(context);
       final bulkJobApiService = ApiService(ref.read(dioProvider));
       var formData = FormData.fromMap({
         "job_title": _jobTitleController.text,
@@ -786,10 +789,12 @@ class _BulkJobsState extends ConsumerState<BulkJobs> {
           context, ConstantApi.editbulkJobUrl, formData);
 
       if (bulkJobApiResponse.status == true) {
+        LoadingOverlay.hide();
         Navigator.pop(context);
         print("EDIT BULK JOB SUCCESS");
         ShowToastMessage(bulkJobApiResponse.message ?? "");
       } else {
+        LoadingOverlay.hide();
         print("EDIT BULK JOB ERROR");
         ShowToastMessage(bulkJobApiResponse.message ?? "");
       }

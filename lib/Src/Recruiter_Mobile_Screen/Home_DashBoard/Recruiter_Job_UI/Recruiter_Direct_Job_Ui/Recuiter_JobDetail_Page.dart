@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getifyjobs/Models/AddBranchModel.dart';
 import 'package:getifyjobs/Models/DirectCandidateListModel.dart';
 import 'package:getifyjobs/Models/DirectDetailsModel.dart';
+import 'package:getifyjobs/Src/Common_Widgets/Bottom_Navigation_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Button.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Candidate_Profile.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_List.dart';
@@ -96,8 +97,10 @@ class _Recruiter_JobDetail_PageState
                     //           'Download',
                     //           style: refferalCountT,
                     //         ))),
-                    PopupMenuItem(
+
+                PopupMenuItem(
                         onTap: () {
+                          widget.appliedCount == 0?
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -110,35 +113,37 @@ class _Recruiter_JobDetail_PageState
                                             "",
                                         isClone: false,
                                       ))).then((value) =>
-                              ref.refresh(DirectJobDetailResponse()));
+                              ref.refresh(DirectJobDetailResponse())):null;
                         },
                         child: Text(
                           'Edit',
+                          style: widget.appliedCount == 0
+                              ? refferalCountT
+                              : PopUp_Menu_T,
+                        )),
+                    PopupMenuItem(
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateJob(
+                                  DirectJobDetailResponseData:
+                                  DirectJobDetailResponseData,
+                                  isEdit: false,
+                                  Job_Id: DirectJobDetailResponseData
+                                      ?.jobId ??
+                                      "",
+                                  isClone: true,
+                                ))).then((value) =>
+                            ref.refresh(DirectJobDetailResponse()));
+                      },
+                        child: Text(
+                          'Clone',
                           style: refferalCountT,
                         )),
                     PopupMenuItem(
-                        child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CreateJob(
-                                            DirectJobDetailResponseData:
-                                                DirectJobDetailResponseData,
-                                            isEdit: false,
-                                            Job_Id: DirectJobDetailResponseData
-                                                    ?.jobId ??
-                                                "",
-                                            isClone: true,
-                                          ))).then((value) =>
-                                  ref.refresh(DirectJobDetailResponse()));
-                            },
-                            child: Text(
-                              'Clone',
-                              style: refferalCountT,
-                            ))),
-                    PopupMenuItem(
-                        onTap: widget.current_status == "Stopped"
+                        onTap:
+                        widget.current_status == "Stopped"
                             ? null
                             : () {
                                 widget.current_status == 'Pause'
@@ -148,19 +153,22 @@ class _Recruiter_JobDetail_PageState
                               },
                         child: Text(
                           widget.current_status == 'Pause' ? 'Pause' : "Resume",
-                          style: widget.current_status == "Stopped"
+                          style:
+                          widget.current_status == "Stopped"
                               ? PopUp_Menu_T
                               : refferalCountT,
                         )),
                     PopupMenuItem(
-                        onTap: widget.current_status == "Stopped"
+                        onTap:
+                        widget.current_status == "Stopped"
                             ? null
                             : () {
                                 jobMoreOptionResponse(statusId: '3');
                               },
                         child: Text(
                           'Stop',
-                          style: widget.current_status == "Stopped"
+                          style:
+                          widget.current_status == "Stopped"
                               ? PopUp_Menu_T
                               : refferalCountT,
                         )),
@@ -510,7 +518,7 @@ class _Recruiter_JobDetail_PageState
         context, ConstantApi.updateJobStatus, formData);
     if (jobUpdateResponse?.status == true) {
       ShowToastMessage(jobUpdateResponse.message ?? "");
-      Navigator.pop(context, true);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Recruiter_Bottom_Navigation(select: 1)));
       print("JOB UPDATE SUCCESS");
       SingleTon singleton = SingleTon();
       setState(() {

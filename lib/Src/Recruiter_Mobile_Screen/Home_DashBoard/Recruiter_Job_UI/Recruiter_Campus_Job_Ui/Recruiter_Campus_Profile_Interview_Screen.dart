@@ -59,7 +59,7 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime.now(),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2050),
     );
     if (picked != null && picked != selectedDate)
       setState(() {

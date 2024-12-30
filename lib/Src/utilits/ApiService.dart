@@ -26,6 +26,8 @@ import 'package:getifyjobs/Models/ForgotMobileModel.dart';
 import 'package:getifyjobs/Models/GetPaymentIdModel.dart';
 import 'package:getifyjobs/Models/IndustryModel.dart';
 import 'package:getifyjobs/Models/InterviewModel.dart';
+import 'package:getifyjobs/Models/InvoiceModel.dart';
+import 'package:getifyjobs/Models/InvoiceRequestModel.dart';
 import 'package:getifyjobs/Models/JobModel.dart';
 import 'package:getifyjobs/Models/LoginModel.dart';
 import 'package:getifyjobs/Models/NewPasswordModel.dart';
@@ -146,6 +148,10 @@ class ApiService {
         return GetPaymentIdModel.fromJson(json) as T;
       }else if (T == PaymentModel) {
         return PaymentModel.fromJson(json) as T;
+      }else if (T == InvoiceModel) {
+        return InvoiceModel.fromJson(json) as T;
+      }else if (T == InvoiceRequestModel) {
+        return InvoiceRequestModel.fromJson(json) as T;
       }
     }
 

@@ -369,7 +369,7 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
           padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
           child: InkWell(
             onTap: () {
-              Navigator.push(
+              RecentAppliesResponseData?.today?.items?[index].name =="No data"?null:  Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => Direct_Candidate_Profile_Screen(

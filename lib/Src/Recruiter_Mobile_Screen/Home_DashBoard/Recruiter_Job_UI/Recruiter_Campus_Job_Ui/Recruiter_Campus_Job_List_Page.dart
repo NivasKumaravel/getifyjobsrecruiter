@@ -79,30 +79,35 @@ class _Recuiter_Campus_Job_List_ScreenState
       }),
       body:
           //campusJobList == true ?
-          Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _campusList(context, CampusJobListResponseData,
-              campusid: widget.campusId),
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Text(
-              "Campus Drive Date: 09:00 AM, ${CampusJobListResponseData?.items?.recruitmentDate ?? ""}",
-              style: dateT,
+          SingleChildScrollView(
+            child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+            _campusList(context, CampusJobListResponseData,
+                campusid: widget.campusId),
+            SizedBox(
+              height: 15,
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Text(
+                "Campus Drive Date: 09:00 AM, ${CampusJobListResponseData?.items?.recruitmentDate ?? ""}",
+                style: dateT,
+              ),
+            ),
+            campusJobList == false
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 70),
+                    child: Center(
+                        child: NoDataWidget(content: "Post your first job")),
+                  )
+                : Padding(
+                  padding: const EdgeInsets.only(bottom: 50),
+                  child: _jobsList(CampusJobListResponseData),
+                ),
+                    ],
+                  ),
           ),
-          campusJobList == false
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 70),
-                  child: Center(
-                      child: NoDataWidget(content: "Post your first job")),
-                )
-              : _jobsList(CampusJobListResponseData),
-        ],
-      ),
       //: Center(child: NoDataWidget(content: "Post your first job"))
     );
   }
@@ -142,7 +147,7 @@ class _Recuiter_Campus_Job_List_ScreenState
         itemCount: campusJobListResponseData?.items?.jobs?.length ?? 0,
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        // physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
             onTap: () {

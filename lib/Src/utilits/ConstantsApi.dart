@@ -12,7 +12,7 @@ class ConstantApi {
   static String editsingleJobUrl = SERVER_ONE + "jobs/edit";
   static String bulkJobUrl = SERVER_ONE + "campus/recruiter_add_job";
   static String editbulkJobUrl = SERVER_ONE + "campus/recruiter_edit_job";
-  static String specilizationUrl = SERVER_ONE + "settings/all_specialization";
+  static String specilizationUrl = SERVER_ONE + "settings/specialization";
   static String campusListUrl = SERVER_ONE + "campus/";
   static String campusDetailUrl = SERVER_ONE + "campus/details";
   static String applyCampusUrl = SERVER_ONE + "campus/recruiter_apply";
@@ -53,6 +53,8 @@ class ConstantApi {
   static String addWalletUrl = SERVER_ONE + "settings/wallet";
   static String addCoinsUrl = SERVER_ONE + "recruiter/add_coins";
   static String walletHistoryUrl = SERVER_ONE + "recruiter/coins_history";
+  static String invoiceUrl = SERVER_ONE + "recruiter/invoice";
+  static String invoiceRequestUrl = SERVER_ONE + "recruiter/invoice_request";
   static String benefitsUrl = SERVER_ONE + "settings/benefits";
   static String forgotMobileUrl = SERVER_ONE + "recruiter/forgot_password";
   static String forgotOtpUrl = SERVER_ONE + "recruiter/forgot_otp_verification";

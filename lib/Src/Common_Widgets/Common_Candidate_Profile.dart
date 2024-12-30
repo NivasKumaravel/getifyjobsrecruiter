@@ -61,7 +61,7 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2050),
     );
     if (picked != null && picked != selectedDate)
       setState(() {
@@ -973,9 +973,8 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
 //INTERVIEW SCHEDULE POPUP
   Widget InterviewSchedulePopupWeb(BuildContext context) {
     return AlertDialog(
-      surfaceTintColor: white1,
+      surfaceTintColor: Colors.white,
       content:Container(
-        color: white1,
         width: 350,
         child: Column(
           mainAxisSize: MainAxisSize.min,
