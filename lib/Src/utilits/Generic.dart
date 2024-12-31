@@ -12,6 +12,7 @@ import 'package:motion_toast/motion_toast.dart';
 final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
 String? accesstokens = 'accessToken';
 String? recruiter_Id = 'recruiter_id';
+String? officeAddress = 'address';
 String Storage = 'storage';
 String? routes = "routes_Log";
 String? fcmToken = 'fcmToken';
@@ -63,6 +64,20 @@ Future<dynamic> getRecruiterId() async {
   print("valuesss:$recruiterId");
   return recruiterId;
 }
+
+OfficeAddress(dynamic val) async {
+  await _secureStorage.write(
+      key: officeAddress!, value: val!, aOptions: _androidOptions());
+  print("value!:${val!}" + "$officeAddress");
+}
+
+Future<dynamic> getOfficeAddress() async {
+  dynamic office_address = await _secureStorage.read(
+      key: officeAddress!, aOptions: _androidOptions());
+  print("valuesss:$office_address");
+  return office_address;
+}
+
 
 Routes(dynamic val) async {
   await _secureStorage.write(

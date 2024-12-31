@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getifyjobs/Models/LoginModel.dart';
+import 'package:getifyjobs/Models/ProfileModel.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Bottom_Navigation_Bar.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Common_Button.dart';
 import 'package:getifyjobs/Src/Common_Widgets/Image_Path.dart';
@@ -265,6 +266,7 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
         Routes(Boolvalue);
         RecruiterId(LoginResponse?.data?.recruiterId ?? "");
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Recruiter_Bottom_Navigation(select: 0)), (route) => false);
+        ProfileResponse(LoginResponse?.data?.recruiterId ?? "");
       } else {
         print('Profile not verified');
         LoginResponse.otp_verify_status == false? Navigator.push(
@@ -283,6 +285,22 @@ class _Recruiter_Login_PageState extends ConsumerState<Recruiter_Login_Page> {
 
       print('Mobile Number: $_mobileNumber');
       print('Password: $_password');
+    }
+  }
+
+  ProfileResponse(String recruiterId) async {
+    final profileApiService = ApiService(ref.read(dioProvider));
+
+    var formData = FormData.fromMap({
+      "recruiter_id": recruiterId,
+    });
+    final profileResponse = await profileApiService.post<ProfileModel>(
+        context, ConstantApi.profileUrl, formData);
+    if (profileResponse.status == true) {
+     OfficeAddress(profileResponse?.data?.address ?? "");
+    } else {
+      print("ERROR");
+      ShowToastMessage(profileResponse?.message ?? "");
     }
   }
 }

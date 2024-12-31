@@ -91,13 +91,19 @@ class Direct_Candidate_Profile_ScreenState extends ConsumerState<Direct_Candidat
   void initState() {
     // TODO: implement initState
     super.initState();
+    getAddress();
     setState(() {
+
       print("JOB STATUS : ${widget.TagContain}");
       CandidateCampusProfileResponse();
       BranchListResponse();
     });
     isRecReschedule = false;
     isSecheduleAccepted = false;
+  }
+
+  void getAddress() async{
+    _Description.text = await getOfficeAddress();
   }
   @override
   Widget build(BuildContext context) {

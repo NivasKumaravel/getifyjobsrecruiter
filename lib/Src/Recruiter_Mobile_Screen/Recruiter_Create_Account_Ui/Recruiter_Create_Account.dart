@@ -668,7 +668,9 @@ class _Recruiter_Create_Account_ScreenState
                                 if (_formKey.currentState!.validate()) {
 
                                  if(widget.isEdit == true){
+                                   print("EDIT1");
                                    if (_value == null) {
+                                     print("EDIT2");
                                      ScaffoldMessenger.of(context).showSnackBar(
                                        SnackBar(
                                          content: Text('Branch Selection is Required'),
@@ -676,6 +678,7 @@ class _Recruiter_Create_Account_ScreenState
                                      );
                                    }
                                    else if (industryOption == null || industryOption!.isEmpty) {
+                                     print("EDIT3");
                                      ScaffoldMessenger.of(context).showSnackBar(
                                        SnackBar(
                                          content: Text("Please Select Valid Industry Type"),
@@ -683,7 +686,8 @@ class _Recruiter_Create_Account_ScreenState
                                      );
                                    }
 
-                                   else if (_validateTerms(_isChecked) == null) {
+                                   else {
+                                     print("EDIT4");
                                      editProfileApiResponse();
 
                                    }
@@ -800,6 +804,7 @@ class _Recruiter_Create_Account_ScreenState
                     recruiterId:
                         recruiterResponse?.data?.recruiterId.toString(),
                   )));
+      OfficeAddress(_Address.text);
     } else {
       ShowToastMessage(recruiterResponse.message ?? "");
       print('ERROR');
@@ -808,16 +813,23 @@ class _Recruiter_Create_Account_ScreenState
 
   //EDIT PROFILE
   Future<void> editProfileApiResponse() async {
-    final registerApiService = ApiService(ref.read(dioProvider));
-    String fileName = _image!.path.split('/').last;
+    var industryArrayVal = [];
 
-    print("IMAGE PATH : ${_image!.path}");
+    for (var obj in industryOption!) {
+      IndustryData? result = IndustryVal.firstWhere(
+              (value) => value.industry == obj,
+          orElse: () => IndustryData(
+            id: obj, industry: "", ));
+      industryArrayVal.add(result.id);
+    }
+    final registerApiService = ApiService(ref.read(dioProvider));
+
     var formData = FormData.fromMap({
-      "recruiter_id": "1",
+      "recruiter_id": await getRecruiterId(),
       "name": _RecruiterName.text,
       "dob": _Dob.text,
       "company_name": _CompanyName.text,
-      "industry_type": _IndustryType.text,
+      "industry_type": industryArrayVal.join(','),
       "company_start_date": _CompanyStartedDate.text,
       "about_company": _AboutCompany.text,
       "email": _EnterOfficialEmail.text,
@@ -827,16 +839,25 @@ class _Recruiter_Create_Account_ScreenState
       "branch_name": _EnterBranchName.text,
       "personal_phone": _Phonenumber.text,
       "password": _passwordController.text,
-      "location": '',
+      "location": 'dummy',
       "referral_code": _referralCodeController.text,
       "advertisement": _isChecked1,
       "device_token": "",
       "device_id": ""
     });
     print("LOCATION : ${SingleTon().setLocation}");
-    formData.files.addAll([
-      MapEntry('logo', await MultipartFile.fromFile(_image!.path)),
-    ]);
+    if (_image != null) {
+      List<int> compressedImage = await compressImage(_image!);
+
+      formData.files.addAll([
+        MapEntry(
+            'logo',
+            MultipartFile.fromBytes(
+              compressedImage,
+              filename: 'compressed_image.jpg',
+            )),
+      ]);
+    }
 
     final recruiterResponse = await registerApiService.post<RegistrationModel>(
         context, ConstantApi.editProfileUrl, formData);
@@ -844,6 +865,7 @@ class _Recruiter_Create_Account_ScreenState
 
     if (recruiterResponse?.status == true) {
       Navigator.pop(context);
+      OfficeAddress(_Address.text);
     } else {
       ShowToastMessage(recruiterResponse.message ?? "");
       print('ERROR');

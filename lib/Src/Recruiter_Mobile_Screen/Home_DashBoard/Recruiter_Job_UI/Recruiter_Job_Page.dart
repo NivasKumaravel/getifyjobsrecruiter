@@ -285,7 +285,7 @@ class _RecuiterJobsState extends ConsumerState<Recuiter_Jobs_Screen>
                   //DIRECT
                   isDirectList == true
                       ? Padding(
-                          padding: const EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 10,bottom: 10),
                           child: _jobsList(
                               _scrollController, directItemList, totalCount,
                               onValue: (value) {
