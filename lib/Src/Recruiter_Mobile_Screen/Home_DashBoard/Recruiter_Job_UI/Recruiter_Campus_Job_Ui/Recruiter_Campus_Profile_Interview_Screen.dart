@@ -567,6 +567,7 @@ class _Recruiter_Campus_Peofile_Interview_ScreenState extends ConsumerState<Recr
             _profileInformation(title: 'Gender', data: candiateProfileData?.gender ?? ""),
             _profileInformation(title: 'Qualification', data: candiateProfileData?.qualification ?? ""),
             _profileInformation(title: 'Specialization', data: candiateProfileData?.specialization ?? ""),
+            _profileInformation(title: 'Skill Sets', data: candiateProfileData?.skillSet ?? ""),
             _profileInformation(title: 'Current Arrears', data: candiateProfileData?.currentArrears ?? ""),
             _profileInformation(title: 'History of Arrears', data: candiateProfileData?.historyOfArrears ?? ""),
             _profileInformation(title: 'Current Percentage/CGPA', data: candiateProfileData?.currentPercentage ?? ""),
