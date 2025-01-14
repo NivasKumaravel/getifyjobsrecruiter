@@ -973,7 +973,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "current_arrears": _currentArrear.text,
       "history_of_arrears": _historyOfArrear.text,
       "required_percentage": _requriedPercentage.text,
-      "location": preferredlocationOption,
+      "location": preferredlocationOption.join(', '),
       "experience": experienceVal,
       "work_type": _value == 0
           ? "Full Time"

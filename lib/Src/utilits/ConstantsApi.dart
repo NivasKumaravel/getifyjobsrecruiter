@@ -12,7 +12,7 @@ class ConstantApi {
   static String editsingleJobUrl = SERVER_ONE + "jobs/edit";
   static String bulkJobUrl = SERVER_ONE + "campus/recruiter_add_job";
   static String editbulkJobUrl = SERVER_ONE + "campus/recruiter_edit_job";
-  static String specilizationUrl = SERVER_ONE + "settings/specialization";
+  static String specilizationUrl = SERVER_ONE + "settings/all_specialization";
   static String campusListUrl = SERVER_ONE + "campus/";
   static String campusDetailUrl = SERVER_ONE + "campus/details";
   static String applyCampusUrl = SERVER_ONE + "campus/recruiter_apply";
@@ -34,7 +34,8 @@ class ConstantApi {
       SERVER_ONE + "recruiter/applied_jobs_list";
   static String appliedCampusCandidateListUrl =
       SERVER_ONE + "recruiter/applied_campus_jobs_list";
-  static String campusCandidateProfileUrl = SERVER_ONE + "recruiter/candidate_profile";
+  static String campusCandidateProfileUrl =
+      SERVER_ONE + "recruiter/candidate_profile";
   static String updateCandidateCampusJobSatusUrl =
       SERVER_ONE + "recruiter/update_candidate_campus_job_status";
   static String skillSetUrl = SERVER_ONE + "settings/skills";
@@ -62,10 +63,10 @@ class ConstantApi {
   static String updateJobStatus = SERVER_ONE + "jobs/update_job_status";
   static String notificationUrl = SERVER_ONE + "recruiter/notification";
   static String completedCallUrl = SERVER_ONE + "recruiter/complete_call_list";
-  static String completedCallLogHistoryUrl = SERVER_ONE + "recruiter/complete_call_history";
+  static String completedCallLogHistoryUrl =
+      SERVER_ONE + "recruiter/complete_call_history";
   static String getPaymentUrl = SERVER_ONE + "settings/payments_keys";
   static String recruiterPaymentUrl = SERVER_ONE + "recruiter/payment";
-
 
   static String SOMETHING_WRONG = "Some thing wrong";
   static String NO_INTERNET = "No internet Connection";
