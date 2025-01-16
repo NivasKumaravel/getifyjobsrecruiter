@@ -304,8 +304,8 @@ class _Wallet_Coin_ScreenState extends ConsumerState<Wallet_Coin_Screen>
                       Container(
                         width: MediaQuery.sizeOf(context).width/1.5,
                         child: Text(
-                          'The amount has been debited from your account.',
-                          style: walletContent,
+                          '${invoiceResponsedata?.invoice?[index].transactionId ?? ""}',
+                          style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                           maxLines: 3,
                         ),
                       ),

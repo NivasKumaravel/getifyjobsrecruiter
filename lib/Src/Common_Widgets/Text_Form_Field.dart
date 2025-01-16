@@ -26,7 +26,9 @@ Widget textFormField(
     required String hintText,
     List<TextInputFormatter>? inputFormatters,
     required TextInputType keyboardtype,
-    FocusNode? focusNode}) {
+    FocusNode? focusNode,
+      bool? readOnly,
+    }) {
   return Container(
     // height: 50,
     child: TextFormField(
@@ -56,6 +58,7 @@ Widget textFormField(
       textInputAction: TextInputAction.next,
       style: Textfield_Style,
       keyboardType: keyboardtype,
+      readOnly: readOnly ?? false,
     ),
   );
 }

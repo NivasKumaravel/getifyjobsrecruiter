@@ -95,6 +95,7 @@ class _Recharge_ScreenState extends ConsumerState<Recharge_Screen> {
                       width: 110,
                       child: textFormField(
                         hintText: '₹ 00',
+                        readOnly: true,
                         keyboardtype: TextInputType.phone,
                         inputFormatters: null,
                         Controller: _Amount,
