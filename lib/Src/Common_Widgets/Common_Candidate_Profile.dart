@@ -266,7 +266,7 @@ class Direct_Candidate_Profile_ScreenState
         actions: [
           widget.TagContain == "Rejected"
               ? Container()
-              : widget.TagContain == "Schdedule Rejected"
+              : widget.TagContain == "Schedule Rejected"
                   ? Container()
                   : widget.TagContain == "Applied"
                       ? Container()
@@ -997,6 +997,33 @@ class Direct_Candidate_Profile_ScreenState
     }
   }
 
+  //INTERVIEW SELECT
+  InterviewSelectResponse() async {
+    final shortListedApiService = ApiService(ref.read(dioProvider));
+    var formData = FormData.fromMap({
+      "job_id": widget.job_Id,
+      "candidate_id": widget.candidate_Id,
+      "recruiter_id": await getRecruiterId(),
+      "status": 9
+    });
+    final shortlistedApiResponse =
+    await shortListedApiService.post<UpdateCandidateJobSatusModel>(
+        context, ConstantApi.updateDirectJobStatusUrl, formData);
+    if (shortlistedApiResponse?.status == true) {
+      print("INTERVIEW REJECTED SUCESS");
+      AddOfferResponse();
+      // Navigator.pop(context);
+      setState(() {
+        widget.TagContain = "Selected";
+      });
+      ShowToastMessage(shortlistedApiResponse.message ?? "");
+    } else {
+      print("INTERVIEW REJECTED ERROR");
+      ShowToastMessage(shortlistedApiResponse.message ?? "");
+    }
+  }
+
+
   //INTERVIEW REJECTED
   InterviewRejectedResponse() async {
     final shortListedApiService = ApiService(ref.read(dioProvider));
@@ -1011,6 +1038,7 @@ class Direct_Candidate_Profile_ScreenState
             context, ConstantApi.updateDirectJobStatusUrl, formData);
     if (shortlistedApiResponse?.status == true) {
       print("INTERVIEW REJECTED SUCESS");
+
       // Navigator.pop(context);
       setState(() {
         widget.TagContain = "Rejected";
@@ -1105,9 +1133,7 @@ class Direct_Candidate_Profile_ScreenState
         context, ConstantApi.addOfferUrl, formData);
     if (AddOfferApiResponse?.status == true) {
       print("ADD OFFER SUCCESS");
-      setState(() {
-        widget.TagContain = "Selected";
-      });
+
 
       Navigator.pop(context);
 
@@ -1498,12 +1524,7 @@ class Direct_Candidate_Profile_ScreenState
                       width: MediaQuery.of(context).size.width / 3.5,
                       child: CommonElevatedButton(context, "Select", () {
                         _validateTime();
-                        AddOfferResponse();
-                        // Navigator.pop(context);
-                        // showDialog (
-                        //   context: context,
-                        //   builder: (BuildContext context) => AddOfferResponse(),
-                        // );
+                        InterviewSelectResponse();
                       })),
                 ],
               ),
