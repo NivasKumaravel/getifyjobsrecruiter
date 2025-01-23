@@ -887,7 +887,7 @@ Widget _employeementHistory(CandidateCampusProfileData? candiateProfileData){
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: candiateProfileData?.education?.length ?? 0,
+          itemCount: candiateProfileData?.employment?.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.only(left: 10,right: 10,),

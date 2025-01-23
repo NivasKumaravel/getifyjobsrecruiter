@@ -1011,7 +1011,7 @@ class Direct_Candidate_Profile_ScreenState
         context, ConstantApi.updateDirectJobStatusUrl, formData);
     if (shortlistedApiResponse?.status == true) {
       print("INTERVIEW REJECTED SUCESS");
-      AddOfferResponse();
+      _feedBack.text !=""? AddOfferResponse():null;
       // Navigator.pop(context);
       setState(() {
         widget.TagContain = "Selected";
@@ -1233,7 +1233,7 @@ class Direct_Candidate_Profile_ScreenState
             expduration:
                 "Duration: ${candiateProfileData?.employment?[index].startDate ?? ""} - ${candiateProfileData?.employment?[index].endDate ?? ""}",
             expnoticeperiod:
-                candiateProfileData?.employment?[index].noticePeriod ?? "");
+                candiateProfileData?.employment?[index].noticePeriod ?? "0");
       },
     );
   }
@@ -1807,10 +1807,6 @@ Widget _experienceList(
             Text(
               expcompany,
               style: stxt,
-            ),
-            Text(
-              expworktype,
-              style: posttxt,
             ),
             Text(
               expworktype,
