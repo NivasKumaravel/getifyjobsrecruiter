@@ -943,7 +943,7 @@ class _CreateJobState extends ConsumerState<CreateJob> {
 
     for (var obj in socialVal!) {
       StatutoryBenefitsData? result =
-          socialData.firstWhere((value) => value.benefits == obj,
+          socialData.firstWhere((value) => value.benefits?.trim() == obj.trim(),
               orElse: () => StatutoryBenefitsData(
                     id: obj,
                     benefits: "",
@@ -984,9 +984,9 @@ class _CreateJobState extends ConsumerState<CreateJob> {
       "shift_details": shiftDetailVal,
       "salary_from": _salaryFrom.text,
       "salary_to": _salaryTo.text,
-      "statutory_benefits": statutoryArrayValue,
-      "social_benefits": socialArrayValue,
-      "other_benefits": otherArrayValue
+      "statutory_benefits": statutoryArrayValue.join(', '),
+      "social_benefits": socialArrayValue.join(', '),
+      "other_benefits": otherArrayValue.join(', '),
     });
     final singleJobResponse = await singleJobApiService.post<JobModel>(
         context, ConstantApi.editsingleJobUrl, formData);

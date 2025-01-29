@@ -1007,11 +1007,11 @@ class Direct_Candidate_Profile_ScreenState
       "status": 9
     });
     final shortlistedApiResponse =
-    await shortListedApiService.post<UpdateCandidateJobSatusModel>(
-        context, ConstantApi.updateDirectJobStatusUrl, formData);
+        await shortListedApiService.post<UpdateCandidateJobSatusModel>(
+            context, ConstantApi.updateDirectJobStatusUrl, formData);
     if (shortlistedApiResponse?.status == true) {
       print("INTERVIEW REJECTED SUCESS");
-      _feedBack.text !=""? AddOfferResponse():null;
+      _feedBack.text != "" ? AddOfferResponse() : null;
       // Navigator.pop(context);
       setState(() {
         widget.TagContain = "Selected";
@@ -1022,7 +1022,6 @@ class Direct_Candidate_Profile_ScreenState
       ShowToastMessage(shortlistedApiResponse.message ?? "");
     }
   }
-
 
   //INTERVIEW REJECTED
   InterviewRejectedResponse() async {
@@ -1133,7 +1132,6 @@ class Direct_Candidate_Profile_ScreenState
         context, ConstantApi.addOfferUrl, formData);
     if (AddOfferApiResponse?.status == true) {
       print("ADD OFFER SUCCESS");
-
 
       Navigator.pop(context);
 
@@ -1247,10 +1245,8 @@ class Direct_Candidate_Profile_ScreenState
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
         return _educationList(
-            course: candiateProfileData?.education?[index].qualification ?? "",
-            institution: candiateProfileData?.education?[index].institute ?? "",
-            duration:
-                "Duration: ${candiateProfileData?.education?[index].startDate ?? ""} - ${candiateProfileData?.education?[index].endDate ?? ""}");
+          education: candiateProfileData!.education![index],
+        );
       },
     );
   }
@@ -1732,10 +1728,7 @@ Widget _personalDetailsSection({
 }
 
 //EDUCATIONAL LIST
-Widget _educationList(
-    {required String course,
-    required String institution,
-    required String duration}) {
+Widget _educationList({required Education education}) {
   return Padding(
     padding: const EdgeInsets.only(top: 10),
     child: Container(
@@ -1759,18 +1752,30 @@ Widget _educationList(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      institution,
+                      education.institute ?? "",
                       style: empHistoryT,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 3, bottom: 3),
                       child: Text(
-                        course,
+                        education.qualification ?? "",
                         style: coursetxt,
                       ),
                     ),
                     Text(
-                      duration,
+                      education.specialization ?? "",
+                      style: coursetxt,
+                    ),
+                    Text(
+                      education.educationType ?? "",
+                      style: coursetxt,
+                    ),
+                    Text(
+                      "CGPA/Percentage: ${education.cgpa}",
+                      style: coursetxt,
+                    ),
+                    Text(
+                      "Duration: ${education.startDate ?? ""} - ${education.endDate ?? ""}",
                       style: durationT,
                     ),
                   ],
@@ -1812,17 +1817,22 @@ Widget _experienceList(
               expworktype,
               style: posttxt,
             ),
-            SizedBox(
-              height: 15,
-            ),
             Text(
-              "Notice Period",
-              style: infoT,
-            ),
-            Text(
-              expnoticeperiod,
+              expduration,
               style: stxt,
             ),
+            expnoticeperiod != ""
+                ? Text(
+                    "Notice Period",
+                    style: infoT,
+                  )
+                : SizedBox.shrink(),
+            expnoticeperiod != ""
+                ? Text(
+                    expnoticeperiod,
+                    style: stxt,
+                  )
+                : SizedBox.shrink(),
           ],
         ),
       ),

@@ -99,16 +99,18 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
                 child: InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Wallet_Coin_Screen())).then((value) async{
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Wallet_Coin_Screen()))
+                          .then((value) async {
                         formData = FormData.fromMap({
                           'recruiter_id': await getRecruiterId(),
                           "no_of_records": '10',
                           "page_no": 1,
                         });
                         ref.refresh(RecentApplyListResponse());
-                      });;
+                      });
+                      ;
                     },
                     child: ImgPathSvg("coin.svg")),
               ),
@@ -241,7 +243,8 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  isRecentApplies == true
+                  (isRecentApplies == true &&
+                          RecentAppliesResponseData?.all?.items?.length != 0)
                       ? SingleChildScrollView(
                           child: Padding(
                           padding: const EdgeInsets.only(bottom: 50),
@@ -369,26 +372,28 @@ class _Recruiter_Home_ScreenState extends ConsumerState<Recruiter_Home_Screen>
           padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
           child: InkWell(
             onTap: () {
-              RecentAppliesResponseData?.today?.items?[index].name =="No data"?null:  Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Direct_Candidate_Profile_Screen(
-                          TagContain: '',
-                          candidate_Id: RecentAppliesResponseData
-                                  ?.today?.items?[index].candidateId ??
-                              "",
-                          job_Id: RecentAppliesResponseData
-                                  ?.today?.items?[index].jobId ??
-                              "",
-                        )),
-              ).then((value) async {
-                formData = FormData.fromMap({
-                  'recruiter_id': await getRecruiterId(),
-                  "no_of_records": '10',
-                  "page_no": 1,
-                });
-                ref.refresh(RecentApplyListResponse());
-              });
+              RecentAppliesResponseData?.today?.items?[index].name == "No data"
+                  ? null
+                  : Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Direct_Candidate_Profile_Screen(
+                                TagContain: '',
+                                candidate_Id: RecentAppliesResponseData
+                                        ?.today?.items?[index].candidateId ??
+                                    "",
+                                job_Id: RecentAppliesResponseData
+                                        ?.today?.items?[index].jobId ??
+                                    "",
+                              )),
+                    ).then((value) async {
+                      formData = FormData.fromMap({
+                        'recruiter_id': await getRecruiterId(),
+                        "no_of_records": '10',
+                        "page_no": 1,
+                      });
+                      ref.refresh(RecentApplyListResponse());
+                    });
             },
             child: AppliesList(context,
                 CandidateImg: RecentAppliesResponseData

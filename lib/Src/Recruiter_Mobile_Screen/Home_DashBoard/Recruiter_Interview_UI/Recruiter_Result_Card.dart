@@ -52,7 +52,7 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
       "status": status
     });
     final interviewApiResponse = await ApplyListApiService.post<InterviewModel>(
-        context, ConstantApi.allinterviewjobstatus, formData);
+        context, ConstantApi.alljobresult, formData);
     print("JOB ID : ${interviewApiResponse.data?.items?[0].jobId ?? ''}");
     if (interviewApiResponse.status == true) {
       print('SUCESS');
@@ -122,7 +122,7 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20,right: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -145,38 +145,50 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
             itemCount: interviewResponsemodel?.data?.items?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Direct_Candidate_Profile_Screen(
-                      TagContain: widget.CardType,
-                      candidate_Id:interviewResponsemodel?.data?.items?[index].candidateId ?? "" ,
-                      job_Id: interviewResponsemodel?.data?.items?[index].jobId ?? ""))).then((value) => ref.refresh(ResultsResponse(widget.CardType ?? "")));
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Direct_Candidate_Profile_Screen(
+                              TagContain: widget.CardType,
+                              candidate_Id: interviewResponsemodel
+                                      ?.data?.items?[index].candidateId ??
+                                  "",
+                              job_Id: interviewResponsemodel
+                                      ?.data?.items?[index].jobId ??
+                                  ""))).then((value) =>
+                      ref.refresh(ResultsResponse(widget.CardType ?? "")));
                 },
                 child: customListItem(context,
                     badgeText:
                         interviewResponsemodel?.data?.items?[index].name ?? "",
                     appliedRole:
-                        interviewResponsemodel?.data?.items?[index].jobTitle ?? "",
-                    interviewTime:
-                    interviewResponsemodel?.data?.items?[index].scheduleData?.interviewTime ?? "",
+                        interviewResponsemodel?.data?.items?[index].jobTitle ??
+                            "",
+                    interviewTime: interviewResponsemodel
+                            ?.data?.items?[index].scheduleData?.interviewTime ??
+                        "",
                     status: "${widget.CardType}",
                     badgeTextStyle: ProfileT,
                     countTextStyle: W1grey,
                     interviewTimeTextStyle: Wgrey,
                     statusColor: grey1,
                     isWeb: false,
-                    profileImg: interviewResponsemodel?.data?.items?[index].profilePic ?? ""),
+                    profileImg: interviewResponsemodel
+                            ?.data?.items?[index].profilePic ??
+                        ""),
               );
             },
           )
         : Padding(
-          padding: const EdgeInsets.only(top: 250),
-          child: NoDataMobileWidget(content: "Unlock New Possibilities"),
-        );
+            padding: const EdgeInsets.only(top: 250),
+            child: NoDataMobileWidget(content: "Unlock New Possibilities"),
+          );
   }
 
   Widget InterviewSchedulePopup(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     return Container(
       child: AlertDialog(
         surfaceTintColor: white1,
@@ -253,7 +265,7 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
                           lastDate: DateTime(2050));
                       if (pickdate != null) {
                         String formatdate =
-                        DateFormat("yyyy-MM-dd").format(pickdate!);
+                            DateFormat("yyyy-MM-dd").format(pickdate!);
                         if (mounted) {
                           setState(() {
                             _From.text = formatdate;
@@ -301,5 +313,4 @@ class _Recruiter_Result_CardState extends ConsumerState<Recruiter_Result_Card> {
       ),
     );
   }
-
 }

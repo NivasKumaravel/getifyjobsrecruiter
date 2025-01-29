@@ -55,7 +55,6 @@ final dioProvider = Provider<Dio>((ref) {
   return dio;
 });
 
-
 class ApiService {
   final Dio _dio;
   ApiService(this._dio);
@@ -120,37 +119,37 @@ class ApiService {
         return InterviewModel.fromJson(json) as T;
       } else if (T == AllinterviewModel) {
         return AllinterviewModel.fromJson(json) as T;
-      }else if (T == IndustryModel) {
+      } else if (T == IndustryModel) {
         return IndustryModel.fromJson(json) as T;
-      }else if (T == AddOfferModel) {
+      } else if (T == AddOfferModel) {
         return AddOfferModel.fromJson(json) as T;
-      }else if (T == RequestCallListModel) {
+      } else if (T == RequestCallListModel) {
         return RequestCallListModel.fromJson(json) as T;
-      }else if (T == AddWalletModel) {
+      } else if (T == AddWalletModel) {
         return AddWalletModel.fromJson(json) as T;
-      }else if (T == AddCoinsModel) {
+      } else if (T == AddCoinsModel) {
         return AddCoinsModel.fromJson(json) as T;
-      }else if (T == WalletHistoryModel) {
+      } else if (T == WalletHistoryModel) {
         return WalletHistoryModel.fromJson(json) as T;
-      }else if (T == StatutoryBenefitsModel) {
+      } else if (T == StatutoryBenefitsModel) {
         return StatutoryBenefitsModel.fromJson(json) as T;
-      }else if (T == ForgotMobileModel) {
+      } else if (T == ForgotMobileModel) {
         return ForgotMobileModel.fromJson(json) as T;
-      }else if (T == NewPasswordModel) {
+      } else if (T == NewPasswordModel) {
         return NewPasswordModel.fromJson(json) as T;
-      }else if (T == NotificationModel) {
+      } else if (T == NotificationModel) {
         return NotificationModel.fromJson(json) as T;
-      }else if (T == CallCompletedModel) {
+      } else if (T == CallCompletedModel) {
         return CallCompletedModel.fromJson(json) as T;
-      }else if (T == CallCompletedLogHistoryModel){
+      } else if (T == CallCompletedLogHistoryModel) {
         return CallCompletedLogHistoryModel.fromJson(json) as T;
-      }else if (T == GetPaymentIdModel) {
+      } else if (T == GetPaymentIdModel) {
         return GetPaymentIdModel.fromJson(json) as T;
-      }else if (T == PaymentModel) {
+      } else if (T == PaymentModel) {
         return PaymentModel.fromJson(json) as T;
-      }else if (T == InvoiceModel) {
+      } else if (T == InvoiceModel) {
         return InvoiceModel.fromJson(json) as T;
-      }else if (T == InvoiceRequestModel) {
+      } else if (T == InvoiceRequestModel) {
         return InvoiceRequestModel.fromJson(json) as T;
       }
     }
@@ -195,9 +194,13 @@ class ApiService {
     } on DioException catch (e) {
       // Handle DioError, you can log or display an error message.
 
-      // LoadingOverlay.hide();
+      LoadingOverlay.hide();
 
-      return _fromJson<T>(e.response?.data);
+      if (e.response?.data != null) {
+        return _fromJson<T>(e.response?.data);
+      } else {
+        throw e;
+      }
     } catch (e) {
       // Handle other exceptions here
 
