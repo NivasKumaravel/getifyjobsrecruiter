@@ -207,11 +207,11 @@ class _RecuiterProfileState extends ConsumerState<Recuiter_Profile_Screen> {
           child: ReferalCard(context,
               isRefferal: true,
               RefferEarn: 'Refer & Earn 12 Coins',
-              refferalCode: 'ABR47645'),
+              refferalCode: profileDataResponse?.referral_code ?? ""),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
-          child: referralCount(context, totalReferal: '12', pending: '2'),
+          child: referralCount(context, totalReferal: "${profileDataResponse?.total_referral ?? 0}", pending: '0'),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 30),

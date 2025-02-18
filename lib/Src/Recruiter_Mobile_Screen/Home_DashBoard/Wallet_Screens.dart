@@ -418,6 +418,7 @@ Widget alertDialogBox(context, {void Function()? onPress}) {
 
 Widget alertDialogBoxGetInvoice(context) {
   return AlertDialog(
+    backgroundColor: white1,
     surfaceTintColor: white1,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -431,11 +432,15 @@ Widget alertDialogBoxGetInvoice(context) {
             icon: ImgPathSvg("xcancel.svg"))),
     contentPadding: EdgeInsets.only(right: 20, left: 20, bottom: 0),
     content: Container(
-      height: 150,
+      height: 180,
       width: 350,
+      color: white1,
       child: Column(
         children: [
-          ImgPathSvg("gmail.svg"),
+          SizedBox(
+            height: 100,
+              width: 100,
+              child: ImgPathPng("gmail.jpg")),
           Text(
             "You will Get Invoice through your Mail",
             style: walletT,

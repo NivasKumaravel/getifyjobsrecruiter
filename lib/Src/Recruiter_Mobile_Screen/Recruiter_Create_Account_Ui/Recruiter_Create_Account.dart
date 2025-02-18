@@ -444,10 +444,10 @@ class _Recruiter_Create_Account_ScreenState
                         ),
 
                         //Enter Official Mobile Number*
-                        Title_Style(
+                        widget.isEdit == true? Container(): Title_Style(
                             Title: 'Enter Official Mobile Number',
                             isStatus: true),
-                        textFormField(
+                        widget.isEdit == true? Container(): textFormField(
                           hintText: 'Official Mobile Number',
                           keyboardtype: TextInputType.phone,
                           inputFormatters: [LengthLimitingTextInputFormatter(10)],
@@ -513,10 +513,10 @@ class _Recruiter_Create_Account_ScreenState
                             : Container(),
 
                         //Enter Phone Number*
-                        Title_Style_NoSp(
+                        widget.isEdit == true? Container():  Title_Style_NoSp(
                             Title: 'Enter Personal Mobile Number',
                             isStatus: true),
-                        Row(
+                        widget.isEdit == true? Container():   Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -541,10 +541,10 @@ class _Recruiter_Create_Account_ScreenState
                             ),
                           ],
                         ),
-                        SizedBox(
+                        widget.isEdit == true? Container():    SizedBox(
                           height: 10,
                         ),
-                        textFormField(
+                        widget.isEdit == true? Container():  textFormField(
                           hintText: 'Personal Mobile Number',
                           keyboardtype: TextInputType.phone,
                           inputFormatters: [LengthLimitingTextInputFormatter(10)],

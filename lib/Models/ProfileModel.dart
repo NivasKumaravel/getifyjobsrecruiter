@@ -40,6 +40,8 @@ class ProfileData {
   List<Branch>? branch;
   String? qrCode;
   String? qrImage;
+  String? referral_code;
+  int? total_referral;
   String? coins;
 
   ProfileData(
@@ -60,6 +62,8 @@ class ProfileData {
         this.branch,
         this.qrCode,
         this.qrImage,
+        this.referral_code,
+        this.total_referral,
         this.coins
       });
 
@@ -81,6 +85,8 @@ class ProfileData {
     qrCode = json['qr_code'];
     qrImage = json['qr_image'];
     coins = json['coins'];
+    referral_code = json['referral_code'];
+    total_referral = json['total_referral'];
     if (json['branch'] != null) {
       branch = <Branch>[];
       json['branch'].forEach((v) {
@@ -108,6 +114,8 @@ class ProfileData {
     data['qr_code'] = this.qrCode;
     data['qr_image'] = this.qrImage;
     data['coins'] = this.coins;
+    data['referral_code'] = this.referral_code;
+    data['total_referral'] = this.total_referral;
     if (this.branch != null) {
       data['branch'] = this.branch!.map((v) => v.toJson()).toList();
     }
